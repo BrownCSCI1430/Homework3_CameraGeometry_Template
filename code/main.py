@@ -12,7 +12,7 @@ def parse_args():
     """ Perform command-line argument parsing. """
 
     parser = argparse.ArgumentParser(
-        description="Project 5 camera calibration!")
+        description="Homework 3 Camera Geometry!")
     parser.add_argument(
         '--sequence',
         required=True,

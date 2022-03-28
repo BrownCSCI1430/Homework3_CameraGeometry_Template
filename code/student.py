@@ -54,7 +54,6 @@ def calculate_projection_matrix(image, markers):
 
     return M
 
-
 def normalize_coordinates(points):
     """
     ============================ EXTRA CREDIT ============================
@@ -85,7 +84,6 @@ def normalize_coordinates(points):
 
     return points, T
 
-
 def estimate_fundamental_matrix(points1, points2):
     """
     Estimates the fundamental matrix given set of point correspondences in
@@ -111,7 +109,6 @@ def estimate_fundamental_matrix(points1, points2):
     F_matrix = np.array([[0, 0, -.0004], [0, 0, .0032], [0, -0.0044, .1034]])
 
     return F_matrix
-
 
 def ransac_fundamental_matrix(matches1, matches2, num_iters):
     """
@@ -152,7 +149,6 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
     inliers_b = matches2[0:29, :]
 
     return best_Fmatrix, inliers_a, inliers_b
-
 
 def matches_to_3d(points1, points2, M1, M2):
     """
