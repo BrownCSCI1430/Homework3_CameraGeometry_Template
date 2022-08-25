@@ -311,13 +311,39 @@ TODO: Replace each of the `$\_\_$' below with the value of $m_{i, j}$:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q4a:} In lecture, you've learned that cameras can be represented by intrinsic and extrinsic matrices. These matrices can be used to calculate the projections of points within a 3D world onto 2D image planes. For this, we use \emph{homogeneous coordinates}. The final $4\times3$ matrix is known as the \emph{camera matrix}.
-\begin{enumerate} [(a)]
-\item For each of the following camera specifications, fill in its intrinsic and extrinsic matrices. Then perform the multiplications and perspective division (unhomogenize) to find the 2D coordinates of the projected point on the image.
-\begin{enumerate} [(i)]
+\paragraph{Q4:} \textbf{[8 points]}
+In lecture, you've learned that cameras can be represented by intrinsic and extrinsic matrices. These matrices can be used to calculate the projections of points within a 3D world onto 2D image planes. For this, we use \emph{homogeneous coordinates}. The final $4\times3$ matrix is known as the \emph{camera matrix}.
 
+Recall that the transformation can be represented by the following expression:
+\begin{align*}
+    \begin{pmatrix} 
+    f_x & s & $0$ \\ 
+    $0$ & f_y & $0$ \\ 
+    $0$ & $0$ & $1$ \end{pmatrix} \times
+    \begin{pmatrix} 
+    r_{11} & r_{12} & r_{13} & t_x \\ 
+    r_{21} & r_{22} & r_{23} & t_y \\  
+    r_{31} & r_{32} & r_{33} & t_z
+    \end{pmatrix} \times 
+    \begin{pmatrix} 
+    x \\ 
+    y \\ 
+    z \\ 
+    $1$ \end{pmatrix}
+    = w
+    \begin{pmatrix}  u \\ v \\ $1$ \end{pmatrix}
+\end{align*}
+where $f$ is the focal point, $r$ is the rotation matrix, $t$ is the translation vector,  $w$ is some weighing/scaling factor, and $(u, v)$ is the position of the point in the real world $(x, y, z)$ projected on the 2D plane.
+
+\begin{enumerate}[(a)]
+\item \textbf{[2 points]}
+For each of the following, you are given the camera specifications and a sample 3D point from the real world. Fill in the camera's intrinsic and extrinsic matrices; then, perform the multiplications and perspective division (unhomogenize) to find the 2D coordinate of the projected point on the image.
+
+\begin{enumerate} [(i)]
 \item A camera with focal length in both $x$ and $y$ directions of $1$, and no skew, translation, or rotation.
-\vspace{-0.3cm}
+
+\begin{mdframed}
+TODO: Fill in the \_\_
 \begin{align*}
     \begin{pmatrix} 
     \_\_ & \_\_ & $0$ \\ 
@@ -335,35 +361,52 @@ TODO: Replace each of the `$\_\_$' below with the value of $m_{i, j}$:
     = \begin{pmatrix}  \_\_ \\ \_\_ \\ \_\_ \end{pmatrix}
     = \_\_ * \begin{pmatrix}  \_\_ \\ \_\_ \\ $1$ \end{pmatrix}
 \end{align*}
+\end{mdframed}
 
 \item A camera with focal length in both $x$ and $y$ directions of $2$, a translation of $5$ along the x-axis, and no skew or rotation.
-\vspace{-0.3cm}
+\begin{mdframed}
+TODO: Fill in the \_\_
 \begin{align*}
     \begin{pmatrix} 
     \_\_ & \_\_ & $0$ \\ 
     $0$ & \_\_ & $0$ \\ 
-    $0$ & $0$ & $1$ \end{pmatrix} *
+    $0$ & $0$ & $1$ 
+    \end{pmatrix} *
     \begin{pmatrix} 
     \_\_ & \_\_ & \_\_ & \_\_ \\ 
     \_\_ & \_\_ & \_\_ & \_\_ \\ 
-    \_\_ & \_\_ & \_\_ & \_\_ \end{pmatrix} * 
+    \_\_ & \_\_ & \_\_ & \_\_ 
+    \end{pmatrix} 
+    \times
     \begin{pmatrix} 
     $30$ \\ 
     $-20$ \\ 
     $10$ \\ 
-    $1$ \end{pmatrix}
-    = \begin{pmatrix}  \_\_ \\ \_\_ \\ \_\_ \end{pmatrix}
-    = \_\_ * \begin{pmatrix}  \_\_ \\ \_\_ \\ $1$ \end{pmatrix}
+    $1$ 
+    \end{pmatrix}
+    = \begin{pmatrix}  
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ 
+    \end{pmatrix}
+    = \_\_ * 
+    \begin{pmatrix}  
+    \_\_ \\ 
+    \_\_ \\ 
+    $1$ 
+    \end{pmatrix}
 \end{align*}
+\end{mdframed}
 
 \end{enumerate}
-\item Compare the two image coordinates you've calculated in parts a and b. Explain how each parameter affects the final image coordinate. (2-3 sentences)
+\item \textbf{[2 points]} Compare the two image coordinates you've calculated in parts a and b. Explain how each parameter affects the final image coordinate. (2-3 sentences)
 
-
-\end{enumerate}
+\begin{mdframed}
+TODO: Your answer to (b) here.
+\end{mdframed}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A4a:} Your answer here.
+% \paragraph{A4a:} Your answer here.
 % Uncomment the stencil below and fill in your solution.
 
 % \begin{enumerate}[(a)]
@@ -386,19 +429,23 @@ TODO: Replace each of the `$\_\_$' below with the value of $m_{i, j}$:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Please leave the pagebreak
-\pagebreak
-\paragraph{Q4b:}
-In the questions folder, we've provided stencil code for a camera simulation in {camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. Please implement {calculate\_camera\_matrix()} by calculating the camera matrix using the parameters given in the code (see stencil for more detail). 
+\item \textbf{[3 + 1 points]}
+In the questions folder, we've provided stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. 
 
-\includegraphics[width=0.3\linewidth]{bunny.png}
+Please implement \texttt{calculate\_camera\_matrix()} by calculating the camera matrix using the parameters given in the code (see stencil for more detail). 
+
+\includegraphics[width=0.5\linewidth]{images/bunny.png}
 
 When successful, you will see a bunny rendered as dots. Paste your code for this function and attach a screenshot of the working demo once you finish. Play around with the sliders to see how different parameters affect the projection!
 
-\paragraph{A4b:} Your answer here.
-
 \begin{python}
-Your code here.
+TODO: Your code here.
 \end{python}
+
+\includegraphics[width=0.5\textwidth]{TODO: demo-screenshot.png}
+
+% \paragraph{A4b:} Your answer here.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -407,6 +454,8 @@ Your code here.
 \begin{enumerate} [(a)]
 \item Briefly describe triangulation (using images might be helpful).
 \item Why is it not possible to find an absolute depth for each point when we don't have calibration information for our cameras?
+\end{enumerate}
+
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
