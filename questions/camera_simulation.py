@@ -9,7 +9,7 @@ initial_extrinsic_matrix_to_replace = np.random.rand(3,4)
 initial_camera_matrix_to_replace = np.random.rand(3,4)
 
 # Setting up the point cloud
-file_data_path= "./bunny.xyz"
+file_data_path= "./images/bunny.xyz"
 point_cloud = np.loadtxt(file_data_path, skiprows=0, max_rows=1000000)
 # center it
 point_cloud -= np.mean(point_cloud,axis=0)
