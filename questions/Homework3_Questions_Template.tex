@@ -62,6 +62,7 @@
 \usepackage{booktabs}
 \usepackage[shortlabels]{enumitem}
 \setlist[enumerate]{topsep=0pt}
+\usepackage{mdframed}
 
 % python code format: https://github.com/olivierverdier/python-latex-highlighting
 \usepackage{pythonhighlight}
@@ -74,26 +75,26 @@
 \fancyhf{}
 \lhead{Homework 3 Questions}
 \rhead{CSCI 1430}
-\lfoot{\textcolor{red}{Only
-\ifcase\thepage
-\or instructions
-\or A1
-\or A2
-\or Q3
-\or A3
-\or A3
-\or A4
-\or A4
-\or A5
-\or A6
-\or A6
-\or A7
-\or feedback
-\else
-EXTRA PAGE ADDED
-\fi
-should be on this page
-}}
+% \lfoot{\textcolor{red}{Only
+% \ifcase\thepage
+% \or instructions
+% \or A1
+% \or A2
+% \or Q3
+% \or A3
+% \or A3
+% \or A4
+% \or A4
+% \or A5
+% \or A6
+% \or A6
+% \or A7
+% \or feedback
+% \else
+% EXTRA PAGE ADDED
+% \fi
+% should be on this page
+% }}
 \rfoot{\thepage/13}
 
 \date{}
@@ -106,48 +107,57 @@ should be on this page
 \vspace{-2cm}
 \thispagestyle{fancy}
 
-\section*{Instructions}
+\section*{ Document Instructions}
 \begin{itemize}
-  \item 2 socially-responsible computing questions, which will be expanded on in discussion sections.
-  \item 5 technical questions.
-  \item Write code where appropriate; feel free to include images or equations.
+  \item 7 questions \textbf{[3 + 9 + 7 + 6 + 3 + 3 = 31 points]}.
+  \item Fill all your answers within the answer boxes, and \textbf{please do NOT remove the answer box outlines}.
+  \item Include code, images, and equations where appropriate.
+  \item To identify all places where your responses are expected, search for `TODO'.
   \item Please make this document anonymous.
-  \item This assignment is \textbf{fixed length}, and the pages have been assigned for you in Gradescope. As a result, \textbf{please do NOT add any new pages}. We will provide ample room for you to answer the questions. If you \emph{really} wish for more space, please add a page \emph{at the end of the document}.
-  \item \textbf{We do NOT expect you to fill up each page with your answer.} Some answers will only be a few sentences long, and that is okay.
 \end{itemize}
+
+\section*{ Gradescope Instructions}
+\begin{itemize}
+  \item When you are finished, compile this document to a PDF and submit it directly to Gradescope. 
+  \item You will be required to assign the appropriate answers to the right pages on Gradescope. \textbf{Failure to assign pages correctly will lead to a deduction of 2 points per misaligned page (capped at a maxmimum 6 point deduction).}
+\end{itemize}
+\pagebreak
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagebreak 
-\paragraph{Q1:} One major application of cameras is surveillance systems. This is true on Brown's campus too, where the number of cameras has been increasing: compare this \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{2008 Brown Daily Herald article} with this \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{2020 Brown Daily Herald article}. There are now 800 surveillance cameras on campus.
+\paragraph{Q1:} \textbf{[2 + 3 points]} One major application of cameras is surveillance systems. This is true on Brown's campus too, where the number of cameras has been increasing: compare this \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{2008 Brown Daily Herald article} with this \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{2020 Brown Daily Herald article}. There are now 800 surveillance cameras on campus.
 
 One argument in favor of surveillance systems is to ``deter and solve crime''---that surveillance improves safety. Another is that if you're not doing anything wrong, you don't have anything to worry about. One argument against surveillance systems is that they compromise people's privacy even when no wrongdoing is taking place. Another is that they increase stress and anxiety.
 
 How comfortable are you with Brown's surveillance apparatus?
 In what circumstances do you believe that the potential benefits of surveillance systems outweigh the potential concerns, and why? [6-7 sentences]
 
-\paragraph{A1:} Your answer here.
+\begin{mdframed}
+TODO: Your answer here.
+\end{mdframed}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q2:} Drones are used within surveillance systems. Drones can be manually remote controlled, or use \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{sophisticated computer vision} strategies like feature matching and camera pose estimation to enable assisted or even autonomous flying in complex environments.
+\paragraph{Q2:} \textbf{[3 $\times$ 2 points]} Drones are used within surveillance systems. Drones can be manually remote controlled, or use \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{sophisticated computer vision} strategies like feature matching and camera pose estimation to enable assisted or even autonomous flying in complex environments.
 
 For your CSCI 1430 final project, you are developing a drone for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. You create a successful computer vision algorithm that allows your drone to navigate autonomously, and are approached by several organizations that want to pay you generously for access to your project.
 
 Please list three organizations that might be interested in acquiring your project for their own purposes. If each of these organizations used your project, who could benefit and how? Who could be harmed and how? [6-7 sentences]
 
-\paragraph{A2:} Your answer here.
+\begin{mdframed}
+TODO: Your answer here.
+\end{mdframed}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q3 (Linear algebra/numpy question):}
+\paragraph{Q3:} \textbf{[6 points]}
 Suppose we have a quadrilateral $ABCD$ and a transformed version $A'B'C'D'$ as seen in the image below.
 
-\includegraphics[width=8cm]{quadrilaterals.jpg}
+\includegraphics[width=\textwidth * 5/10]{images/quadrilaterals.jpg}
 
 \begin{equation}
 \begin{split}
@@ -165,63 +175,131 @@ D'&=(-0.3, 2.6)
 \end{split}
 \end{equation}
 
-Let's assume that each point in $ABCD$ was approximately mapped to its corresponding point in $A'B'C'D'$ by a $2\times2$ transformation matrix $M$.
+Let's assume that each point in $ABCD$ was approximately mapped to its corresponding point in $A'B'C'D'$ by a $2\times2$ transformation matrix $\mathcal{M}$.
 
-e.g. if $A = \begin{pmatrix} x \\ y \end{pmatrix}$ and $A' = \begin{pmatrix} x' \\ y' \end{pmatrix}$, and $\boldsymbol{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix}$
+e.g. if $X = \begin{pmatrix} x \\ y \end{pmatrix}$ and $X' = \begin{pmatrix} x' \\ y' \end{pmatrix}$, and $\mathcal{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix}$
 
-then $\begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} * \begin{pmatrix} x \\ y \end{pmatrix} \approx \begin{pmatrix} x' \\ y' \end{pmatrix}$
+then $\begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} \times \begin{pmatrix} x \\ y \end{pmatrix} \approx \begin{pmatrix} x' \\ y'  \end{pmatrix}$
 
-We would like to approximate $\boldsymbol{M}$ using least squares for linear regression.
-
-\begin{enumerate}[(a)]
-\item Rewrite the equation $\boldsymbol{M}x \approx x'$ into a pair of linear equations. We have provided you with a template of what they should look like below.
-
-\item Use the equations you wrote for part (a) and coordinate values for $ABCD$ and $A'B'C'D'$ to construct a matrix $\boldsymbol{Q}$ and column vector $b$ that satisfy
-\begin{align}
-    \boldsymbol{Q}*\begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} = b
-\end{align}
-
-We have provided you with a template of what they should look like below.
-
-\emph{Hint:} You have a pair of equations for each $x$-$x'$ correspondence, giving you $8$ rows in $\boldsymbol{Q}$ and $b$. If you're having trouble, try writing out the equations for each pair of points like in part (a).
-
-\emph{Note:} Systems of linear equations are typically written in the form $\boldsymbol{A}x=b$, but since we have already defined $A$ and $x$, we're writing it as $\boldsymbol{Q}m=b$
-
-\item Our problem is now over-constrained, so we want to find values for $m_{i,j}$ that minimize the squared error between approximated values and real values, or $||\boldsymbol{Q}m-b||_2$. To do this we use singular value decomposition to find the pseudoinverse of $\boldsymbol{Q}$, written as $\boldsymbol{Q}^\dagger$. We then multiply it by both sides, giving us $\boldsymbol{Q}^\dagger \boldsymbol{Q}m = \boldsymbol{Q}^\dagger b \quad\Rightarrow\quad m \approx \boldsymbol{Q}^\dagger b$.
-
-Thankfully, the computer can do all of this for us! \texttt{numpy.linalg.lstsq()} takes in our $\boldsymbol{Q}$ matrix and $b$ vector, and returns approximations for $m$. Plug the values you wrote in part (b) into that function and write the returned $\boldsymbol{M}$ matrix here.
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3:} Your answer here.
-% Uncomment the stencil below and fill in your solution.
+We would like to approximate $\mathcal{M}$ using least squares for linear regression.
 
 \begin{enumerate}[(a)]
+\item \textbf{[1 point]} Rewrite the equation $\mathcal{M} \times X \approx X'$ into a pair of linear equations by expanding the matrix multiplication.
 
-\item Replace each of the `$\_\_$' below with $x, y, x', y',$ or $0$.
-\begin{align}
+\begin{mdframed}
+TODO: Replace each of the `$\_\_$' below with $x, y, x', y',$ or $0$.
+\begin{align*}
 \begin{cases}
-    \_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_ \\
     \_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+    \\\_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
 \end{cases}
-\end{align}
+\end{align*}
+\end{mdframed}
 
-\item Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ and $A'B'C'D'$.
-\begin{align}
-    \begin{pmatrix} \_\_ & \_\_ & \_\_ & \_\_ \\ \_\_ & \_\_ & \_\_ & \_\_ \\ \_\_ & \_\_ & \_\_ & \_\_ \\ \_\_ & \_\_ & \_\_ & \_\_ \\ \_\_ & \_\_ & \_\_ & \_\_ \\ \_\_ & \_\_ & \_\_ & \_\_ \\ \_\_ & \_\_ & \_\_ & \_\_ \\ \_\_ & \_\_ & \_\_ & \_\_\end{pmatrix} *\begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} = \begin{pmatrix} \_\_ \\ \_\_ \\ \_\_ \\ \_\_ \\ \_\_ \\ \_\_ \\ \_\_ \\ \_\_ \end{pmatrix}
-\end{align}
+\item \textbf{[2 points]} With the quadrilaterals in question, there are 4 points that transform so we should expect to see 8 such equations (2 for each point) that use the transformation equation $\mathcal{M}$.
 
-\item Replace each of the `$\_\_$' below with the value of $m_{i, j}$.
-\begin{align}
+Write the 8 linear equations that concern the quadrilateral transformation.
+
+\begin{mdframed}
+TODO: From the transformation between $A$ and $A'$, replace each of the `$\_\_$' below.
+\begin{align*}
+\begin{cases}
+    \_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+    \\\_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+\end{cases}
+\end{align*}
+\end{mdframed}
+
+\begin{mdframed}
+TODO: From the transformation between $B$ and $B'$, replace each of the `$\_\_$' below.
+\begin{align*}
+\begin{cases}
+    \_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+    \\\_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+\end{cases}
+\end{align*}
+\end{mdframed}
+
+\begin{mdframed}
+TODO: From the transformation between $C$ and $C'$, replace each of the `$\_\_$' below.
+\begin{align*}
+\begin{cases}
+    \_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+    \\\_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+\end{cases}
+\end{align*}
+\end{mdframed}
+
+\begin{mdframed}
+TODO: From the transformation between $D$ and $D'$, replace each of the `$\_\_$' below.
+\begin{align*}
+\begin{cases}
+    \_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+    \\\_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+\end{cases}
+\end{align*}
+\end{mdframed}
+
+\item \textbf{[2 points]} Use the coordinate values for $ABCD$ and $A'B'C'D'$ to construct a matrix $\mathcal{Q}$ and column vector $b$ that satisfy
+\begin{align*}
+    \mathcal{Q} \times \begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} = b
+\end{align*}
+
+\emph{Hint:} As we discovered in (b), we have a pair of equations for each $x$-$x'$ correspondence, giving us $8$ linear equations. Can you use these to create $\mathcal{Q}$?
+
+\emph{Note:} Systems of linear equations are typically written in the form $\mathcal{A} \times x = b$, but since we have already defined $\mathcal{A}$ and $x$, we're writing it as $\mathcal{Q} \times m = b$
+
+\begin{mdframed}
+TODO: Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ and $A'B'C'D'$.
+\begin{align*}
+    \begin{pmatrix} 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_
+    \end{pmatrix} 
+    \times \begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} 
+    = \begin{pmatrix} 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ 
+    \end{pmatrix}
+\end{align*}
+\end{mdframed}
+
+\item \textbf{[1 point]} Our problem is now over-constrained, so we want to find values for $m_{i,j}$ that minimize the squared error between the approximated values for $X'$ and the real $X'$ values, i.e., we want to minimize $||\mathcal{Q} \times m - b||$. 
+\begin{align*}
+\intertext{To do this we use singular value decomposition to find the pseudoinverse of $\mathcal{Q}$, written as $\mathcal{Q}^\dagger$. We then multiply it by both sides, giving us:}
+ \mathcal{Q}^\dagger \mathcal{Q}m &= \mathcal{Q}^\dagger b\\
+ \quad m &\approx \mathcal{Q}^\dagger b.
+\end{align*}
+
+Thankfully, the computer can do all of this for us! \texttt{numpy.linalg.lstsq()} takes in our $\mathcal{Q}$ matrix and $b$ vector, and returns approximations for $m$. Plug the values you wrote in part (c) into that function and write the returned $\mathcal{M}$ matrix here.
+
+\textit{Note:} You may need to reshape your output from \texttt{linalg.lstsq} to get the right dimensions.
+
+\begin{mdframed}
+TODO: Replace each of the `$\_\_$' below with the value of $m_{i, j}$:
+\begin{align*}
     M = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} = \begin{pmatrix} \_\_ & \_\_ \\ \_\_ & \_\_ \end{pmatrix}
-\end{align}
+\end{align*}
+\end{mdframed}
 
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Please leave the pagebreak
-\pagebreak
-\paragraph{A3 (continued):} Your answer here.
+% % Please leave the pagebreak
+% \pagebreak
+% \paragraph{A3 (continued):} Your answer here.
 
 % If you really need extra space, uncomment here and use extra pages after the last question.
 % Please refer here in your original answer. Thanks!
@@ -233,14 +311,40 @@ Thankfully, the computer can do all of this for us! \texttt{numpy.linalg.lstsq()
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q4a:} In lecture, you've learned that cameras can be represented by intrinsic and extrinsic matrices. These matrices can be used to calculate the projections of points within a 3D world onto 2D image planes. For this, we use \emph{homogeneous coordinates}. The final $4\times3$ matrix is known as the \emph{camera matrix}.
-\begin{enumerate} [(a)]
-\item For each of the following camera specifications, fill in its intrinsic and extrinsic matrices. Then perform the multiplications and perspective division (unhomogenize) to find the 2D coordinates of the projected point on the image.
-\begin{enumerate} [(i)]
+\paragraph{Q4:} \textbf{[8 points]}
+In lecture, you've learned that cameras can be represented by intrinsic and extrinsic matrices. These matrices can be used to calculate the projections of points within a 3D world onto 2D image planes. For this, we use \emph{homogeneous coordinates}. The final $4\times3$ matrix is known as the \emph{camera matrix}.
 
+Recall that the transformation can be represented by the following expression:
+\begin{align*}
+    \begin{pmatrix} 
+    f_x & s & $0$ \\ 
+    $0$ & f_y & $0$ \\ 
+    $0$ & $0$ & $1$ \end{pmatrix} \times
+    \begin{pmatrix} 
+    r_{11} & r_{12} & r_{13} & t_x \\ 
+    r_{21} & r_{22} & r_{23} & t_y \\  
+    r_{31} & r_{32} & r_{33} & t_z
+    \end{pmatrix} \times 
+    \begin{pmatrix} 
+    x \\ 
+    y \\ 
+    z \\ 
+    $1$ \end{pmatrix}
+    = w
+    \begin{pmatrix}  u \\ v \\ $1$ \end{pmatrix}
+\end{align*}
+where $f$ is the focal point, $r$ is the rotation matrix, $t$ is the translation vector,  $w$ is some weighing/scaling factor, and $(u, v)$ is the position of the point in the real world $(x, y, z)$ projected on the 2D plane.
+
+\begin{enumerate}[(a)]
+\item \textbf{[2 points]}
+For each of the following, you are given the camera specifications and a sample 3D point from the real world. Fill in the camera's intrinsic and extrinsic matrices; then, perform the multiplications and perspective division (unhomogenize) to find the 2D coordinate of the projected point on the image.
+
+\begin{enumerate} [(i)]
 \item A camera with focal length in both $x$ and $y$ directions of $1$, and no skew, translation, or rotation.
-\vspace{-0.3cm}
-\begin{align}
+
+\begin{mdframed}
+TODO: Fill in the \_\_
+\begin{align*}
     \begin{pmatrix} 
     \_\_ & \_\_ & $0$ \\ 
     $0$ & \_\_ & $0$ \\ 
@@ -256,36 +360,53 @@ Thankfully, the computer can do all of this for us! \texttt{numpy.linalg.lstsq()
     $1$ \end{pmatrix}
     = \begin{pmatrix}  \_\_ \\ \_\_ \\ \_\_ \end{pmatrix}
     = \_\_ * \begin{pmatrix}  \_\_ \\ \_\_ \\ $1$ \end{pmatrix}
-\end{align}
+\end{align*}
+\end{mdframed}
 
 \item A camera with focal length in both $x$ and $y$ directions of $2$, a translation of $5$ along the x-axis, and no skew or rotation.
-\vspace{-0.3cm}
-\begin{align}
+\begin{mdframed}
+TODO: Fill in the \_\_
+\begin{align*}
     \begin{pmatrix} 
     \_\_ & \_\_ & $0$ \\ 
     $0$ & \_\_ & $0$ \\ 
-    $0$ & $0$ & $1$ \end{pmatrix} *
+    $0$ & $0$ & $1$ 
+    \end{pmatrix} *
     \begin{pmatrix} 
     \_\_ & \_\_ & \_\_ & \_\_ \\ 
     \_\_ & \_\_ & \_\_ & \_\_ \\ 
-    \_\_ & \_\_ & \_\_ & \_\_ \end{pmatrix} * 
+    \_\_ & \_\_ & \_\_ & \_\_ 
+    \end{pmatrix} 
+    \times
     \begin{pmatrix} 
     $30$ \\ 
     $-20$ \\ 
     $10$ \\ 
-    $1$ \end{pmatrix}
-    = \begin{pmatrix}  \_\_ \\ \_\_ \\ \_\_ \end{pmatrix}
-    = \_\_ * \begin{pmatrix}  \_\_ \\ \_\_ \\ $1$ \end{pmatrix}
-\end{align}
+    $1$ 
+    \end{pmatrix}
+    = \begin{pmatrix}  
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ 
+    \end{pmatrix}
+    = \_\_ * 
+    \begin{pmatrix}  
+    \_\_ \\ 
+    \_\_ \\ 
+    $1$ 
+    \end{pmatrix}
+\end{align*}
+\end{mdframed}
 
 \end{enumerate}
-\item Compare the two image coordinates you've calculated in parts a and b. Explain how each parameter affects the final image coordinate. (2-3 sentences)
+\item \textbf{[2 points]} Compare the two image coordinates you've calculated in parts a and b. Explain how each parameter affects the final image coordinate. (2-3 sentences)
 
-
-\end{enumerate}
+\begin{mdframed}
+TODO: Your answer to (b) here.
+\end{mdframed}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A4a:} Your answer here.
+% \paragraph{A4a:} Your answer here.
 % Uncomment the stencil below and fill in your solution.
 
 % \begin{enumerate}[(a)]
@@ -308,31 +429,46 @@ Thankfully, the computer can do all of this for us! \texttt{numpy.linalg.lstsq()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Please leave the pagebreak
-\pagebreak
-\paragraph{Q4b:}
-In the questions folder, we've provided stencil code for a camera simulation in {camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. Please implement {calculate\_camera\_matrix()} by calculating the camera matrix using the parameters given in the code (see stencil for more detail). 
+\item \textbf{[3 + 1 points]}
+In the questions folder, we've provided stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. 
 
-\includegraphics[width=0.3\linewidth]{bunny.png}
+Please implement \texttt{calculate\_camera\_matrix()} by calculating the camera matrix using the parameters given in the code (see stencil for more detail). 
+
+\includegraphics[width=0.5\linewidth]{images/bunny.png}
 
 When successful, you will see a bunny rendered as dots. Paste your code for this function and attach a screenshot of the working demo once you finish. Play around with the sliders to see how different parameters affect the projection!
 
-\paragraph{A4b:} Your answer here.
-
 \begin{python}
-Your code here.
+TODO: Your code here.
 \end{python}
+
+\includegraphics[width=0.5\textwidth]{TODO: demo-screenshot.png}
+
+% \paragraph{A4b:} Your answer here.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q5:} Given a stereo pair of cameras:
+\paragraph{Q5:} \textbf{[4 points]} Given a stereo pair of cameras:
 \begin{enumerate} [(a)]
-\item Briefly describe triangulation (using images might be helpful).
-\item Why is it not possible to find an absolute depth for each point when we don't have calibration information for our cameras?
+\item \textbf{[2 points]} Briefly describe triangulation (using images might be helpful).
+
+\begin{mdframed}
+TODO: Your answer to (a) here.
+\end{mdframed}
+
+\item \textbf{[2 points]} Why is it not possible to find an absolute depth for each point when we don't have calibration information for our cameras?
+\begin{mdframed}
+TODO: Your answer to (b) here.
+\end{mdframed}
+
+\end{enumerate}
+
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A5:} Your answer here.
+% \paragraph{A5:} Your answer here.
 % Uncomment the stencil below and fill in your solution.
 
 % \begin{enumerate}[(a)]
@@ -347,45 +483,96 @@ Your code here.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
 \paragraph{Q6:}
-Given the algorithms that we've learned in computer vision, suppose that we have the following three datasets of an object of unknown geometry:
+Given the algorithms that we've learned in computer vision, we know that whether we can find/calculate the essential matrix, the fundamental matrix, or both depends on the setup of the cameras and images. You are given three datasets of an object of unknown geometry:
 
-\begin{enumerate}[(a)]
+\begin{enumerate}[(i)]
 \item A video circling the object;
 \item A stereo pair of calibrated cameras capturing two images of the object; and
 \item Two images we take of the object at two different camera poses (position and orientation) using the same camera but with different lens zoom settings.
 \end{enumerate}
 
-\begin{enumerate}
-\item For each of the above setups, decide if we are able to find/calculate the essential matrix, the fundamental matrix, or both. \\
-\emph{LaTeX:} To fill in boxes, replace `\textbackslash square' with `\textbackslash blacksquare' for your answer. \\ \\
-(a)
+\begin{enumerate}[(a)]
+\item
+For each of the above setups, what calculations can we perform?
+\begin{enumerate}[(i)]
+\item
+Setup 1
+
+\begin{mdframed}
+TODO: Select the right option:
+
 \begin{tabular}[h]{lc}
-\toprule
-Essential Matrix & $\square$ \\
-Fundamental Matrix & $\square$ \\
-Both & $\square$ \\
-\end{tabular} \\
-(b)
-\begin{tabular}[h]{lc}
-\toprule
-Essential Matrix & $\square$ \\
-Fundamental Matrix & $\square$ \\
-Both & $\square$ \\
-\end{tabular} \\
-(c)
-\begin{tabular}[h]{lc}
-\toprule
-Essential Matrix & $\square$ \\
-Fundamental Matrix & $\square$ \\
-Both & $\square$ \\
 \bottomrule
-\end{tabular}
-\item State an advantage and disadvantage of using each setup for depth reconstruction; and
-\item Name an application scenario for each of the different setups.
+Essential Matrix & $\square$ \\
+Fundamental Matrix & $\square$ \\
+Both & $\square$ \\
+\toprule
+\end{tabular} \\
+\end{mdframed}
+
+\item Setup 2
+\begin{mdframed}
+TODO: Select the right option:
+
+\begin{tabular}[h]{lc}
+\bottomrule
+Essential Matrix & $\square$ \\
+Fundamental Matrix & $\square$ \\
+Both & $\square$ \\
+\toprule
+\end{tabular} \\
+\end{mdframed}
+
+\item Setup 3
+\begin{mdframed}
+TODO: Select the right option:
+
+\begin{tabular}[h]{lc}
+\bottomrule
+Essential Matrix & $\square$ \\
+Fundamental Matrix & $\square$ \\
+Both & $\square$ \\
+\toprule
+\end{tabular} \\
+\end{mdframed}
+\end{enumerate}
+
+\item State an advantage and disadvantage of using each setup for depth reconstruction
+
+\begin{enumerate}[(i)]
+    \item Setup 1
+    \begin{mdframed}
+    TODO: Your answer to (b) (i) here.
+    \end{mdframed}
+    \item Setup 2
+    \begin{mdframed}
+    TODO: Your answer to (b) (ii) here.
+    \end{mdframed}
+    \item Setup 3
+    \begin{mdframed}
+    TODO: Your answer to (b) (iii) here.
+    \end{mdframed}
+\end{enumerate}
+
+\item Name an application scenario for each of the different setups
+\begin{enumerate}[(i)]
+    \item Setup 1
+    \begin{mdframed}
+    TODO: Your answer to (c) (i) here.
+    \end{mdframed}
+    \item Setup 2
+    \begin{mdframed}
+    TODO: Your answer to (c) (ii) here.
+    \end{mdframed}
+    \item Setup 3
+    \begin{mdframed}
+    TODO: Your answer to (c) (iii) here.
+    \end{mdframed}
+\end{enumerate}
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A6:} Your answer here.
+% \paragraph{A6:} Your answer here.
 % Uncomment the stencil below and fill in your solution.
 
 % \begin{enumerate}[(a)]
@@ -396,12 +583,11 @@ Both & $\square$ \\
 
 % \item
 
-% \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Please leave the pagebreak
-\pagebreak
-\paragraph{A6 (continued):} Your answer here.
+% \pagebreak
+% \paragraph{A6 (continued):} Your answer here.
 
 
 
