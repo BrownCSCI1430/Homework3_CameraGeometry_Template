@@ -90,7 +90,6 @@
 \or \textbf{A2 (a) (ii), (b)}
 \or \textbf{A2 (c)}
 \or \textbf{A2 (c)}
-\or \textbf{A2 (c)}
 \or \textbf{A3 (a) - (b)}
 \or \textbf{A4 (a)}
 \or \textbf{A4 (b), (c) (i)}
@@ -104,7 +103,7 @@
 \fi
 \textbf{should be on this page}
 }}
-\rfoot{\thepage/17}
+\rfoot{\thepage/16}
 
 \date{}
 
@@ -337,37 +336,51 @@ Fill in the camera's intrinsic and extrinsic matrices; then, perform the multipl
 \end{tcolorbox}
 
 \begin{enumerate} [(i)]
-\item A camera with a translation of 5 along the $x$-axis without skew or rotation.
+\item A camera with a focal length of 1 in both the $x$ and $y$ directions, a translation of 5 along the $x$-axis, and no skew or rotation.
 
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
-    TODO: Fill in the \_\_
+    TODO: Fill in the \_\_ entries
     \begin{align*}
         & \qquad M_{\text{intrinsic}} \quad \times \qquad M_{\text{extrinsic}} \qquad  \times \; 
         \begin{pmatrix} 
             x  \\ 
-            y \\ 
-            z \\
+            y  \\ 
+            z  \\
             1
         \end{pmatrix} \\
         &= \begin{pmatrix} 
-        \_\_ & \_\_ & $0$ \\ 
-        $0$ & \_\_ & $0$ \\ 
-        $0$ & $0$ & $1$ \end{pmatrix} \times
+        \_\_ & \_\_ & $0$    \\  % <----- TODO: replace \_\_ %
+        $0$ & \_\_ & $0$     \\  % <----- TODO: replace \_\_ %
+        $0$ & $0$ & $1$ 
+        \end{pmatrix} 
+        \times
         \begin{pmatrix} 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_ \end{pmatrix} \times
+        \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
+        \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
+        \_\_ & \_\_ & \_\_ & \_\_     % <----- TODO: replace \_\_ %
+        \end{pmatrix} \times
         \begin{pmatrix} 
-        $30$ \\ 
-        $-20$ \\ 
-        $10$ \\ 
+        $30$    \\ 
+        $-20$   \\ 
+        $10$    \\ 
         $1$ \end{pmatrix} \\
-        &= \qquad \qquad \qquad \begin{pmatrix}  \_\_ \\ \_\_ \\ \_\_ \end{pmatrix} \\
-        &= \qquad \quad \quad \_\_ \times \begin{pmatrix}  \_\_ \\ \_\_ \\ $1$ \end{pmatrix}
+        &= \qquad \qquad \qquad \begin{pmatrix} 
+        \_\_    \\   % <----- TODO: replace \_\_ %
+        \_\_    \\   % <----- TODO: replace \_\_ %
+        \_\_         % <----- TODO: replace \_\_ %
+        \end{pmatrix} \\
+        &= \qquad \quad \quad 
+        \_\_         % <----- TODO: replace \_\_ %
+        \times 
+        \begin{pmatrix}  
+        \_\_    \\   % <----- TODO: replace \_\_ %
+        \_\_    \\   % <----- TODO: replace \_\_ %
+        $1$ 
+        \end{pmatrix}
     \end{align*}
         
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -381,41 +394,42 @@ Fill in the camera's intrinsic and extrinsic matrices; then, perform the multipl
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
-    TODO: Fill in the \_\_
+    TODO: Fill in the \_\_ entries
     \begin{align*}
-        \begin{pmatrix} 
-        \_\_ & \_\_ & $0$ \\ 
-        $0$ & \_\_ & $0$ \\ 
+        &= \begin{pmatrix} 
+        \_\_ & \_\_ & $0$    \\  % <----- TODO: replace \_\_ %
+        $0$ & \_\_ & $0$     \\  % <----- TODO: replace \_\_ %
         $0$ & $0$ & $1$ 
-        \end{pmatrix} *
-        \begin{pmatrix} 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_ 
         \end{pmatrix} 
         \times
         \begin{pmatrix} 
-        $30$ \\ 
-        $-20$ \\ 
-        $10$ \\ 
-        $1$ 
-        \end{pmatrix}
-        = \begin{pmatrix}  
-        \_\_ \\ 
-        \_\_ \\ 
-        \_\_ 
-        \end{pmatrix}
-        = \_\_ * 
+        \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
+        \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
+        \_\_ & \_\_ & \_\_ & \_\_     % <----- TODO: replace \_\_ %
+        \end{pmatrix} \times
+        \begin{pmatrix} 
+        $30$    \\ 
+        $-20$   \\ 
+        $10$    \\ 
+        $1$ \end{pmatrix} \\
+        &= \qquad \qquad \qquad \begin{pmatrix} 
+        \_\_    \\   % <----- TODO: replace \_\_ %
+        \_\_    \\   % <----- TODO: replace \_\_ %
+        \_\_         % <----- TODO: replace \_\_ %
+        \end{pmatrix} \\
+        &= \qquad \quad \quad 
+        \_\_         % <----- TODO: replace \_\_ %
+        \times 
         \begin{pmatrix}  
-        \_\_ \\ 
-        \_\_ \\ 
+        \_\_    \\   % <----- TODO: replace \_\_ %
+        \_\_    \\   % <----- TODO: replace \_\_ %
         $1$ 
         \end{pmatrix}
     \end{align*}
         
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-5\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-12\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
 \end{enumerate}
@@ -460,19 +474,20 @@ Compare the two image coordinates you've calculated in parts a and b. Explain ho
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Please leave the pagebreak
-\item \textbf{[3 + 1 points]}
+\item \textbf{[1 + 3 points]}
 In the questions folder, we've provided stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. 
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Please implement \texttt{calculate\_camera\_matrix()} by calculating the camera matrix using the parameters given in the code (see stencil for more detail). 
+Please implement \texttt{calculate\_camera\_matrix()} by calculating the camera matrix using the parameters given in the code (see stencil for more detail). When successful, you will see a bunny rendered as dots (see below). Paste your code for this function and attach a screenshot of the working demo once you finish. Play around with the sliders to see how different parameters affect the projection!
 \end{tcolorbox}
 
 \includegraphics[width=0.5\linewidth]{images/bunny.png}
 
-When successful, you will see a bunny rendered as dots. Paste your code for this function and attach a screenshot of the working demo once you finish. Play around with the sliders to see how different parameters affect the projection!
-
 \begin{tcolorbox}[enhanced jigsaw,breakable,pad at break*=1mm,colback=white!5!white,colframe=green!75!black,height fixed for=all]
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO wall-e.jpg}
+
         
     \begin{python}
 import numpy as np
@@ -508,14 +523,16 @@ def calculate_camera_matrix(tx, ty, tz, alpha, beta, gamma, fx, fy, skew, u, v):
     :param fx, fy: focal length of camera
     :param skew: camera's skew
     :param u, v: image center coordinates
-    :return: [3 x 4] NumPy array of the camera matrix
+    :return: [3 x 4] NumPy array of the camera matrix, [3 x 4] NumPy array of the intrinsic matrix, [3 x 4] NumPy array of the extrinsic matrix
     """
     ########################
     # TODO: Your code here #
     # Hint: Calculate the rotation matrices for the x, y, and z axes separately.
     # Then multiply them to get the rotational part of the extrinsic matrix.
     ########################
-    return initial_camera_matrix_to_replace, initial_intrinsic_matrix_to_replace, initial_extrinsic_matrix_to_replace
+    return (initial_camera_matrix_to_replace, 
+    initial_intrinsic_matrix_to_replace, 
+    initial_extrinsic_matrix_to_replace)
 
 def find_coords(camera_matrix):
     """
@@ -529,10 +546,9 @@ def find_coords(camera_matrix):
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{tcolorbox}
 
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-    \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO wall-e.jpg}
-    \clipbox{0pt \dimexpr\dp0-1\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
+% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+%     \clipbox{0pt \dimexpr\dp0-1\baselineskip\relax{} 0in 0pt}{\copy0}
+% \end{tcolorbox}
 
 
 % \paragraph{A4b:} Your answer here.

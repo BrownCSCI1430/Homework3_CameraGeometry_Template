@@ -162,12 +162,17 @@ def matches_to_3d(points1, points2, M1, M2):
     :param points2: [N x 2] points from image2
     :param M1: [3 x 4] projection matrix of image2
     :param M2: [3 x 4] projection matrix of image2
-    :return: [N x 3] list of solved ground truth 3D points for each pair of 2D
+    :return: [N x 3] NumPy array of solved ground truth 3D points for each pair of 2D
     points from points1 and points2
     """
-    points3d = []
     ########################
     # TODO: Your code here #
+
+    # Fill in the correct shape
+    points3d = np.zeros((_, _))
+
+    # Solve for ground truth points
+
     ########################
 
     return points3d

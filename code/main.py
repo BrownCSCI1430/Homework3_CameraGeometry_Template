@@ -90,7 +90,7 @@ def main():
 
         # Uses student's matches_to_3d to infer the 3D points that inlier pairs correspond to
         print('Calculating 3D points for accepted matches...')
-        points3d += student.matches_to_3d(inliers1, inliers2, M1, M2)
+        points3d += student.matches_to_3d(inliers1, inliers2, M1, M2).tolist()
         points3d_color += [tuple(image1[int(point[1]), int(point[0]), :] / 255.0) for point in inliers1]
 
     # Visualize 3d points
