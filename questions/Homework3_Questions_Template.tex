@@ -90,12 +90,15 @@
 \or \textbf{A2 (a) (ii), (b)}
 \or \textbf{A2 (c)}
 \or \textbf{A2 (c)}
-\or \textbf{A3 (a) - (b)}
+\or \textbf{A2 (c)}
+\or \textbf{A3 (a)}
+\or \textbf{A3 (b)}
 \or \textbf{A4 (a)}
-\or \textbf{A4 (b), (c) (i)}
-\or \textbf{A4 (c) (ii) - (iii), (d)}
-\or \textbf{A5 (a), (b)}
-\or \textbf{A5 (c)}
+\or \textbf{A4 (b)}
+\or \textbf{A4 (c)}
+\or \textbf{A4 (d)}
+\or \textbf{A5 (a)}
+\or \textbf{A5 (b) - (c)}
 \or \textbf{discussion attendance}
 \or \textbf{feedback}
 \else
@@ -103,7 +106,7 @@
 \fi
 \textbf{should be on this page}
 }}
-\rfoot{\thepage/16}
+\rfoot{\thepage/19}
 
 \date{}
 
@@ -283,7 +286,7 @@ Suppose there is some CV algorithm that uses an approximation such as the ones w
         
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-9\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-14\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
 \end{enumerate}
@@ -447,7 +450,7 @@ Compare the two image coordinates you've calculated in parts a and b. Explain ho
         
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-12\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -542,6 +545,25 @@ def find_coords(camera_matrix):
     """
     coords = np.matmul(camera_matrix, point_cloud.T)
     return coords / coords[2]
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ################################################
+    # YOU MAY USE THIS ADDITIONAL PAGE
+    
+    # WARNING: IF YOU DON'T END UP USING THIS PAGE
+    # KEEP THESE COMMENTS TO MAINTAIN PAGE ALIGNMENT
+    ################################################
     \end{python}
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{tcolorbox}
@@ -561,23 +583,26 @@ def find_coords(camera_matrix):
 \begin{enumerate} [(a)]
 \item \textbf{[2 points]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Briefly describe triangulation (using images might be helpful).
+Briefly describe triangulation (using an image might be helpful) \textbf{[3-4 sentences]}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
     TODO: Your answer to (a) here.
+    
+    % OPTIONAL: Include your image here! This is not required.
+    % \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{}
+        
         
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-12\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-20\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
 \item \textbf{[2 points]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Why is it not possible to find an absolute depth for each point when we don't have calibration information for our cameras? Note that absolute depth refers to depth with respect to the camera as opposed to relative depth, which is with respect to another object in the scene. 
+Why is it not possible to find an absolute depth for each point when we don't have calibration information for our cameras? Note that absolute depth refers to depth with respect to the camera as opposed to relative depth, which is with respect to another object in the scene. \textbf{[3 - 4 sentences]}
 \end{tcolorbox}
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
@@ -587,7 +612,7 @@ Why is it not possible to find an absolute depth for each point when we don't ha
         
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-14\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
 \end{enumerate}
@@ -690,7 +715,7 @@ Setup 1
 
 \item \textbf{[3 $\times$ 1 points]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-State an advantage and disadvantage of using each setup for depth reconstruction
+State an advantage and disadvantage of using each setup for depth reconstruction \textbf{[2 - 3 sentences]}
 \end{tcolorbox}
 
 \begin{enumerate}[(i)]
@@ -703,7 +728,7 @@ State an advantage and disadvantage of using each setup for depth reconstruction
                 
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
-        \clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
     \end{tcolorbox}
     \item Setup 2
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
@@ -714,7 +739,7 @@ State an advantage and disadvantage of using each setup for depth reconstruction
                 
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
-        \clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
     \end{tcolorbox}
     \item Setup 3
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
@@ -725,13 +750,13 @@ State an advantage and disadvantage of using each setup for depth reconstruction
                 
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
-        \clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
     \end{tcolorbox}
 \end{enumerate}
 
 \item \textbf{[3 $\times$ 1 points]}
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Name an application scenario for each of the different setups
+Name an application scenario for each of the different setups \textbf{[1 - 2 sentences]}
 \end{tcolorbox}
 \begin{enumerate}[(i)]
     \item Setup 1
@@ -743,7 +768,7 @@ Name an application scenario for each of the different setups
                 
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
-        \clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
     \end{tcolorbox}
     \item Setup 2
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
@@ -754,7 +779,7 @@ Name an application scenario for each of the different setups
                 
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
-        \clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
     \end{tcolorbox}
     \item Setup 3
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
@@ -765,7 +790,7 @@ Name an application scenario for each of the different setups
                 
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
-        \clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
     \end{tcolorbox}
 \end{enumerate}
 \item \textbf{[4 points]}
@@ -781,7 +806,7 @@ The differences between the collection methods for these three datasets are cruc
     
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-15\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-18\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 \end{enumerate}
 
@@ -809,7 +834,7 @@ The differences between the collection methods for these three datasets are cruc
 
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q5:} \textbf{[3 points]} In two-view camera geometry, what do the following epipolar lines say about the cameras' relative positions?
+\paragraph{Q5:} \textbf{[3 points]} In two-view camera geometry, what do the following epipolar lines say about the cameras' relative positions? \textbf{[1 - 2 sentences each]}
 
 \textit{Tip:} The Spring '22 course staff created an \href{https://browncsci1430.github.io/webpage/demos/stereo_camera_visualization/index.html}{interactive demo} to explore the different scenarios and get a better feel for epipolar geometry.
 
@@ -828,7 +853,7 @@ Radiate out of a point on the image plane.
         
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
 \item \textbf{[1 point]}
@@ -846,7 +871,7 @@ Converge to a point outside of the image plane.
         
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
 \item \textbf{[1 point]} 
@@ -869,27 +894,11 @@ Notice the misalignment of the epipolar lines in the image below? What went wron
         
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 \end{enumerate}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \paragraph{A7:} Your answer here.
-% Uncomment the stencil below and fill in your solution.
-
-% \begin{enumerate}[(a)]
-
-% \item
-
-% \item
-
-% \item
-
-% \end{enumerate}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \pagebreak
 \section*{Discussion Attendance:}
@@ -907,7 +916,5 @@ $\square$ & I attended the discussion session on DATE \\
 Please help us make the course better. If you have any feedback for this assignment, we'd love to hear it!
 
 
-% \pagebreak
-% \section*{Any additional pages would go here.}
 
 \end{document}
