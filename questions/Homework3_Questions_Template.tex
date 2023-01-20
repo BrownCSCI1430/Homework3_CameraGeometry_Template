@@ -1,4 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 %
 % CSCI 1430 Written Question Template
 %
@@ -179,7 +179,7 @@ Rewrite the equation $\mathcal{M} \times X \approx X'$ into a pair of linear equ
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Replace each of the `$\_\_$' below with $x, y, x', y',$ or $0$.
     \begin{align*}
     \begin{cases}
@@ -187,7 +187,7 @@ Rewrite the equation $\mathcal{M} \times X \approx X'$ into a pair of linear equ
         \\\_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
     \end{cases}
     \end{align*}
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -212,7 +212,7 @@ Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: your answer for (b) here
     \begin{align*}
         \begin{pmatrix} 
@@ -237,7 +237,7 @@ Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ 
         \_\_ 
         \end{pmatrix}
     \end{align*}
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -261,12 +261,12 @@ Replace each of the `$\_\_$' below with the value of $m_{i, j}$:
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: your answer for (c) here
     \begin{align*}
         M = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} = \begin{pmatrix} \_\_ & \_\_ \\ \_\_ & \_\_ \end{pmatrix}
     \end{align*}
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -281,9 +281,9 @@ Suppose there is some CV algorithm that uses an approximation such as the ones w
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: your answer for (d) here
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-14\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -345,7 +345,7 @@ Fill in the camera's intrinsic and extrinsic matrices; then, perform the multipl
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Fill in the \_\_ entries
     \begin{align*}
         & \qquad M_{\text{intrinsic}} \quad \times \qquad M_{\text{extrinsic}} \qquad  \times \; 
@@ -385,7 +385,7 @@ Fill in the camera's intrinsic and extrinsic matrices; then, perform the multipl
         $1$ 
         \end{pmatrix}
     \end{align*}
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-16\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -396,7 +396,7 @@ Fill in the camera's intrinsic and extrinsic matrices; then, perform the multipl
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Fill in the \_\_ entries
     \begin{align*}
         &= \begin{pmatrix} 
@@ -429,7 +429,7 @@ Fill in the camera's intrinsic and extrinsic matrices; then, perform the multipl
         $1$ 
         \end{pmatrix}
     \end{align*}
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-12\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -445,9 +445,9 @@ Compare the two image coordinates you've calculated in parts a and b. Explain ho
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Your answer to (b) here.
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-12\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -488,10 +488,10 @@ Please implement \texttt{calculate\_camera\_matrix()} by calculating the camera 
 
 \begin{tcolorbox}[enhanced jigsaw,breakable,pad at break*=1mm,colback=white!5!white,colframe=green!75!black,height fixed for=all]
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+
     \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_demo_screenshot.png}
 
-        
+
     \begin{python}
 import numpy as np
 import matplotlib.pyplot as plt
@@ -545,22 +545,22 @@ def find_coords(camera_matrix):
     """
     coords = np.matmul(camera_matrix, point_cloud.T)
     return coords / coords[2]
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
     ################################################
     # YOU MAY USE THIS ADDITIONAL PAGE
-    
+
     # WARNING: IF YOU DON'T END UP USING THIS PAGE
     # KEEP THESE COMMENTS TO MAINTAIN PAGE ALIGNMENT
     ################################################
@@ -583,18 +583,18 @@ def find_coords(camera_matrix):
 \begin{enumerate} [(a)]
 \item \textbf{[2 points]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Briefly describe triangulation (using an image might be helpful) \textbf{[3-4 sentences]}
+Briefly describe triangulation. Describe the inputs and outputs of the process. You may wish to use a diagram. \textbf{[3-4 sentences]}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
     TODO: Your answer to (a) here.
-    
+
     % OPTIONAL: Include your image here! This is not required.
     % \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{}
-        
-        
+
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-20\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -607,9 +607,9 @@ Why is it not possible to find an absolute depth for each point when we don't ha
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Your answer to (b) here.
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-14\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -640,7 +640,7 @@ Given the algorithms that we've learned in computer vision, we know that whether
 \begin{enumerate}[(i)]
 \item A video circling the object;
 \item A stereo pair of calibrated cameras capturing two images of the object; and
-\item Two images we take of the object at two different camera poses (position and orientation) using the same camera but with different lens zoom settings.
+\item Two images of the same object on the internet (e.g. Colosseum) at different camera poses but with unknown intrinsics.
 \end{enumerate}
 
 \begin{enumerate}[(a)]
@@ -655,7 +655,7 @@ Setup 1
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Select the right option:
 
     \begin{tabular}[h]{lc}
@@ -665,7 +665,7 @@ Setup 1
             Both & $\square$ \\
         \toprule
     \end{tabular}
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }
     }
@@ -676,7 +676,7 @@ Setup 1
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Select the right option:
 
     \begin{tabular}[h]{lc}
@@ -686,7 +686,7 @@ Setup 1
             Both & $\square$ \\
         \toprule
     \end{tabular}
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -696,7 +696,7 @@ Setup 1
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Select the right option:
 
     \begin{tabular}[h]{lc}
@@ -706,7 +706,7 @@ Setup 1
             Both & $\square$ \\
         \toprule
     \end{tabular}
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -723,9 +723,9 @@ State an advantage and disadvantage of using each setup for depth reconstruction
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
         \setbox0=\hbox{\parbox[t]{\textwidth}{
             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                
+
             TODO: Your answer to (b) (i) here.
-                
+
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -734,9 +734,9 @@ State an advantage and disadvantage of using each setup for depth reconstruction
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
         \setbox0=\hbox{\parbox[t]{\textwidth}{
             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                
+
             TODO: Your answer to (b) (ii) here.
-                
+
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -745,9 +745,9 @@ State an advantage and disadvantage of using each setup for depth reconstruction
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
         \setbox0=\hbox{\parbox[t]{\textwidth}{
             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                
+
             TODO: Your answer to (b) (iii) here.
-                
+
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -763,9 +763,9 @@ Name an application scenario for each of the different setups \textbf{[1 - 2 sen
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
         \setbox0=\hbox{\parbox[t]{\textwidth}{
             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                
+
             TODO: Your answer to (c) (i) here.
-                
+
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -774,9 +774,9 @@ Name an application scenario for each of the different setups \textbf{[1 - 2 sen
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
         \setbox0=\hbox{\parbox[t]{\textwidth}{
             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                
+
             TODO: Your answer to (c) (ii) here.
-                
+
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -785,9 +785,9 @@ Name an application scenario for each of the different setups \textbf{[1 - 2 sen
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
         \setbox0=\hbox{\parbox[t]{\textwidth}{
             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                
+
             TODO: Your answer to (c) (iii) here.
-                
+
             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             }}
         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -801,9 +801,9 @@ The differences between the collection methods for these three datasets are cruc
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Your answer to (d) here.
-    
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-18\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -848,9 +848,9 @@ Radiate out of a point on the image plane.
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Your answer to (a) here.
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -866,9 +866,9 @@ Converge to a point outside of the image plane.
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Your answer to (b) here.
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
@@ -889,9 +889,9 @@ Notice the misalignment of the epipolar lines in the image below? What went wron
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
     TODO: Your answer to (c) here.
-        
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
