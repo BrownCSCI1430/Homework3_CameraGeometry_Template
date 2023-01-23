@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import random
+import matplotlib.pyplot as plt
 
 def calculate_projection_matrix(image, markers):
     """
