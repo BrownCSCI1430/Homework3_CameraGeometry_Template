@@ -176,3 +176,22 @@ def matches_to_3d(points1, points2, M1, M2):
     ########################
 
     return points3d
+
+#/////////////////////////////DO NOT CHANGE BELOW LINE///////////////////////////////
+best_inlier_count = []
+cur_inlier_count = []
+iterations = []
+
+def collect_data(best_F, current_F, iteration):
+    best_inlier_count.append(best_F)
+    cur_inlier_count.append(current_F)
+    iterations.append(iteration)
+
+def visualize_ransac():
+    plt.plot(iterations, cur_inlier_count, label='Current Inlier Count')
+    plt.plot(iterations, best_inlier_count, label='Best Inlier Count')
+    plt.xlabel("Iteration")
+    plt.ylabel("Number of Inliers")
+    plt.title('Current Inliers vs. Best Inliers per Iteration')
+    plt.legend()
+    plt.show()
