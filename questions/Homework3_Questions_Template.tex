@@ -9,16 +9,16 @@
 % > pdflatex thisfile.tex
 %
 % If you do not have LaTeX, your options are:
+% - Personal laptops (all common OS): http://www.latex-project.org/get/ 
 % - VSCode extension: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
 % - Online Tool: https://www.overleaf.com/ - most LaTeX packages are pre-installed here (e.g., \usepackage{}).
-% - Personal laptops (all common OS): http://www.latex-project.org/get/ 
 %
 % If you need help with LaTeX, please come to office hours.
 % Or, there is plenty of help online:
 % https://en.wikibooks.org/wiki/LaTeX
 %
 % Good luck!
-% Srinath and the 1430 staff
+% The CSCI 1430 staff
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -83,97 +83,108 @@
 \lfoot{\textcolor{red}{\textbf{Only}
 \ifcase\thepage
 \or \textbf{instructions}
-\or \textbf{A1 (a)}
-\or \textbf{A1 (b)}
-\or \textbf{A1 (c) - (d)}
-\or \textbf{A2 (a) (i)}
-\or \textbf{A2 (a) (ii), (b)}
-\or \textbf{A2 (c)}
-\or \textbf{A2 (c)}
-\or \textbf{A2 (c)}
-\or \textbf{A3 (a)}
-\or \textbf{A3 (b)}
-\or \textbf{A4 (a)}
-\or \textbf{A4 (b)}
-\or \textbf{A4 (c)}
-\or \textbf{A4 (d)}
-\or \textbf{A5 (a)}
-\or \textbf{A5 (b) - (c)}
-\or \textbf{discussion attendance}
+\or \textbf{Q1 (a)}
+\or \textbf{Q1 (b)}
+\or \textbf{Q1 (c) - (d)}
+\or \textbf{Q2 (a) (i)}
+\or \textbf{Q2 (a) (ii), (b)}
+\or \textbf{Q2 (c)}
+\or \textbf{Q2 (c)}
+\or \textbf{Q2 (c)}
+\or \textbf{Q3 (a)}
+\or \textbf{Q3 (b)}
+\or \textbf{Q4 (a)}
+\or \textbf{Q4 (b)}
+\or \textbf{Q4 (c)}
+\or \textbf{Q4 (d)}
+\or \textbf{Q5 (a)}
+\or \textbf{Q5 (b) - (c)}
 \or \textbf{feedback}
 \else
 \textbf{[ERROR: PAGE MISALIGNMENT]}
 \fi
 \textbf{should be on this page}
 }}
-\rfoot{\thepage/19}
+\rfoot{\thepage/18}
 
 \date{}
 
-\title{\vspace{-1cm}Homework 3 Questions}
+\title{\vspace{-1cm}Homework 3 Written Questions}
 
 
 \begin{document}
 \maketitle
-\vspace{-2cm}
 \thispagestyle{fancy}
 
-\section*{ Document Instructions}
+\section*{Template Instructions}
+
+This document is a template with specific answer regions and a fixed number of pages. Given large class sizes and limited TA time, the template helps the course staff to grade efficiently and still focus on the content of your submissions. Please help us in this task:
+ 
 \begin{itemize}
-  \item 5 questions \textbf{[10 + 8 + 4 + 13 + 3 = 40 points + 2 bonus points]}.
-  \item Fill all your answers within the answer boxes, and \textbf{please do NOT remove the answer box outlines}.
-  \item Questions are highlighted in the \textbf{orange boxes}, bonus questions are highlighted in \textbf{blue boxes}, answers should be recorded in the \textbf{green boxes}.
-  \item Include code, images, and equations where appropriate.
-  \item To identify all places where your responses are expected, search for `TODO'.
-  \item The answer box sizes have been set by the staff beforehand and will truncate your text if it goes beyond the limit. Please make sure your responses fit in the appropriate spaces. \textbf{Extra pages are not permitted unless otherwise specified.}
-  \item Make sure your submission has the right number of pages to validate page alignment sanity (check the footer).
-  \item Please make this document anonymous.
+  \item Make this document anonymous.
+  
+  \item Questions are in the orange boxes. Provide answers in the green boxes.
+  \item Use the footer to check for correct page alignment.
+
+  \item \textbf{Do NOT remove the answer box.}
+  \item \textbf{Do NOT change the size of the answer box.}
+  \item \textbf{Extra pages are not permitted unless otherwise specified.}
+  \item \textbf{Template edits or page misalignment will lead to a 10 point deduction.}
 \end{itemize}
 
-\section*{ Gradescope Instructions}
+\section*{Gradescope Submission}
 \begin{itemize}
-  \item When you are finished, compile this document to a PDF and submit it directly to Gradescope. 
-  \item The pages will be automatically assigned to the right questions on Gradescope \textit{assuming you do not add any unnecessary pages}. \textbf{Inconsistently assigned pages will lead to a deduction of 2 points per misaligned page (capped at a maximum 6 point deduction).}
+  \item Compile this document to a PDF and submit it to Gradescope.
+  \item Pages will be automatically assigned to the right questions on Gradescope.
 \end{itemize}
+
+\section*{This Homework}
+\begin{itemize}
+    \item 5 questions \textbf{[10 + 8 + 4 + 13 + 3 = 40 points]}.
+    \item Include code, images, and equations where appropriate.
+\end{itemize}
+
+% Please leave the pagebreak
 \pagebreak
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagebreak
 \paragraph{Q1:} \textbf{[10 points]}
 Suppose we have a quadrilateral $ABCD$ and a transformed version $A'B'C'D'$ as seen in the image below.
 
-\includegraphics[width=\textwidth * 5/10]{images/quadrilaterals.jpg}
+\begin{minipage}{0.5\linewidth}
+    \includegraphics[width=\linewidth]{images/quadrilaterals.jpg}
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+    \begin{equation}
+    \begin{split}
+    A&=(1, 1)\\
+    B&=(1.5, 0.5)\\
+    C&=(2, 1)\\
+    D&=(2.5, 2)
+    \end{split}
+    \quad\quad\quad
+    \begin{split}
+    A'&=(-0.3, 1.3)\\
+    B'&=(0.5, 1.1)\\
+    C'&=(0.3, 1.8)\\
+    D'&=(-0.3, 2.6)
+    \end{split}
+    \end{equation}
+\end{minipage}
 
-\begin{equation}
-\begin{split}
-A&=(1, 1)\\
-B&=(1.5, 0.5)\\
-C&=(2, 1)\\
-D&=(2.5, 2)
-\end{split}
-\quad\quad\quad
-\begin{split}
-A'&=(-0.3, 1.3)\\
-B'&=(0.5, 1.1)\\
-C'&=(0.3, 1.8)\\
-D'&=(-0.3, 2.6)
-\end{split}
-\end{equation}
+Let's assume that each point in $ABCD$ was approximately mapped to its corresponding point in $A'B'C'D'$ by a $2\times2$ transformation matrix $\mathbf{M}$.
 
-Let's assume that each point in $ABCD$ was approximately mapped to its corresponding point in $A'B'C'D'$ by a $2\times2$ transformation matrix $\mathcal{M}$.
-
-e.g. if $X = \begin{pmatrix} x \\ y \end{pmatrix}$ and $X' = \begin{pmatrix} x' \\ y' \end{pmatrix}$, and $\mathcal{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix}$
+e.g. if $\mathbf{x} = \begin{pmatrix} x \\ y \end{pmatrix}$ and $\mathbf{x'} = \begin{pmatrix} x' \\ y' \end{pmatrix}$, and $\mathbf{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix}$
 
 then $\begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} \times \begin{pmatrix} x \\ y \end{pmatrix} \approx \begin{pmatrix} x' \\ y'  \end{pmatrix}$
 
-We would like to approximate $\mathcal{M}$ using least squares for linear regression.
+We would like to approximate $\mathbf{M}$ using least squares for linear regression.
 
 \begin{enumerate}[(a)]
 \item \textbf{[1 point]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Rewrite the equation $\mathcal{M} \times X \approx X'$ into a pair of linear equations by expanding the matrix multiplication.
+Rewrite the equation $\mathbf{M} \times \mathbf{x} \approx \mathbf{x'}$ into a pair of linear equations by expanding the matrix multiplication.
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
@@ -193,18 +204,19 @@ Rewrite the equation $\mathcal{M} \times X \approx X'$ into a pair of linear equ
 \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
+\pagebreak
 \item \textbf{[2 points]}
-With the quadrilaterals in question, there are 4 points that transform so we should expect to see 8 such equations (2 for each point) that use the transformation equation $\mathcal{M}$.
+With quadrilaterals, there are 4 points that transform. We can form 8 such equations (2 for each point) that use the same transformation matrix $\mathbf{M}$.
 
-From these pairs of equations for each $x$-$x'$ correspondence, we can construct a matrix $\mathcal{Q}$ and column vector $b$ that satisfy
+From these pairs of equations for each $x$--$x'$, $y$--$y'$ correspondence, we can construct a matrix $\mathbf{Q}$ and column vector $\mathbf{b}$ that satisfy
 \begin{align*}
-    \mathcal{Q} \times \begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} = b
+    \mathbf{Q} \times \begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} = \mathbf{b}
 \end{align*}
 
-\emph{Note:} Systems of linear equations are typically written in the form $\mathcal{A} \times x = b$, but since we have already defined $\mathcal{A}$ and $x$, we're writing it as $\mathcal{Q} \times m = b$
+\emph{Note:} Systems of linear equations are typically denoted in the form $\mathbf{A} \times \mathbf{x} = \mathbf{b}$, but since we have already denoted $\mathbf{A}$ and $x$, we'll use the variables $\mathbf{Q} \times \mathbf{m} = \mathbf{b}$
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Find $\mathcal{Q}$ and $b$:\\
+Find $\mathbf{Q}$ and $\mathbf{b}$:\\
 
 Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ and $A'B'C'D'$.
 \end{tcolorbox}
@@ -243,6 +255,7 @@ Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ 
 \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
+\pagebreak
 \item \textbf{[1 point]} Our problem is now over-constrained, so we want to find values for $m_{i,j}$ that minimize the squared error between the approximated values for $X'$ and the real $X'$ values, i.e., we want to minimize $||\mathcal{Q} \times m - b||$. 
 \begin{align*}
 \intertext{To do this we use singular value decomposition to find the pseudoinverse of $\mathcal{Q}$, written as $\mathcal{Q}^\dagger$. We then multiply it by both sides, giving us:}
@@ -272,34 +285,7 @@ Replace each of the `$\_\_$' below with the value of $m_{i, j}$:
 \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
-\item \textbf{[3 x 2 points]} Note that the least squares regression function that we use here is an approximation function, meaning that the values we derived for the transformation matrix are not exact. The same is true of our 8 point algorithm method of calculating the fundamental matrix.
-
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Suppose there is some CV algorithm that uses an approximation such as the ones we learned about. Evaluate from the perspective of three stakeholders of your choice (e.g. the developer of the technology, the CEO of the company that develops the technology, a third party who uses your CV algorithm) how important transparency is surrounding margins of error. \textbf{[4-6 sentences]}
-\end{tcolorbox}
-
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: your answer for (d) here
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-14\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
 \end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% % Please leave the pagebreak
-% \pagebreak
-% \paragraph{A3 (continued):} Your answer here.
-
-% If you really need extra space, uncomment here and use extra pages after the last question.
-% Please refer here in your original answer. Thanks!
-%\pagebreak
-%\paragraph{AX.X Continued:} Your answer continued here.
 
 
 
@@ -391,7 +377,7 @@ Fill in the camera's intrinsic and extrinsic matrices; then, perform the multipl
 \clipbox{0pt \dimexpr\dp0-16\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
-
+\pagebreak
 \item A camera with focal length of $2$ in both the $x$ and $y$ directions, a translation of $5$ along the $x$-axis, and no skew or rotation.
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
@@ -477,8 +463,9 @@ Compare the two image coordinates you've calculated in parts a and b. Explain ho
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Please leave the pagebreak
-\item \textbf{[1 + 3 points]}
-In the questions folder, we've provided stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. 
+\pagebreak
+\item \textbf{[4 points]}
+In the questions folder, we've provided stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix and a set of world points, the simulator visualizes an image that a camera would produce. 
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 Please implement \texttt{calculate\_camera\_matrix()} by calculating the camera matrix using the parameters given in the code (see stencil for more detail). When successful, you will see a bunny rendered as dots (see below). Paste your code for this function and attach a screenshot of the working demo once you finish. Play around with the sliders to see how different parameters affect the projection!
@@ -633,6 +620,35 @@ Why is it not possible to find an absolute depth for each point when we don't ha
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak 
+\paragraph{Q1:} One application of cameras is surveillance systems. Finding the mathematical relationship between multiple cameras lets us automatically localize and track objects of interest within 3D spaces.
+
+On Brown's campus, the number of surveillance cameras has been increasing: compare this \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{2008 Brown Daily Herald article} with this \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{2020 Brown Daily Herald article}. There are now 800 surveillance cameras on campus.
+
+One argument in favor of surveillance systems is to deter and solve crime---that surveillance improves safety. Another is that if you're not doing anything wrong, you don't have anything to worry about. One argument against surveillance systems is that they compromise people's privacy even when no wrongdoing is taking place. Another is that they increase stress and anxiety.
+
+How comfortable are you with Brown's surveillance apparatus?
+In what circumstances do you believe that the potential benefits of surveillance systems outweigh the potential concerns, and why? [6-7 sentences]
+
+\textbf{TODO: transparency and margins of error}
+
+\paragraph{A1:} Your answer here.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+\paragraph{Q2:} Drones are used within surveillance systems. Drones can be manually remote controlled, or use \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{sophisticated computer vision} strategies like camera pose estimation and depth estimation to enable assisted or even autonomous flying in complex environments.
+
+For your CSCI 1430 final project, you are developing a drone for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. You create a successful computer vision algorithm that allows your drone to navigate autonomously, and are approached by several organizations that want to pay you generously for access to your project.
+
+Please list three organizations that might be interested in acquiring your project for their own purposes. If each of these organizations used your project, who could benefit and how? Who could be harmed and how? [6-7 sentences]
+
+\paragraph{A2:} Your answer here.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
 \paragraph{Q4:} \textbf{[13 points]}
 Given the algorithms that we've learned in computer vision, we know that whether we can find/calculate the essential matrix, the fundamental matrix, or both depends on the setup of the cameras and images. You are given three datasets of an object of unknown geometry:
@@ -713,6 +729,7 @@ Setup 1
 \end{tcolorbox}
 \end{enumerate}
 
+\pagebreak
 \item \textbf{[3 $\times$ 1 points]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 State an advantage and disadvantage of using each setup for depth reconstruction \textbf{[2 - 3 sentences]}
@@ -754,6 +771,7 @@ State an advantage and disadvantage of using each setup for depth reconstruction
     \end{tcolorbox}
 \end{enumerate}
 
+\pagebreak
 \item \textbf{[3 $\times$ 1 points]}
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 Name an application scenario for each of the different setups \textbf{[1 - 2 sentences]}
@@ -793,6 +811,8 @@ Name an application scenario for each of the different setups \textbf{[1 - 2 sen
         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
     \end{tcolorbox}
 \end{enumerate}
+
+\pagebreak
 \item \textbf{[4 points]}
 The differences between the collection methods for these three datasets are crucial in terms of what calculations are possible - and therein which applications they are most useful in.
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black] 
@@ -899,16 +919,6 @@ Notice the misalignment of the epipolar lines in the image below? What went wron
 \end{enumerate}
 
 
-
-\pagebreak
-\section*{Discussion Attendance:}
-\paragraph{Extra Credit:} \textbf{[2 points]}
-
-Please mark this box only if you've attended the discussion session in person.
-
-\begin{tabular}[h]{ll}
-$\square$ & I attended the discussion session on DATE \\
-\end{tabular}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
