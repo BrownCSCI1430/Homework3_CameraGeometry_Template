@@ -166,10 +166,7 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
 def matches_to_3d(points1, points2, M1, M2):
     """
     Given two sets of points and two projection matrices, you will need to solve
-    for the ground-truth 3D points using np.linalg.lstsq(). For a brief reminder
-    of how to do this, please refer to Question 5 from the written questions for
-    this project.
-
+    for the ground-truth 3D points using np.linalg.lstsq().
 
     :param points1: [N x 2] points from image1
     :param points2: [N x 2] points from image2
@@ -181,8 +178,8 @@ def matches_to_3d(points1, points2, M1, M2):
     ########################
     # TODO: Your code here #
 
-    # Fill in the correct shape
-    points3d = np.zeros((_, _))
+    # Initial random values for 3D points
+    points3d = np.random.rand(len(points1),3)
 
     # Solve for ground truth points
 
