@@ -15,7 +15,8 @@ def parse_args():
         description="Homework 3 Camera Geometry")
     parser.add_argument(
         '--sequence',
-        required=True,
+        required=False,
+        default='cards',
         choices=['mikeandikes', 'cards', 'dollar', 'extracredit'],
         help='Which image sequence to use')
     parser.add_argument(
@@ -25,7 +26,7 @@ def parse_args():
     parser.add_argument(
         '--ransac-iters',
         type=int,
-        default=100,
+        default=20,
         help='Number of samples to try in RANSAC')
     parser.add_argument(
         '--num-keypoints',
