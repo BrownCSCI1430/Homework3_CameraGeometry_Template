@@ -14,8 +14,10 @@ def calculate_projection_matrix(image, markers):
 
     :param image: a single image in our camera system
     :param markers: dictionary of markerID to 4x3 array containing 3D points
+    
     :return: M, the camera projection matrix which maps 3D world coordinates
     of provided aruco markers to image coordinates
+             residual, the error in the estimation of M given the point sets
     """
     ######################
     # Do not change this #
@@ -52,8 +54,9 @@ def calculate_projection_matrix(image, markers):
     M = np.array([[0.1768, 0.7018, 0.7948, 0.4613],
                   [0.6750, 0.3152, 0.1136, 0.0480],
                   [0.1020, 0.1725, 0.7244, 0.9932]])
+    residual = 7 # Arbitrary stencil code initial value
 
-    return M
+    return M, residual
 
 def normalize_coordinates(points):
     """
@@ -62,7 +65,7 @@ def normalize_coordinates(points):
     should perform the normalization to make the mean of the points 0
     and the average magnitude 1.0.
 
-    The transformation matrix T is the product of the scale and offset matrices
+    The transformation matrix T is the product of the scale and offset matrices.
 
     Offset Matrix
     Find c_u and c_v and create a matrix of the form in the handout for T_offset
@@ -88,51 +91,52 @@ def normalize_coordinates(points):
 def estimate_fundamental_matrix(points1, points2):
     """
     Estimates the fundamental matrix given set of point correspondences in
-    points1 and points2.
+    points1 and points2. The fundamental matrix will transform one set of 
+    points into estimates of the positions of a second set of points, 
+    e.g., estimating F from points1 to points2 will let us produce points2'. 
+    The difference between points2 and points2' is the residual error in the 
+    fundamental matrix estimation.
 
     points1 is an [n x 2] matrix of 2D coordinate of points on Image A
     points2 is an [n x 2] matrix of 2D coordinate of points on Image B
 
-    Try to implement this function as efficiently as possible. It will be
-    called repeatedly for part IV of the project
+    Implement this function efficiently as it will be
+    called repeatedly within the RANSAC part of the project.
 
     If you normalize your coordinates for extra credit, don't forget to adjust
     your fundamental matrix so that it can operate on the original pixel
     coordinates!
 
     :return F_matrix, the [3 x 3] fundamental matrix
+            residual, the error in the estimation
     """
     ########################
     # TODO: Your code here #
     ########################
 
-    # This is an intentionally incorrect Fundamental matrix placeholder
+    # Arbitrary intentionally incorrect Fundamental matrix placeholder
     F_matrix = np.array([[0, 0, -.0004], [0, 0, .0032], [0, -0.0044, .1034]])
+    residual = 5 # Arbitrary stencil code initial value
 
-    return F_matrix
+    return F_matrix, residual
 
 def ransac_fundamental_matrix(matches1, matches2, num_iters):
     """
-    Find the best fundamental matrix using RANSAC on potentially matching
-    points. Run RANSAC for num_iters.
-
+    Implement RANSAC to find the best fundamental matrix robustly
+    by randomly sampling interest points.
+    
+    Inputs:
     matches1 and matches2 are the [N x 2] coordinates of the possibly
-    matching points from two pictures. Each row is a correspondence
+    matching points across two images. Each row is a correspondence
      (e.g. row 42 of matches1 is a point that corresponds to row 42 of matches2)
 
-    best_Fmatrix is the [3 x 3] fundamental matrix, inliers1 and inliers2 are
-    the [M x 2] corresponding points (some subset of matches1 and matches2) that
+    Outputs:
+    best_Fmatrix is the [3 x 3] fundamental matrix
+    best_inliers1 and best_inliers2 are the [M x 2] subset of matches1 and matches2 that
     are inliners with respect to best_Fmatrix
+    best_inlier_residual is the error induced by best_Fmatrix
 
-    For this section, use RANSAC to find the best fundamental matrix by randomly
-    sampling interest points. You would call the function that estimates the 
-    fundamental matrix (either the "cheat" function or your own 
-    estimate_fundamental_matrix) iteratively within this function.
-
-    If you are trying to produce an uncluttered visualization of epipolar lines,
-    you may want to return no more than 30 points for either image.
-
-    :return: best_Fmatrix, inliers1, inliers2
+    :return: best_Fmatrix, inliers1, inliers2, inlierResidual
     """
     # DO NOT TOUCH THE FOLLOWING LINES
     random.seed(0)
@@ -146,16 +150,19 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
     # that you wrote for part II.
 
     best_Fmatrix = estimate_fundamental_matrix(matches1[0:9, :], matches2[0:9, :])
-    inliers_a = matches1[0:29, :]
-    inliers_b = matches2[0:29, :]
+    best_inliers_a = matches1[0:29, :]
+    best_inliers_b = matches2[0:29, :]
+    best_inlier_residual = 5 # Arbitrary stencil code initial value
 
-    # To visualize RANSAC's convergence (which is neat), 
-    # add the following line at the appropriate place
-    #   collect_data(best_F, cur_F, iteration)
-    # Then add flag --visualize-ransac.
-    # We ask you to put this plot in your writeup. 
+    # For your report, we ask you to visualize RANSAC's 
+    # convergence over iterations. 
+    # For each iteration, append your inlier count and residual to the global variables:
+    #   inlier_counts = []
+    #   inlier_residuals = []
+    # Then add flag --visualize-ransac to plot these using visualize_ransac()
+    
 
-    return best_Fmatrix, inliers_a, inliers_b
+    return best_Fmatrix, best_inliers_a, best_inliers_b, best_inlier_residual
 
 def matches_to_3d(points1, points2, M1, M2):
     """
@@ -184,21 +191,30 @@ def matches_to_3d(points1, points2, M1, M2):
 
     return points3d
 
-#/////////////////////////////DO NOT CHANGE BELOW LINE///////////////////////////////
-best_inlier_count = []
-cur_inlier_count = []
-iterations = []
 
-def collect_data(best_F, current_F, iteration):
-    best_inlier_count.append(best_F)
-    cur_inlier_count.append(current_F)
-    iterations.append(iteration)
+#/////////////////////////////DO NOT CHANGE BELOW LINE///////////////////////////////
+inlier_counts = []
+inlier_residuals = []
 
 def visualize_ransac():
-    plt.plot(iterations, cur_inlier_count, label='Current Inlier Count')
-    plt.plot(iterations, best_inlier_count, label='Best Inlier Count')
+    iterations = np.arange(len(inlier_counts))
+    best_inlier_counts = np.maximum.accumulate(inlier_counts)
+    best_inlier_residuals = np.maximum.accumulate(inlier_residuals)
+
+    plt.figure(1)
+    plt.subplot(211)
+    plt.plot(iterations, inlier_counts, label='Current Inlier Count', color='red')
+    plt.plot(iterations, best_inlier_counts, label='Best Inlier Count', color='red')
     plt.xlabel("Iteration")
     plt.ylabel("Number of Inliers")
     plt.title('Current Inliers vs. Best Inliers per Iteration')
+    plt.legend()
+
+    plt.subplot(212)
+    plt.plot(iterations, inlier_residuals, label='Current Inlier Residual', color='blue')
+    plt.plot(iterations, best_inlier_residuals, label='Best Inlier Residual', color='blue')
+    plt.xlabel("Iteration")
+    plt.ylabel("Residual")
+    plt.title('Current Residual vs. Best Residual per Iteration')
     plt.legend()
     plt.show()

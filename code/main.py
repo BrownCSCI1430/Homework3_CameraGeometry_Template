@@ -60,7 +60,10 @@ def main():
     markers = get_markers(os.path.join(args.data, "markers.txt"))
 
     print('Calculating projection matrices...')
-    Ms = [student.calculate_projection_matrix(image, markers) for image in images]
+    Ms = []
+    for image in images:
+        M, residual = student.calculate_projection_matrix(image, markers)
+        Ms.append(M)
 
     if not args.no_intermediate_vis:
         show_reprojections(images, Ms, markers)
@@ -80,7 +83,7 @@ def main():
             show_matches(image1, image2, points1, points2)
 
         print(f'Filtering with RANSAC...')
-        F, inliers1, inliers2 = student.ransac_fundamental_matrix(
+        F, inliers1, inliers2, residual = student.ransac_fundamental_matrix(
             points1, points2, args.ransac_iters)
         if not args.no_intermediate_vis:
             show_matches(image1, image2, inliers1, inliers2)
@@ -88,9 +91,8 @@ def main():
         if args.visualize_ransac:
             print(f'Visualizing Ransac')
             student.visualize_ransac()
-            student.cur_inlier_count = []
-            student.best_inlier_count = []
-            student.iterations = []
+            student.inlier_counts = []
+            student.inlier_residuals = []
 
         print('Calculating 3D points for accepted matches...')
         points3d += student.matches_to_3d(inliers1, inliers2, M1, M2).tolist()
