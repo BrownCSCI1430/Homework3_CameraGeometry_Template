@@ -146,8 +146,7 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
     # TODO: Your code here #
     ########################
 
-    # Your RANSAC loop should contain a call to 'estimate_fundamental_matrix()'
-    # that you wrote for part II.
+    # Your RANSAC loop should contain a call to your 'estimate_fundamental_matrix()'
 
     best_Fmatrix = estimate_fundamental_matrix(matches1[0:9, :], matches2[0:9, :])
     best_inliers_a = matches1[0:29, :]
