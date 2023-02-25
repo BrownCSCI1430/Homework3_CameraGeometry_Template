@@ -73,7 +73,7 @@ def show_matches(image1, image2, points1, points2):
     image2 = img_as_float32(image2)
 
     fig = plt.figure()
-    plt.title("Matches between image pair.")
+    fig.canvas.set_window_title("Matches between image pair.")
     plt.axis('off')
 
     matches_image = np.hstack([image1, image2])
@@ -125,7 +125,7 @@ def show_reprojections(images, Ms, markers):
     points3d = np.array(points3d)
 
     fig, axs = plt.subplots(1, len(images), figsize=(15, 6))
-    plt.title("Reprojected markers for each image.")
+    fig.canvas.set_window_title("Reprojected markers for each image.")
     plt.axis('off')
 
     for i in range(len(images)):
