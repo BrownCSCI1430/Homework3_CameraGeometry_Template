@@ -149,6 +149,12 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
     inliers_a = matches1[0:29, :]
     inliers_b = matches2[0:29, :]
 
+    # To visualize RANSAC's convergence (which is neat), 
+    # add the following line at the appropriate place
+    #   collect_data(best_F, cur_F, iteration)
+    # Then add flag --visualize-ransac.
+    # We ask you to put this plot in your writeup. 
+
     return best_Fmatrix, inliers_a, inliers_b
 
 def matches_to_3d(points1, points2, M1, M2):
