@@ -95,17 +95,13 @@
 \or \textbf{Q3 (b)}
 \or \textbf{Q4 (a)}
 \or \textbf{Q4 (b)}
-\or \textbf{Q4 (c)}
-\or \textbf{Q4 (d)}
-\or \textbf{Q5 (a)}
-\or \textbf{Q5 (b) - (c)}
 \or \textbf{feedback}
 \else
 \textbf{[ERROR: PAGE MISALIGNMENT]}
 \fi
 \textbf{should be on this page}
 }}
-\rfoot{\thepage/18}
+\rfoot{\thepage/15}
 
 \date{}
 
@@ -140,7 +136,7 @@ This document is a template with specific answer regions and a fixed number of p
 
 \section*{This Homework}
 \begin{itemize}
-    \item 5 questions \textbf{[10 + 8 + 4 + 13 + 3 = 40 points]}.
+    \item 4 questions \textbf{[10 + 8 + 6 + 12 = 36 points]}.
     \item Include code, images, and equations where appropriate.
 \end{itemize}
 
@@ -586,11 +582,11 @@ def find_coords(camera_matrix):
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q3:} \textbf{[4 points]} Given a stereo pair of cameras:
+\paragraph{Q3:} \textbf{[6 points]} Given a stereo pair of cameras:
 \begin{enumerate} [(a)]
-\item \textbf{[2 points]} 
+\item \textbf{[3 points]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Briefly describe triangulation. Describe the inputs and outputs of the process. You may wish to use a diagram. \textbf{[3-4 sentences]}
+Briefly describe triangulation. Describe the inputs and outputs of the process. You may wish to use a diagram. \textbf{[4--6 sentences]}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
@@ -604,12 +600,13 @@ Briefly describe triangulation. Describe the inputs and outputs of the process. 
 
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-20\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-28\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
-\item \textbf{[2 points]} 
+\pagebreak
+\item \textbf{[3 points]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Why is it not possible to find an absolute depth for each point when we don't have calibration information for our cameras? Note that absolute depth refers to depth with respect to the camera as opposed to relative depth, which is with respect to another object in the scene. \textbf{[3 - 4 sentences]}
+Suppose we wished to find in real-world units the depth for each scene point via triangulation---we call this `metric depth' or `absolute depth', rather than relative depth. What information would we need to know about our camera system? \emph{Think about the whole process, including calibration. What units are we in?} \textbf{[3--4 sentences]}
 \end{tcolorbox}
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
@@ -641,302 +638,323 @@ Why is it not possible to find an absolute depth for each point when we don't ha
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak 
-\paragraph{Q1:} One application of cameras is surveillance systems. Finding the mathematical relationship between multiple cameras lets us automatically localize and track objects of interest within 3D spaces.
+\paragraph{Q4a:} \textbf{[6 points]} One application of cameras is surveillance systems. Finding the mathematical relationship between multiple cameras lets us automatically localize and track objects of interest within 3D spaces.
 
 On Brown's campus, the number of surveillance cameras has been increasing: compare this \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{2008 Brown Daily Herald article} with this \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{2020 Brown Daily Herald article}. There are now 800 surveillance cameras on campus.
 
 One argument in favor of surveillance systems is to deter and solve crime---that surveillance improves safety. Another is that if you're not doing anything wrong, you don't have anything to worry about. One argument against surveillance systems is that they compromise people's privacy even when no wrongdoing is taking place. Another is that they increase stress and anxiety.
 
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 How comfortable are you with Brown's surveillance apparatus?
-In what circumstances do you believe that the potential benefits of surveillance systems outweigh the potential concerns, and why? [6-7 sentences]
+In what circumstances do you believe that the potential benefits of surveillance systems outweigh the potential concerns, and why? [6--7 sentences]
+\end{tcolorbox}
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\textbf{TODO: transparency and margins of error}
+    TODO: Your answer here.
 
-\paragraph{A1:} Your answer here.
+    Feel free to count the number of cameras you see on your way from your bedroom to CIT.
+
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-20\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q2:} Drones are used within surveillance systems. Drones can be manually remote controlled, or use \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{sophisticated computer vision} strategies like camera pose estimation and depth estimation to enable assisted or even autonomous flying in complex environments.
+\paragraph{Q4b:} \textbf{[6 points]} Unmanned aerial vehicles---sometimes called drones---often carry cameras. Their cameras can be used for navigation via manually remote control, or for for use within \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{sophisticated computer vision} strategies like camera pose estimation and depth estimation to enable assisted or autonomous flying in complex environments.
 
 For your CSCI 1430 final project, you are developing a drone for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. You create a successful computer vision algorithm that allows your drone to navigate autonomously, and are approached by several organizations that want to pay you generously for access to your project.
 
-Please list three organizations that might be interested in acquiring your project for their own purposes. If each of these organizations used your project, who could benefit and how? Who could be harmed and how? [6-7 sentences]
-
-\paragraph{A2:} Your answer here.
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagebreak
-\paragraph{Q4:} \textbf{[13 points]}
-Given the algorithms that we've learned in computer vision, we know that whether we can find/calculate the essential matrix, the fundamental matrix, or both depends on the setup of the cameras and images. You are given three datasets of an object of unknown geometry:
-
-\begin{enumerate}[(i)]
-\item A video circling the object;
-\item A stereo pair of calibrated cameras capturing two images of the object; and
-\item Two images of the same object on the internet (e.g. Colosseum) at different camera poses but with unknown intrinsics.
-\end{enumerate}
-
-\begin{enumerate}[(a)]
-\item \textbf{[3 $\times$ 1 points]}
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-For each of the above setups, what calculations can we perform?
+Please list three organizations that might be interested in acquiring your project for their own purposes. If each of these organizations used your project, who could benefit and how? Who could be harmed and how? [6--7 sentences]
 \end{tcolorbox}
-\begin{enumerate}[(i)]
-\item
-Setup 1
-
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    TODO: Select the right option:
-
-    \begin{tabular}[h]{lc}
-        \bottomrule
-            Essential Matrix & $\square$ \\
-            Fundamental Matrix & $\square$ \\
-            Both & $\square$ \\
-        \toprule
-    \end{tabular}
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }
-    }
-\clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-\item Setup 2
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Select the right option:
-
-    \begin{tabular}[h]{lc}
-        \bottomrule
-            Essential Matrix & $\square$ \\
-            Fundamental Matrix & $\square$ \\
-            Both & $\square$ \\
-        \toprule
-    \end{tabular}
-
+    TODO: Your answer here.
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-20\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
-\item Setup 3
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    TODO: Select the right option:
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Spring 2023: Due to the interruptions in class time due to the noise,
+% we have not yet covered this material in sufficient detail.
+% The questions are left here for your interset and for Fall 2024.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \pagebreak
+% \paragraph{Q4:} \textbf{[13 points]}
+% Given the algorithms that we've learned in computer vision, we know that whether we can find/calculate the essential matrix, the fundamental matrix, or both depends on the setup of the cameras and images. You are given three datasets of an object of unknown geometry:
 
-    \begin{tabular}[h]{lc}
-        \bottomrule
-            Essential Matrix & $\square$ \\
-            Fundamental Matrix & $\square$ \\
-            Both & $\square$ \\
-        \toprule
-    \end{tabular}
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-\end{enumerate}
-
-\pagebreak
-\item \textbf{[3 $\times$ 1 points]} 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-State an advantage and disadvantage of using each setup for depth reconstruction \textbf{[2 - 3 sentences]}
-\end{tcolorbox}
-
-\begin{enumerate}[(i)]
-    \item Setup 1
-    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-        \setbox0=\hbox{\parbox[t]{\textwidth}{
-            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-            TODO: Your answer to (b) (i) here.
-
-            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            }}
-        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-    \end{tcolorbox}
-    \item Setup 2
-    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-        \setbox0=\hbox{\parbox[t]{\textwidth}{
-            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-            TODO: Your answer to (b) (ii) here.
-
-            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            }}
-        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-    \end{tcolorbox}
-    \item Setup 3
-    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-        \setbox0=\hbox{\parbox[t]{\textwidth}{
-            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-            TODO: Your answer to (b) (iii) here.
-
-            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            }}
-        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-    \end{tcolorbox}
-\end{enumerate}
-
-\pagebreak
-\item \textbf{[3 $\times$ 1 points]}
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Name an application scenario for each of the different setups \textbf{[1 - 2 sentences]}
-\end{tcolorbox}
-\begin{enumerate}[(i)]
-    \item Setup 1
-    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-        \setbox0=\hbox{\parbox[t]{\textwidth}{
-            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-            TODO: Your answer to (c) (i) here.
-
-            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            }}
-        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-    \end{tcolorbox}
-    \item Setup 2
-    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-        \setbox0=\hbox{\parbox[t]{\textwidth}{
-            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-            TODO: Your answer to (c) (ii) here.
-
-            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            }}
-        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-    \end{tcolorbox}
-    \item Setup 3
-    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-        \setbox0=\hbox{\parbox[t]{\textwidth}{
-            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-            TODO: Your answer to (c) (iii) here.
-
-            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            }}
-        \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-    \end{tcolorbox}
-\end{enumerate}
-
-\pagebreak
-\item \textbf{[4 points]}
-The differences between the collection methods for these three datasets are crucial in terms of what calculations are possible - and therein which applications they are most useful in.
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black] 
- From a non-technical standpoint, can you think of a scenario why you may prefer one of these data collection setups to another? Why is it important to know what data collection methods have been used to build a particular dataset? \textbf{[5-7 sentences]}
-\end{tcolorbox}
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Your answer to (d) here.
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-18\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \paragraph{A6:} Your answer here.
-% Uncomment the stencil below and fill in your solution.
+% \begin{enumerate}[(i)]
+% \item A video circling the object;
+% \item A stereo pair of calibrated cameras capturing two images of the object; and
+% \item Two images of the same object on the internet (e.g. Colosseum) at different camera poses but with unknown intrinsics.
+% \end{enumerate}
 
 % \begin{enumerate}[(a)]
-
+% \item \textbf{[3 $\times$ 1 points]}
+% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+% For each of the above setups, what calculations can we perform?
+% \end{tcolorbox}
+% \begin{enumerate}[(i)]
 % \item
+% Setup 1
 
-% \item
+% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+% \setbox0=\hbox{\parbox[t]{\textwidth}{
+%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \item
+%     TODO: Select the right option:
 
+%     \begin{tabular}[h]{lc}
+%         \bottomrule
+%             Essential Matrix & $\square$ \\
+%             Fundamental Matrix & $\square$ \\
+%             Both & $\square$ \\
+%         \toprule
+%     \end{tabular}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Please leave the pagebreak
+%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     }
+%     }
+% \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
+% \end{tcolorbox}
+
+% \item Setup 2
+% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+% \setbox0=\hbox{\parbox[t]{\textwidth}{
+%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%     TODO: Select the right option:
+
+%     \begin{tabular}[h]{lc}
+%         \bottomrule
+%             Essential Matrix & $\square$ \\
+%             Fundamental Matrix & $\square$ \\
+%             Both & $\square$ \\
+%         \toprule
+%     \end{tabular}
+
+%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     }}
+% \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
+% \end{tcolorbox}
+
+% \item Setup 3
+% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+% \setbox0=\hbox{\parbox[t]{\textwidth}{
+%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%     TODO: Select the right option:
+
+%     \begin{tabular}[h]{lc}
+%         \bottomrule
+%             Essential Matrix & $\square$ \\
+%             Fundamental Matrix & $\square$ \\
+%             Both & $\square$ \\
+%         \toprule
+%     \end{tabular}
+
+%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     }}
+% \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
+% \end{tcolorbox}
+% \end{enumerate}
+
 % \pagebreak
-% \paragraph{A6 (continued):} Your answer here.
+% \item \textbf{[3 $\times$ 1 points]} 
+% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+% State an advantage and disadvantage of using each setup for depth reconstruction \textbf{[2 - 3 sentences]}
+% \end{tcolorbox}
+
+% \begin{enumerate}[(i)]
+%     \item Setup 1
+%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+%         \setbox0=\hbox{\parbox[t]{\textwidth}{
+%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%             TODO: Your answer to (b) (i) here.
+
+%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             }}
+%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
+%     \end{tcolorbox}
+%     \item Setup 2
+%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+%         \setbox0=\hbox{\parbox[t]{\textwidth}{
+%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%             TODO: Your answer to (b) (ii) here.
+
+%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             }}
+%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
+%     \end{tcolorbox}
+%     \item Setup 3
+%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+%         \setbox0=\hbox{\parbox[t]{\textwidth}{
+%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%             TODO: Your answer to (b) (iii) here.
+
+%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             }}
+%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
+%     \end{tcolorbox}
+% \end{enumerate}
+
+% \pagebreak
+% \item \textbf{[3 $\times$ 1 points]}
+% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+% Name an application scenario for each of the different setups \textbf{[1 - 2 sentences]}
+% \end{tcolorbox}
+% \begin{enumerate}[(i)]
+%     \item Setup 1
+%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+%         \setbox0=\hbox{\parbox[t]{\textwidth}{
+%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%             TODO: Your answer to (c) (i) here.
+
+%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             }}
+%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
+%     \end{tcolorbox}
+%     \item Setup 2
+%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+%         \setbox0=\hbox{\parbox[t]{\textwidth}{
+%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%             TODO: Your answer to (c) (ii) here.
+
+%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             }}
+%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
+%     \end{tcolorbox}
+%     \item Setup 3
+%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+%         \setbox0=\hbox{\parbox[t]{\textwidth}{
+%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%             TODO: Your answer to (c) (iii) here.
+
+%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             }}
+%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
+%     \end{tcolorbox}
+% \end{enumerate}
+
+% \pagebreak
+% \item \textbf{[4 points]}
+% The differences between the collection methods for these three datasets are crucial in terms of what calculations are possible - and therein which applications they are most useful in.
+% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black] 
+%  From a non-technical standpoint, can you think of a scenario why you may prefer one of these data collection setups to another? Why is it important to know what data collection methods have been used to build a particular dataset? \textbf{[5-7 sentences]}
+% \end{tcolorbox}
+% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+% \setbox0=\hbox{\parbox[t]{\textwidth}{
+%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%     TODO: Your answer to (d) here.
+
+%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     }}
+% \clipbox{0pt \dimexpr\dp0-18\baselineskip\relax{} 0in 0pt}{\copy0}
+% \end{tcolorbox}
+% \end{enumerate}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % \paragraph{A6:} Your answer here.
+% % Uncomment the stencil below and fill in your solution.
+
+% % \begin{enumerate}[(a)]
+
+% % \item
+
+% % \item
+
+% % \item
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Please leave the pagebreak
+% % \pagebreak
+% % \paragraph{A6 (continued):} Your answer here.
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Please leave the pagebreak
-\pagebreak
-\paragraph{Q5:} \textbf{[3 points]} In two-view camera geometry, what do the following epipolar lines say about the cameras' relative positions? \textbf{[1 - 2 sentences each]}
+% % Please leave the pagebreak
+% \pagebreak
+% \paragraph{Q5:} \textbf{[3 points]} In two-view camera geometry, what do the following epipolar lines say about the cameras' relative positions? \textbf{[1 - 2 sentences each]}
 
-\textit{Tip:} The Spring '22 course staff created an \href{https://browncsci1430.github.io/webpage/demos/stereo_camera_visualization/index.html}{interactive demo} to explore the different scenarios and get a better feel for epipolar geometry.
+% \textit{Tip:} The Spring '22 course staff created an \href{https://browncsci1430.github.io/webpage/demos/stereo_camera_visualization/index.html}{interactive demo} to explore the different scenarios and get a better feel for epipolar geometry.
 
-\begin{enumerate}[(a)]
-\item \textbf{[1 point]} 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Radiate out of a point on the image plane.
-\end{tcolorbox}
+% \begin{enumerate}[(a)]
+% \item \textbf{[1 point]} 
+% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+% Radiate out of a point on the image plane.
+% \end{tcolorbox}
 
-\includegraphics[width = 0.5\linewidth]{images/epipolarlines-a.png}
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \includegraphics[width = 0.5\linewidth]{images/epipolarlines-a.png}
+% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+% \setbox0=\hbox{\parbox[t]{\textwidth}{
+%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    TODO: Your answer to (a) here.
+%     TODO: Your answer to (a) here.
 
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
+%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     }}
+% \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+% \end{tcolorbox}
 
-\item \textbf{[1 point]}
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Converge to a point outside of the image plane.
-\end{tcolorbox}
+% \item \textbf{[1 point]}
+% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+% Converge to a point outside of the image plane.
+% \end{tcolorbox}
 
-\includegraphics[width = 0.5\linewidth]{images/epipolarlines-b.PNG}
+% \includegraphics[width = 0.5\linewidth]{images/epipolarlines-b.PNG}
 
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+% \setbox0=\hbox{\parbox[t]{\textwidth}{
+%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    TODO: Your answer to (b) here.
+%     TODO: Your answer to (b) here.
 
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
+%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     }}
+% \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+% \end{tcolorbox}
 
-\item \textbf{[1 point]} 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+% \item \textbf{[1 point]} 
+% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 
-% OLD QUESTION:
-%What might you need to change about your fundamental matrix calculations if you obtained the following epipolar lines?%
+% % OLD QUESTION:
+% %What might you need to change about your fundamental matrix calculations if you obtained the following epipolar lines?%
 
-Notice the misalignment of the epipolar lines in the image below? What went wrong in the calculation of the fundamental matrix and how can we fix it?
+% Notice the misalignment of the epipolar lines in the image below? What went wrong in the calculation of the fundamental matrix and how can we fix it?
 
-\textit{Hint:} Check slides from the lecture on stereo geometry.
-\end{tcolorbox}
+% \textit{Hint:} Check slides from the lecture on stereo geometry.
+% \end{tcolorbox}
 
-\includegraphics[width = 0.5\linewidth]{images/epipolarlines-c.PNG}
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \includegraphics[width = 0.5\linewidth]{images/epipolarlines-c.PNG}
+% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+% \setbox0=\hbox{\parbox[t]{\textwidth}{
+%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    TODO: Your answer to (c) here.
+%     TODO: Your answer to (c) here.
 
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-\end{enumerate}
+%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     }}
+% \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+% \end{tcolorbox}
+% \end{enumerate}
 
 
 
