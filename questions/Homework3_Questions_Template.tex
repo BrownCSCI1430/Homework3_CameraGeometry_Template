@@ -47,7 +47,7 @@
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,bm}
 \usepackage{xcolor}
 \usepackage[colorlinks = true,
             linkcolor = blue,
@@ -60,7 +60,6 @@
 \usepackage{times}
 \usepackage[shortlabels]{enumitem}
 \setlist[enumerate]{topsep=0pt}
-\usepackage{amsmath}
 \usepackage{framed}
 \usepackage{mdframed}
 \usepackage{xcolor}
@@ -85,7 +84,8 @@
 \or \textbf{instructions}
 \or \textbf{Q1 (a)}
 \or \textbf{Q1 (b)}
-\or \textbf{Q1 (c) - (d)}
+\or \textbf{Q1 (c)}
+\or \textbf{Q1 (d)}
 \or \textbf{Q2 (a) (i)}
 \or \textbf{Q2 (a) (ii), (b)}
 \or \textbf{Q2 (c)}
@@ -150,10 +150,12 @@ This document is a template with specific answer regions and a fixed number of p
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Q1:} \textbf{[10 points]}
-Suppose we have a quadrilateral $ABCD$ and a transformed version $A'B'C'D'$ as seen in the image below.
+In 2D, suppose we have two quadrilaterals $ABCD$ and $A'B'C'D'$ as seen in the image below. They look like they might be related by a rotation and a non-uniform scale transformation.
+
+Given the corresponding points, we will attempt to find $\bm{M}$ using linear least squares.
 
 \begin{minipage}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{images/quadrilaterals.jpg}
+    \includegraphics[width=\linewidth]{images/quads_lstsq.png}
 \end{minipage}
 \begin{minipage}{0.5\linewidth}
     \begin{equation}
@@ -165,33 +167,31 @@ Suppose we have a quadrilateral $ABCD$ and a transformed version $A'B'C'D'$ as s
     \end{split}
     \quad\quad\quad
     \begin{split}
-    A'&=(-0.3, 1.3)\\
-    B'&=(0.5, 1.1)\\
-    C'&=(0.3, 1.8)\\
-    D'&=(-0.3, 2.6)
+    A'&=(-0.9, 0.8)\\
+    B'&=(-0.1, 1.3)\\
+    C'&=(-0.4, 1.9)\\
+    D'&=(-1.25, 2.55)
     \end{split}
     \end{equation}
 \end{minipage}
 
-Let's assume that each point in $ABCD$ was approximately mapped to its corresponding point in $A'B'C'D'$ by a $2\times2$ transformation matrix $\mathbf{M}$.
+Let's try and map each point in $ABCD$ to its corresponding point in $A'B'C'D'$ by a $2\times2$ transformation matrix $\bm{M}$, as we know this can represent rotation and scale.
 
-e.g. if $\mathbf{x} = \begin{pmatrix} x \\ y \end{pmatrix}$ and $\mathbf{x'} = \begin{pmatrix} x' \\ y' \end{pmatrix}$, and $\mathbf{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix}$
+e.g. if $\bm{x} = \begin{pmatrix} x \\ y \end{pmatrix}$ and $\bm{x'} = \begin{pmatrix} x' \\ y' \end{pmatrix}$, and $\bm{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix}$
 
-then $\begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} \times \begin{pmatrix} x \\ y \end{pmatrix} \approx \begin{pmatrix} x' \\ y'  \end{pmatrix}$
-
-We would like to approximate $\mathbf{M}$ using least squares for linear regression.
+then $\begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} \times \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} x' \\ y'  \end{pmatrix}$
 
 \begin{enumerate}[(a)]
-\item \textbf{[1 point]} 
+\item \textbf{[2 point]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Rewrite the equation $\mathbf{M} \times \mathbf{x} \approx \mathbf{x'}$ into a pair of linear equations by expanding the matrix multiplication.
+Rewrite $\bm{M}\bm{x} = \bm{x'}$ as a pair of linear equations by expanding the matrix multiplication. Define these algebraically with $x, y, x', y',$ or $0$.
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    TODO: Replace each of the `$\_\_$' below with $x, y, x', y',$ or $0$.
+    TODO: Replace each of the `$\_\_$' below.
     \begin{align*}
     \begin{cases}
         \_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
@@ -206,17 +206,18 @@ Rewrite the equation $\mathbf{M} \times \mathbf{x} \approx \mathbf{x'}$ into a p
 
 \pagebreak
 \item \textbf{[2 points]}
-With quadrilaterals, there are 4 points that transform. We can form 8 such equations (2 for each point) that use the same transformation matrix $\mathbf{M}$.
+Systems of linear equations are denoted in the form $\bm{A}\bm{x} = \bm{b}$, where the vector $\bm{x}$ holds our entries of $\bm{M}$. 
+To estimate the four parameters of $\bm{M}$, we will need four equations in our system such that it is \emph{determined}. 
 
-From these pairs of equations for each $x$--$x'$, $y$--$y'$ correspondence, we can construct a matrix $\mathbf{Q}$ and column vector $\mathbf{b}$ that satisfy
+But, as quadrilaterals have four points, we could form a system of eight equations (two for each point) that is said to be \emph{overdetermined}. In this case, it is possible to find values for $\bm{M}$ that minimize the distance (or residual error) between the approximated values for $X'$ and the real $X'$ values, i.e., that minimize $||\bm{A}\bm{x} - \bm{b}||_2$.
+
+Form eight equations from the four $x$--$x'$, $y$--$y'$ correspondences, and construct a matrix $\bm{A}$ and column vector $\bm{b}$ that satisfy
 \begin{align*}
-    \mathbf{Q} \times \begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} = \mathbf{b}
+    \bm{A} \times \begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} = \bm{b}
 \end{align*}
 
-\emph{Note:} Systems of linear equations are typically denoted in the form $\mathbf{A} \times \mathbf{x} = \mathbf{b}$, but since we have already denoted $\mathbf{A}$ and $x$, we'll use the variables $\mathbf{Q} \times \mathbf{m} = \mathbf{b}$
-
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Find $\mathbf{Q}$ and $\mathbf{b}$:\\
+Declare $\bm{A}$ and $\bm{b}$:\\
 
 Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ and $A'B'C'D'$.
 \end{tcolorbox}
@@ -256,34 +257,53 @@ Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ 
 \end{tcolorbox}
 
 \pagebreak
-\item \textbf{[1 point]} Our problem is now over-constrained, so we want to find values for $m_{i,j}$ that minimize the squared error between the approximated values for $X'$ and the real $X'$ values, i.e., we want to minimize $||\mathcal{Q} \times m - b||$. 
+\item \textbf{[2 point]} To find a solution to our system, we need to invert $\bm{A}$ even though $\bm{A}$ is non-square. We can use the pseudoinverse of $\bm{A}$, written as $\bm{A}^+$. Left multiplying it by both sides gives us:
 \begin{align*}
-\intertext{To do this we use singular value decomposition to find the pseudoinverse of $\mathcal{Q}$, written as $\mathcal{Q}^\dagger$. We then multiply it by both sides, giving us:}
- \mathcal{Q}^\dagger \mathcal{Q}m &= \mathcal{Q}^\dagger b\\
- \quad m &\approx \mathcal{Q}^\dagger b.
+ \bm{A}^+ \bm{A}\bm{x} &= \bm{A}^+ \bm{b}\\
+ \quad \bm{x} &= \bm{A}^+ \bm{b}.
 \end{align*}
 
-Thankfully, the computer can do all of this for us! \texttt{numpy.linalg.lstsq()} takes in our $\mathcal{Q}$ matrix and $b$ vector, and returns approximations for $m$. Plug the values you wrote in part (c) into that function and write the returned $\mathcal{M}$ matrix here.
+As long as $\bm{A}$ has a pseudoinverse, this solution minimizes $||\bm{A}\bm{x} - \bm{b}||_2$. This is the closed-form least squares solution, where $\bm{x} = (\bm{A}^\top \bm{A})^{-1}\bm{A}^\top\bm{b}$ and where $\bm{A}^+ = (\bm{A}^\top \bm{A})^{-1}\bm{A}^\top$.
 
-\textit{Note:} You may need to reshape your output from \texttt{linalg.lstsq} to get the right dimensions.
+We can compute the pseudoinverse from the singular value decomposition. In python, \texttt{numpy.linalg.lstsq()} will handle this for us. It takes as input $\bm{A}$ and $\bm{b}$, and returns a solution for $\bm{x}$ along with the residual error. Plug the values you wrote in part (c) into that function and write the returned $\bm{M}$ matrix here with the residual error.
+
+\textit{Note:} You may need to reshape your output from \texttt{linalg.lstsq}.
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Replace each of the `$\_\_$' below with the value of $m_{i, j}$:
+Replace each `$\_\_$' below with the value of $m_{i, j}$ and state the residual:
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: your answer for (c) here
+    Residual error: xxx
     \begin{align*}
-        M = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} = \begin{pmatrix} \_\_ & \_\_ \\ \_\_ & \_\_ \end{pmatrix}
+        \bm{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} = \begin{pmatrix} \_\_ & \_\_ \\ \_\_ & \_\_ \end{pmatrix}
     \end{align*}
 
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
 \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
+
+\pagebreak
+\item \textbf{[4 point]} If the residual is zero (or zero to machine numerical precision), then we can confirm our initial hypothesis that the transformation is a rotation and a scale. If it is not, then we need a transformation with more degrees of freedom.
+
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+    Determine what kind of transformation it is by forming a system of linear equations and determining a matrix $\bm{M}$ that produces zero residual error (to machine numerical precision). 
+    
+    Write out your system's $\bm{A}$ and $\bm{b}$ matrices as in (b), state $\bm{M}$ and the residual as in (c), and state which kind of transformation it is.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+    
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-24\baselineskip\relax{} 0in 0pt}{\copy0}
+    \end{tcolorbox}
 
 \end{enumerate}
 
@@ -864,7 +884,7 @@ The differences between the collection methods for these three datasets are cruc
 Radiate out of a point on the image plane.
 \end{tcolorbox}
 
-\includegraphics[width = 0.5\linewidth]{images/epipolarlines-a.PNG}
+\includegraphics[width = 0.5\linewidth]{images/epipolarlines-a.png}
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
