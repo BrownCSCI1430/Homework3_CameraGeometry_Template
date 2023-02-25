@@ -136,7 +136,7 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
     are inliners with respect to best_Fmatrix
     best_inlier_residual is the error induced by best_Fmatrix
 
-    :return: best_Fmatrix, inliers1, inliers2, inlierResidual
+    :return: best_Fmatrix, inliers1, inliers2, best_inlier_residual
     """
     # DO NOT TOUCH THE FOLLOWING LINES
     random.seed(0)
