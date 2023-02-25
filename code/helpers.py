@@ -139,18 +139,33 @@ def show_point_cloud(points3d, colors):
     """
     Show 3D points with their corresponding colors
     """
-    fig = go.Figure(data=[go.Scatter3d(
-        x=points3d[:, 0],
-        y=points3d[:, 1],
-        z=points3d[:, 2],
-        mode='markers',
-        marker=dict(
-            size=2,
-            color=colors,
-            opacity=1
-        )
-    )])
+    # matplotlib version
+    #
+    fig = plt.figure(figsize = (8, 8))
+    fig.canvas.set_window_title("Recovered 3D points.")
+    
+    ax = plt.axes(projection ="3d")
+    ax.scatter3D( points3d[:, 0], points3d[:, 1], points3d[:, 2], color=colors )
 
-    # tight layout
-    fig.update_layout(margin=dict(l=0, r=0, b=0, t=0))
-    fig.show()
+    plt.title("Reconstructed 3D points")
+    plt.show()
+
+    #
+    # Matplotlib can be slow with many 3D points.
+    # Plotly is an alternative; here's an implementation.
+    #
+    # fig = go.Figure(data=[go.Scatter3d(
+    #     x=points3d[:, 0],
+    #     y=points3d[:, 1],
+    #     z=points3d[:, 2],
+    #     mode='markers',
+    #     marker=dict(
+    #         size=2,
+    #         color=colors,
+    #         opacity=1
+    #     )
+    # )])
+
+    # # tight layout
+    # fig.update_layout(margin=dict(l=0, r=0, b=0, t=0))
+    # fig.show()
