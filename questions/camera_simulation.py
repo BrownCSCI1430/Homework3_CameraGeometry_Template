@@ -33,7 +33,7 @@ def calculate_camera_matrix(tx, ty, tz, alpha, beta, gamma, fx, fy, skew, u, v):
     :param fx, fy: focal length of camera
     :param skew: camera's skew
     :param u, v: image center coordinates
-    :return: [3 x 4] NumPy array of the camera matrix, [3 x 4] NumPy array of the instrinsic matrix, [3 x 4] NumPy array of the extrinsic matrix
+    :return: [3 x 4] NumPy array of the camera matrix, [3 x 3] NumPy array of the instrinsic matrix, [3 x 4] NumPy array of the extrinsic matrix
     """
     ########################
     # TODO: Your code here #
