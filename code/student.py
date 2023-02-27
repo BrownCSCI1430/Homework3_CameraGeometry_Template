@@ -49,12 +49,12 @@ def calculate_projection_matrix(image, markers):
     ########################
     # TODO: Your code here #
     ########################
-    # This M matrix came from a call to rand(3,4). It leads to a high residual.
+    # # Placeholder values. This M matrix came from a call to rand(3,4). It leads to a high residual.
     print('Randomly setting matrix entries as a placeholder')
     M = np.array([[0.1768, 0.7018, 0.7948, 0.4613],
                   [0.6750, 0.3152, 0.1136, 0.0480],
                   [0.1020, 0.1725, 0.7244, 0.9932]])
-    residual = 7 # Arbitrary stencil code initial value
+    residual = 7 # Arbitrary stencil code initial value placeholder
 
     return M, residual
 
@@ -116,7 +116,7 @@ def estimate_fundamental_matrix(points1, points2):
 
     # Arbitrary intentionally incorrect Fundamental matrix placeholder
     F_matrix = np.array([[0, 0, -.0004], [0, 0, .0032], [0, -0.0044, .1034]])
-    residual = 5 # Arbitrary stencil code initial value
+    residual = 5 # Arbitrary stencil code initial value placeholder
 
     return F_matrix, residual
 
@@ -148,10 +148,11 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
 
     # Your RANSAC loop should contain a call to your 'estimate_fundamental_matrix()'
 
+    # Placeholder values
     best_Fmatrix = estimate_fundamental_matrix(matches1[0:9, :], matches2[0:9, :])
     best_inliers_a = matches1[0:29, :]
     best_inliers_b = matches2[0:29, :]
-    best_inlier_residual = 5 # Arbitrary stencil code initial value
+    best_inlier_residual = 5 # Arbitrary stencil code initial value placeholder.
 
     # For your report, we ask you to visualize RANSAC's 
     # convergence over iterations. 
