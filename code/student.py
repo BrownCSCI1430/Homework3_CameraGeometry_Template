@@ -94,7 +94,8 @@ def estimate_fundamental_matrix(points1, points2):
     points1 and points2. The fundamental matrix will constrain a point to lie
     along a line within the second image - the epipolar line. Fitting a
     fundamental matrix to a set of points will try to minimize the error of
-    all points to their respective epipolar lines.
+    all points to their respective epipolar lines. The residual can be computed 
+    as the difference from the known geometric constraint that x^T F x' = 0.
 
     points1 is an [n x 2] matrix of 2D coordinate of points on Image A
     points2 is an [n x 2] matrix of 2D coordinate of points on Image B
