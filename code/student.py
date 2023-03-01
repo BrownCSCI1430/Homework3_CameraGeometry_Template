@@ -91,11 +91,10 @@ def normalize_coordinates(points):
 def estimate_fundamental_matrix(points1, points2):
     """
     Estimates the fundamental matrix given set of point correspondences in
-    points1 and points2. The fundamental matrix will transform one set of 
-    points into estimates of the positions of a second set of points, 
-    e.g., estimating F from points1 to points2 will let us produce points2'. 
-    The difference between points2 and points2' is the residual error in the 
-    fundamental matrix estimation.
+    points1 and points2. The fundamental matrix will constrain a point to lie
+    along a line within the second image - the epipolar line. Fitting a
+    fundamental matrix to a set of points will try to minimize the error of
+    all points to their respective epipolar lines.
 
     points1 is an [n x 2] matrix of 2D coordinate of points on Image A
     points2 is an [n x 2] matrix of 2D coordinate of points on Image B
