@@ -196,7 +196,7 @@ inlier_residuals = []
 def visualize_ransac():
     iterations = np.arange(len(inlier_counts))
     best_inlier_counts = np.maximum.accumulate(inlier_counts)
-    best_inlier_residuals = np.maximum.accumulate(inlier_residuals)
+    best_inlier_residuals = np.minimum.accumulate(inlier_residuals)
 
     plt.figure(1, figsize = (8, 8))
     plt.subplot(211)
