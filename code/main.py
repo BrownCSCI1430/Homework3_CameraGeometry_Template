@@ -96,8 +96,9 @@ def main():
             student.inlier_residuals = []
 
         print('Calculating 3D points for accepted matches...')
-        points3d += student.matches_to_3d(inliers1, inliers2, M1, M2).tolist()
-        points3d_color += [tuple(image1[int(point[1]), int(point[0]), :] / 255.0) for point in inliers1]
+        points3d_found, inliers1_from3d, inliers1_from3d = student.matches_to_3d(inliers1, inliers2, M1, M2)
+        points3d += points3d_found.tolist()
+        points3d_color += [tuple(image1[int(point[1]), int(point[0]), :] / 255.0) for point in inliers1_from3d]
 
     for key in markers:
         points3d += markers[key]

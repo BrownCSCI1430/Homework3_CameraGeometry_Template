@@ -164,29 +164,42 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
 
     return best_Fmatrix, best_inliers_a, best_inliers_b, best_inlier_residual
 
-def matches_to_3d(points1, points2, M1, M2):
+def matches_to_3d(points2d_1, points2d_2, M1, M2):
     """
-    Given two sets of points and two projection matrices, you will need to solve
+    Given two sets of corresponding 2D points and two projection matrices, you will need to solve
     for the ground-truth 3D points using np.linalg.lstsq().
 
-    :param points1: [N x 2] points from image1
-    :param points2: [N x 2] points from image2
-    :param M1: [3 x 4] projection matrix of image2
+    You may find that some 3D points have high residual/error, in which case you 
+    can return a subset of the 3D points only.
+    In this case, also return subsets of the initial points2d_1, points2d_2 that
+    correspond to this new inlier set.
+
+    N is the input number of point correspondences
+    M is the output number of 3D points / inlier point correspondences; M could equal N.
+
+    :param points2d_1: [N x 2] points from image1
+    :param points2d_2: [N x 2] points from image2
+    :param M1: [3 x 4] projection matrix of image1
     :param M2: [3 x 4] projection matrix of image2
-    :return: [N x 3] NumPy array of solved ground truth 3D points for each pair of 2D
-    points from points1 and points2
+
+    :return points3d: [M x 3] NumPy array of solved ground truth 3D points for each pair of 2D
+    points from points2d_1 and points2d_2
+    :return points2d_1_inlier: [M x 2] points as subset of inlier points from points2d_1
+    :return points2d_2_inlier: [M x 2] points as subset of inlier points from points2d_2
     """
     ########################
     # TODO: Your code here #
 
     # Initial random values for 3D points
-    points3d = np.random.rand(len(points1),3)
+    points3d = np.random.rand(len(points2d_1),3)
+    points2d_1_inlier = np.array(points2d_1, copy=True)
+    points2d_2_inlier = np.array(points2d_2, copy=True)
 
     # Solve for ground truth points
 
     ########################
 
-    return points3d
+    return points3d, points2d_1_inlier, points2d_2_inlier
 
 
 #/////////////////////////////DO NOT CHANGE BELOW LINE///////////////////////////////
