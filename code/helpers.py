@@ -73,7 +73,7 @@ def show_matches(image1, image2, points1, points2):
     image2 = img_as_float32(image2)
 
     fig = plt.figure()
-    fig.canvas.set_window_title("Matches between image pair.")
+    fig.canvas.manager.set_window_title("Matches between image pair.")
     plt.axis('off')
 
     matches_image = np.hstack([image1, image2])
