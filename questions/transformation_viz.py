@@ -2,24 +2,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 
-def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '--translation',
-        action='store_true',
-        help='If true, then the transformation matrix should be 2x3. And in this case you should pad the starting points with a row of ones'
-    )
-    return parser.parse_args()
+# def parse_args():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument(
+#         '--translation',
+#         action='store_true',
+#         help='If true, then the transformation matrix should be 2x3. And in this case you should pad the starting points with a row of ones'
+#     )
+#     return parser.parse_args()
 
-def calculate_matrix(starting_points, end_points, translation=True):
+def calculate_matrix(starting_points, end_points):
     """
     This function should calculate the transformation matrix using the given
     starting and ending points. We recommend using the least squares solution
     to solve for the transformation matrix. See the handout, Q1 of the written
     questions, or the lecture slides for how to set up these equations.
-    If translation is true, then the transformation matrix should be 2x3. And 
-    in this case you should pad the starting points with a row of ones
-    If translation is false, then the transformation matrix should be 2x2.
+    If we are using an affine transformation, then the transformation matrix 
+    should be 2x3. And in this case you should pad the starting points with a 
+    row of ones If we are not using an affine transformation (no translation), 
+    then the transformation matrix should be 2x2.
 
     :param starting_points: 2xN array of points in the starting image
     :param end_points: 2xN array of points in the ending image
@@ -28,36 +29,42 @@ def calculate_matrix(starting_points, end_points, translation=True):
     #### start student code ####
     # we are solving for the matrix M such that M * starting_points = end_points
     # we can rewrite this as M * starting_points - end_points = 0
-    if translation:
-        A = np.zeros((2*starting_points.shape[1], 6))
-        for i in range(starting_points.shape[1]):
-            A[2*i:2*i+2, :] = np.array([[starting_points[0, i], starting_points[1, i], 1, 0, 0, 0], [0, 0, 0, starting_points[0, i], starting_points[1, i], 1]])
-        b = end_points.T.reshape(-1, 1)
-        x, residual = np.linalg.lstsq(A, b, rcond=0)[:2]
-        return x.reshape((2, 3)), residual
-    else:
-        A = np.zeros((2*starting_points.shape[1], 4))
-        for i in range(starting_points.shape[1]):
-            A[2*i:2*i+2, :] = np.array([[starting_points[0, i], starting_points[1, i], 0, 0], [0, 0, starting_points[0, i], starting_points[1, i]]])
-        b = end_points.T.reshape(-1, 1)
-        x, residual = np.linalg.lstsq(A, b, rcond=5)[:2]
-        return x.reshape((2, 2)), residual
-    
-
     ## TODO 1: transform the point coordinates to the A matrix and b vector
-    num_points = starting_points.shape[1]
-    num_transforms = starting_points.shape[0] ** 2
-    A = np.random.random((2*num_points, num_transforms))
-    b = np.random.random((2*num_points, ))
+    ## for question 1(d)
+    ## for affine transformation, you will be dealing with a transformation matrix of 6 parameters
+    ## think about how to change the shape of A to accomodate the extra parameters
+    A = np.array(
+            [
+                [0, 0, 0, 0], 
+                [0, 0, 0, 0], 
+                [0, 0, 0, 0], 
+                [0, 0, 0, 0], 
+                [0, 0, 0, 0], 
+                [0, 0, 0, 0], 
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ]
+        ) 
+    b = np.array(
+            [
+                [0], 
+                [0], 
+                [0], 
+                [0], 
+                [0], 
+                [0], 
+                [0],
+                [0]
+            ]
+        )
+    
     ## TODO 2: solve for the least squares solution (use the np.linalg.lstsq function)
-    x, residual = np.random.random((num_transforms, )), np.random.random((1,))
+    x, residual = np.linalg.lstsq(A, b, rcond=5)[:2]
     ## TODO 3: reshape the x vector into a square matrix
-    x = x.reshape(starting_points.shape[0], starting_points.shape[0])
+    x = x.reshape(2, 2)
     return x, residual
 
-def transform(starting_points, transformation_matrix, translation=True):
-    if translation:
-        starting_points = np.concatenate((starting_points, np.ones((1, starting_points.shape[1]))), axis=0)
+def transform(starting_points, transformation_matrix):
     return transformation_matrix @ starting_points
 
 
@@ -73,7 +80,7 @@ def main():
     ])
 
     ## fill in your computation here
-    transformation_matrix, residual = calculate_matrix(starting_points, end_points, translation)
+    transformation_matrix, residual = calculate_matrix(starting_points, end_points)
     print(f"The residual of your transformation is {residual}")
 
     # this is my solution, delete this when publishing
@@ -82,9 +89,9 @@ def main():
     #         [0.332, -1.0808],
     #         [0.876, 0.1256]
     #     ]
-    # 
+    # )
 
-    transformed_points = transform(starting_points, transformation_matrix, translation)
+    transformed_points = transform(starting_points, transformation_matrix)
     print(transformed_points)
 
     fig, ax = plt.subplots()
@@ -102,6 +109,4 @@ def main():
 
 
 if __name__ == '__main__':
-    args = parse_args()
-    translation = args.translation
     main()
