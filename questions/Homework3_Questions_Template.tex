@@ -263,7 +263,7 @@ As long as $\bm{A}$ has a pseudoinverse, this solution minimizes $||\bm{A}\bm{x}
 
 We can compute the pseudoinverse from the singular value decomposition. In python, \texttt{numpy.linalg.lstsq()} will handle this for us. It takes as input $\bm{A}$ and $\bm{b}$, and returns a solution for $\bm{x}$ along with the residual error. Plug the values you wrote in part (c) into that function and write the numeric values of the estimated $\bm{M}$ matrix here with the numeric value of the residual error.
 
-\textit{Note:} You may need to reshape your output from \texttt{linalg.lstsq}.
+\textit{Note:} You may need to reshape your output from \texttt{linalg.lstsq}. We also provided a Python script called \texttt{transformation\_viz.py} for you to visualize the transformation. Just fill in the matrix A and vector b to see how the quadrilaterals match up!
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 Replace each `$\_\_$' below with the value of $m_{i, j}$ and state the residual error:
@@ -286,7 +286,9 @@ Replace each `$\_\_$' below with the value of $m_{i, j}$ and state the residual 
 \item \textbf{[4 point]} If the residual is zero (or zero to machine numerical precision), then we can confirm our initial hypothesis that the transformation is a rotation and a scale. If it is not, then we need a transformation with more degrees of freedom.
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-    Determine what kind of transformation it is by forming a system of linear equations and determining a matrix $\bm{M}$ that produces zero residual error (to machine numerical precision). 
+    Determine what kind of transformation it is by forming a system of linear equations and determining a matrix $\bm{M}$ that produces zero residual error (to machine numerical precision). Feel free to try your implementation in 
+    \texttt{transformation\_viz.py} to see how the resulting quadrilateral matches with the ground truth.
+    \\ 
     
     Write out your system's $\bm{A}$ and $\bm{b}$ matrices as in (b), state $\bm{M}$ and the residual as in (c), and state which kind of transformation it is.
 \end{tcolorbox}
