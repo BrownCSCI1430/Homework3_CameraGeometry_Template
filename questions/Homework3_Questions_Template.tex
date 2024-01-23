@@ -9,16 +9,16 @@
 % > pdflatex thisfile.tex
 %
 % If you do not have LaTeX, your options are:
-% - Personal laptops (all common OS): http://www.latex-project.org/get/ 
 % - VSCode extension: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
 % - Online Tool: https://www.overleaf.com/ - most LaTeX packages are pre-installed here (e.g., \usepackage{}).
+% - Personal laptops (all common OS): http://www.latex-project.org/get/ 
 %
 % If you need help with LaTeX, please come to office hours.
 % Or, there is plenty of help online:
 % https://en.wikibooks.org/wiki/LaTeX
 %
 % Good luck!
-% The CSCI 1430 staff
+% Srinath and the 1430 staff
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -43,11 +43,12 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\tn}[1]{\textcolor{blue}{\textbf{JZ: #1}}}
 \documentclass[11pt]{article}
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath,amsfonts,amssymb,bm}
+\usepackage{amssymb}
 \usepackage{xcolor}
 \usepackage[colorlinks = true,
             linkcolor = blue,
@@ -60,6 +61,7 @@
 \usepackage{times}
 \usepackage[shortlabels]{enumitem}
 \setlist[enumerate]{topsep=0pt}
+\usepackage{amsmath}
 \usepackage{framed}
 \usepackage{mdframed}
 \usepackage{xcolor}
@@ -79,115 +81,144 @@
 \fancyhf{}
 \lhead{Homework 3 Questions}
 \rhead{CSCI 1430}
+
 \lfoot{\textcolor{red}{\textbf{Only}
 \ifcase\thepage
 \or \textbf{instructions}
-\or \textbf{Q1 (a)}
-\or \textbf{Q1 (b)}
-\or \textbf{Q1 (c)}
-\or \textbf{Q1 (d)}
-\or \textbf{Q2 (a) (i)}
-\or \textbf{Q2 (a) (ii), (b)}
-\or \textbf{Q2 (c)}
-\or \textbf{Q2 (c)}
-\or \textbf{Q2 (c)}
-\or \textbf{Q3 (a)}
-\or \textbf{Q3 (b)}
-\or \textbf{Q4 (a)}
-\or \textbf{Q4 (b)}
+\or \textbf{GenAI declaration}
+\or \textbf{A1 (a)}
+\or \textbf{A1(b)}
+\or \textbf{A1 (c) - (d)}
+\or \textbf{A2 (a) (i)}
+\or \textbf{A2 (a) (ii), (b)}
+\or \textbf{A2 (c)}
+\or \textbf{A2 (c)}
+\or \textbf{A2 (c)}
+\or \textbf{A3 (a)}
+\or \textbf{A3 (b)}
+\or \textbf{A4 (a)}
+\or \textbf{A4 (b)}
+\or \textbf{A4 (c)}
+% this line is commented out because we removed a subquestion from Q4
+% \or \textbf{A4 (d)}
+\or \textbf{A5 (a)}
+\or \textbf{A5 (b) - (c)}
+\or \textbf{A6 (a)}
+\or \textbf{A6 (b)}
+\or \textbf{discussion attendance}
 \or \textbf{feedback}
 \else
 \textbf{[ERROR: PAGE MISALIGNMENT]}
 \fi
 \textbf{should be on this page}
 }}
-\rfoot{\thepage/15}
+% The total number of pages is changed from 19 to 18 because we removed a subquestion from Q4
+\rfoot{\thepage/21}
 
 \date{}
 
-\title{\vspace{-1cm}Homework 3 Written Questions}
+\title{\vspace{-1cm}Homework 3 Questions}
 
 
 \begin{document}
 \maketitle
+\vspace{-2cm}
 \thispagestyle{fancy}
 
-\section*{Template Instructions}
-
-This document is a template with specific answer regions and a fixed number of pages. Given large class sizes and limited TA time, the template helps the course staff to grade efficiently and still focus on the content of your submissions. Please help us in this task:
- 
+\section*{ Document Instructions}
 \begin{itemize}
-  \item Make this document anonymous.
-  
-  \item Questions are in the orange boxes. Provide answers in the green boxes.
-  \item Use the footer to check for correct page alignment.
-
-  \item \textbf{Do NOT remove the answer box.}
-  \item \textbf{Do NOT change the size of the answer box.}
-  \item \textbf{Extra pages are not permitted unless otherwise specified.}
-  \item \textbf{Template edits or page misalignment will lead to a 10 point deduction.}
+  \item 6 questions \textbf{[10 + 8 + 4 + 10 + 3 + 12 = 47 points + 2 bonus points]}.
+  \item Fill all your answers within the answer boxes, and \textbf{please do NOT remove the answer box outlines}.
+  \item Questions are highlighted in the \textbf{orange boxes}, bonus questions are highlighted in \textbf{blue boxes}, answers should be recorded in the \textbf{green boxes}.
+  \item Include code, images, and equations where appropriate.
+  \item To identify all places where your responses are expected, search for `TODO'.
+  \item The answer box sizes have been set by the staff beforehand and will truncate your text if it goes beyond the limit. Please make sure your responses fit in the appropriate spaces. \textbf{Extra pages are not permitted unless otherwise specified.}
+  \item Make sure your submission has the right number of pages to validate page alignment sanity (check the footer).
+  \item Please make this document anonymous.
 \end{itemize}
 
-\section*{Gradescope Submission}
+\section*{ Gradescope Instructions}
 \begin{itemize}
-  \item Compile this document to a PDF and submit it to Gradescope.
-  \item Pages will be automatically assigned to the right questions on Gradescope.
+  \item When you are finished, compile this document to a PDF and submit it directly to Gradescope. 
+  \item The pages will be automatically assigned to the right questions on Gradescope \textit{assuming you do not add any unnecessary pages}. \textbf{Inconsistently assigned pages will lead to a deduction of 2 points per misaligned page (capped at a maximum 6 point deduction).}
 \end{itemize}
-
-\section*{This Homework}
-\begin{itemize}
-    \item 4 questions \textbf{[10 + 8 + 6 + 12 = 36 points]}.
-    \item Include code, images, and equations where appropriate.
-\end{itemize}
-
-% Please leave the pagebreak
 \pagebreak
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+
+\section*{Declaration of Generative AI Use}
+
+\subsection*{Reminder of Course Policy}
+
+\begin{itemize}
+    \item The use of GenAI tools (e.g., ChatGPT, Grammarly, Bard) for completing any part of this course is discouraged.
+    \item Using these tools is not needed to be successful in the class and could be detrimental to your learning experience.
+    \item If you use them, you must cite the tool you used and explain how you used it.
+    \item If you do not cite the tool, it is an academic code violation.
+    \item We will be using special tools to detect cases of unattributed GenAI use.
+\end{itemize}
+
+\subsection*{Student Declaration}
+
+\subsubsection*{Have you used generative AI tools to complete this assignment:}
+
+%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%
+
+YES $\square$ NO $\blacksquare$ % change answer to \blacksquare
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection*{If you answered YES above, describe what tools you used and what parts of the assignment you used them for below:}
+
+%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%
+
+\textit{Example: I used ChatGPT to debug my convolution implementation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
 \paragraph{Q1:} \textbf{[10 points]}
-In 2D, suppose we have two quadrilaterals $ABCD$ and $A'B'C'D'$ as seen in the image below. They look like they might be related by a rotation and a non-uniform scale transformation.
+Suppose we have a quadrilateral $ABCD$ and a transformed version $A'B'C'D'$ as seen in the image below.
 
-Given the corresponding points, we will attempt to find $\bm{M}$ using linear least squares.
+\includegraphics[width=\textwidth * 5/10]{images/quadrilaterals.jpg}
 
-\begin{minipage}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{images/quads_lstsq.png}
-\end{minipage}
-\begin{minipage}{0.5\linewidth}
-    \begin{equation}
-    \begin{split}
-    A&=(1, 1)\\
-    B&=(1.5, 0.5)\\
-    C&=(2, 1)\\
-    D&=(2.5, 2)
-    \end{split}
-    \quad\quad\quad
-    \begin{split}
-    A'&=(-0.9, 0.8)\\
-    B'&=(-0.1, 1.3)\\
-    C'&=(-0.4, 1.9)\\
-    D'&=(-1.25, 2.55)
-    \end{split}
-    \end{equation}
-\end{minipage}
+\begin{equation}
+\begin{split}
+A&=(1, 1)\\
+B&=(1.5, 0.5)\\
+C&=(2, 1)\\
+D&=(2.5, 2)
+\end{split}
+\quad\quad\quad
+\begin{split}
+A'&=(-0.3, 1.3)\\
+B'&=(0.5, 1.1)\\
+C'&=(0.3, 1.8)\\
+D'&=(-0.3, 2.6)
+\end{split}
+\end{equation}
 
-Let's try and map each point in $ABCD$ to its corresponding point in $A'B'C'D'$ by a $2\times2$ transformation matrix $\bm{M}$, as we know this can represent rotation and scale.
+Let's assume that each point in $ABCD$ was approximately mapped to its corresponding point in $A'B'C'D'$ by a $2\times2$ transformation matrix $\mathcal{M}$.
 
-e.g. if $\bm{x} = \begin{pmatrix} x \\ y \end{pmatrix}$ and $\bm{x'} = \begin{pmatrix} x' \\ y' \end{pmatrix}$, and $\bm{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix}$
+e.g. if $X = \begin{pmatrix} x \\ y \end{pmatrix}$ and $X' = \begin{pmatrix} x' \\ y' \end{pmatrix}$, and $\mathcal{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix}$
 
-then $\begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} \times \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} x' \\ y'  \end{pmatrix}$
+then $\begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} \times \begin{pmatrix} x \\ y \end{pmatrix} \approx \begin{pmatrix} x' \\ y'  \end{pmatrix}$
+
+We would like to approximate $\mathcal{M}$ using least squares for linear regression.
 
 \begin{enumerate}[(a)]
-\item \textbf{[2 point]} 
+\item \textbf{[1 point]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Rewrite $\bm{M}\bm{x} = \bm{x'}$ as a pair of linear equations by expanding the matrix multiplication. Define these algebraically with $x, y, x', y',$ or $0$.
+Rewrite the equation $\mathcal{M} \times X \approx X'$ into a pair of linear equations by expanding the matrix multiplication.
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    TODO: Replace each of the `$\_\_$' below.
+    TODO: Replace each of the `$\_\_$' below with $x, y, x', y',$ or $0$.
     \begin{align*}
     \begin{cases}
         \_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
@@ -200,20 +231,18 @@ Rewrite $\bm{M}\bm{x} = \bm{x'}$ as a pair of linear equations by expanding the 
 \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
-\pagebreak
 \item \textbf{[2 points]}
-Systems of linear equations are denoted in the form $\bm{A}\bm{x} = \bm{b}$, where the vector $\bm{x}$ holds our entries of $\bm{M}$. 
-To estimate the four parameters of $\bm{M}$, we will need four equations in our system such that it is \emph{determined}. 
+With the quadrilaterals in question, there are 4 points that transform so we should expect to see 8 such equations (2 for each point) that use the transformation equation $\mathcal{M}$.
 
-But, as quadrilaterals have four points, we could form a system of eight equations (two for each point) that is said to be \emph{overdetermined}. In this case, it is possible to find values for $\bm{M}$ that minimize the distance (or residual error) between the approximated values for $X'$ and the real $X'$ values, i.e., that minimize $||\bm{A}\bm{x} - \bm{b}||_2$.
-
-Form eight equations from the four $x$--$x'$, $y$--$y'$ correspondences, and construct a matrix $\bm{A}$ and column vector $\bm{b}$ that satisfy
+From these pairs of equations for each $x$-$x'$ correspondence, we can construct a matrix $\mathcal{Q}$ and column vector $b$ that satisfy
 \begin{align*}
-    \bm{A} \times \begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} = \bm{b}
+    \mathcal{Q} \times \begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} = b
 \end{align*}
 
+\emph{Note:} Systems of linear equations are typically written in the form $\mathcal{A} \times x = b$, but since we have already defined $\mathcal{A}$ and $x$, we're writing it as $\mathcal{Q} \times m = b$
+
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Declare $\bm{A}$ and $\bm{b}$:\\
+Find $\mathcal{Q}$ and $b$:\\
 
 Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ and $A'B'C'D'$.
 \end{tcolorbox}
@@ -252,29 +281,28 @@ Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ 
 \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
-\pagebreak
-\item \textbf{[2 point]} To find a solution to our system, we need to invert $\bm{A}$ even though $\bm{A}$ is non-square. We can use the pseudoinverse of $\bm{A}$, written as $\bm{A}^+$. Left multiplying it by both sides gives us:
+\item \textbf{[1 point]} Our problem is now over-constrained, so we want to find values for $m_{i,j}$ that minimize the squared error between the approximated values for $X'$ and the real $X'$ values, i.e., we want to minimize $||\mathcal{Q} \times m - b||$. 
 \begin{align*}
- \bm{A}^+ \bm{A}\bm{x} &= \bm{A}^+ \bm{b}\\
- \quad \bm{x} &= \bm{A}^+ \bm{b}.
+\intertext{To do this we use singular value decomposition to find the pseudoinverse of $\mathcal{Q}$, written as $\mathcal{Q}^\dagger$. We then multiply it by both sides, giving us:}
+ \mathcal{Q}^\dagger \mathcal{Q}m &= \mathcal{Q}^\dagger b\\
+ \quad m &\approx \mathcal{Q}^\dagger b.
 \end{align*}
 
-As long as $\bm{A}$ has a pseudoinverse, this solution minimizes $||\bm{A}\bm{x} - \bm{b}||_2$. This is the closed-form least squares solution, where $\bm{x} = (\bm{A}^\top \bm{A})^{-1}\bm{A}^\top\bm{b}$ and where $\bm{A}^+ = (\bm{A}^\top \bm{A})^{-1}\bm{A}^\top$.
+Thankfully, the computer can do all of this for us! \texttt{numpy.linalg.lstsq()} takes in our $\mathcal{Q}$ matrix and $b$ vector, and returns approximations for $m$. Plug the values you wrote in part (c) into that function and write the returned $\mathcal{M}$ matrix here.
 
-We can compute the pseudoinverse from the singular value decomposition. In python, \texttt{numpy.linalg.lstsq()} will handle this for us. It takes as input $\bm{A}$ and $\bm{b}$, and returns a solution for $\bm{x}$ along with the residual error. Plug the values you wrote in part (c) into that function and write the numeric values of the estimated $\bm{M}$ matrix here with the numeric value of the residual error.
-
-\textit{Note:} You may need to reshape your output from \texttt{linalg.lstsq}. We also provided a Python script called \texttt{transformation\_viz.py} for you to visualize the transformation. Just fill in the matrix A and vector b to see how the quadrilaterals match up!
+\textit{Note:} You may need to reshape your output from \texttt{linalg.lstsq} to get the right dimensions. We also provided a Python script called \texttt{transformation\_viz.py} for you to visualize the transformation. Just fill in the matrix A and vector b to see how the quadrilaterals match up!
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Replace each `$\_\_$' below with the value of $m_{i, j}$ and state the residual error:
+Replace each of the `$\_\_$' below with the value of $m_{i, j}$:
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    Residual error: xxx
+
+    TODO: your answer for (c) here
     \begin{align*}
-        \bm{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} = \begin{pmatrix} \_\_ & \_\_ \\ \_\_ & \_\_ \end{pmatrix}
+        M = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} = \begin{pmatrix} \_\_ & \_\_ \\ \_\_ & \_\_ \end{pmatrix}
     \end{align*}
 
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -282,28 +310,37 @@ Replace each `$\_\_$' below with the value of $m_{i, j}$ and state the residual 
 \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
-\pagebreak
-\item \textbf{[4 point]} If the residual is zero (or zero to machine numerical precision), then we can confirm our initial hypothesis that the transformation is a rotation and a scale. If it is not, then we need a transformation with more degrees of freedom.
+\item \textbf{[3 x 2 points]} Note that the least squares regression function that we use here is an approximation function, meaning that the values we derived for the transformation matrix are not exact. The same is true of our 8 point algorithm method of calculating the fundamental matrix.
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-    Determine what kind of transformation it is by forming a system of linear equations and determining a matrix $\bm{M}$ that produces zero residual error (to machine numerical precision). Feel free to try your implementation in 
-    \texttt{transformation\_viz.py} to see how the resulting quadrilateral matches with the ground truth.
-    \\ 
+Determine what kind of transformation it is by forming a system of linear equations and determining a matrix $\bm{M}$ that produces zero residual error (to machine numerical precision). Feel free to try your implementation in \texttt{transformation\_viz.py} to see how the resulting quadrilateral matches the ground truth.
+\\ 
     
-    Write out your system's $\bm{A}$ and $\bm{b}$ matrices as in (b), state $\bm{M}$ and the residual as in (c), and state which kind of transformation it is.
+Write out your system's $\bm{A}$ and $\bm{b}$ matrices as in (b), state $\bm{M}$ and the residual as in (c), and state which kind of transformation it is. \textbf{[4-6 sentences]}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-    \setbox0=\hbox{\parbox[t]{\textwidth}{
-        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
-    
-        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        }}
-    \clipbox{0pt \dimexpr\dp0-24\baselineskip\relax{} 0in 0pt}{\copy0}
-    \end{tcolorbox}
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    TODO: your answer for (d) here
+
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-14\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
 
 \end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Please leave the pagebreak
+% \pagebreak
+% \paragraph{A3 (continued):} Your answer here.
+
+% If you really need extra space, uncomment here and use extra pages after the last question.
+% Please refer here in your original answer. Thanks!
+%\pagebreak
+%\paragraph{AX.X Continued:} Your answer continued here.
 
 
 
@@ -395,7 +432,7 @@ Fill in the camera's intrinsic and extrinsic matrices; then, perform the multipl
 \clipbox{0pt \dimexpr\dp0-16\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
-\pagebreak
+
 \item A camera with focal length of $2$ in both the $x$ and $y$ directions, a translation of $5$ along the $x$-axis, and no skew or rotation.
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
@@ -481,9 +518,8 @@ Compare the two image coordinates you've calculated in parts a and b. Explain ho
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Please leave the pagebreak
-\pagebreak
-\item \textbf{[4 points]}
-In the questions folder, we've provided stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix and a set of world points, the simulator visualizes an image that a camera would produce. 
+\item \textbf{[1 + 3 points]}
+In the questions folder, we've provided stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. 
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 Please implement \texttt{calculate\_camera\_matrix()} by calculating the camera matrix using the parameters given in the code (see stencil for more detail). When successful, you will see a bunny rendered as dots (see below). Paste your code for this function and attach a screenshot of the working demo once you finish. Play around with the sliders to see how different parameters affect the projection!
@@ -584,11 +620,11 @@ def find_coords(camera_matrix):
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q3:} \textbf{[6 points]} Given a stereo pair of cameras:
+\paragraph{Q3:} \textbf{[4 points]} Given a stereo pair of cameras:
 \begin{enumerate} [(a)]
-\item \textbf{[3 points]} 
+\item \textbf{[2 points]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Briefly describe triangulation. Describe the inputs and outputs of the process. You may wish to use a diagram. \textbf{[4--6 sentences]}
+Briefly describe triangulation. Describe the inputs and outputs of the process. You may wish to use a diagram. \textbf{[3-4 sentences]}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
@@ -602,13 +638,12 @@ Briefly describe triangulation. Describe the inputs and outputs of the process. 
 
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     }}
-\clipbox{0pt \dimexpr\dp0-28\baselineskip\relax{} 0in 0pt}{\copy0}
+\clipbox{0pt \dimexpr\dp0-20\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
-\pagebreak
-\item \textbf{[3 points]} 
+\item \textbf{[2 points]} 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Suppose we wished to find in real-world units the depth for each scene point via triangulation---we call this `metric depth' or `absolute depth', rather than relative depth. What information would we need to know about our camera system? \emph{Think about the whole process, including calibration. What units are we in?} \textbf{[3--4 sentences]}
+Why is it not possible to find an absolute depth for each point when we don't have calibration information for our cameras? Note that absolute depth refers to depth with respect to the camera as opposed to relative depth, which is with respect to another object in the scene. \textbf{[3 - 4 sentences]}
 \end{tcolorbox}
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
@@ -639,179 +674,131 @@ Suppose we wished to find in real-world units the depth for each scene point via
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagebreak 
-\paragraph{Q4a:} \textbf{[6 points]} Cameras are used in surveillance systems. One argument in favor of surveillance systems is to deter and solve crime to improve safety. Another is that if you're not doing anything wrong, you don't have anything to worry about. One argument against surveillance systems is that they compromise people's privacy even when no wrongdoing is taking place. Another is that they increase stress and anxiety.
-
-Computer vision allows the \emph{automation} of surveillance. For instance, it lets us find the mathematical relationship between multiple cameras to track objects and people in 3D spaces, or it can reduce the burden upon a human operator who need only respond to detected events rather than actively monitor many cameras. Such functionality makes it easier to scale a surveillance operation.
-
-On Brown's campus, the number of surveillance cameras has been increasing: compare this \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{2008 Brown Daily Herald article} with this \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{2020 Brown Daily Herald article}. While some, like those in Hegeman Hall, were installed only temporarily (\href{https://www.browndailyherald.com/article/2021/07/university-removes-hegeman-hall-surveillance-cameras}{2021 Brown Daily Herald article}), there are now 800 surveillance cameras on campus.
-
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Suppose Brown both did and did not use computer vision automation. How comfortable are you with Brown's surveillance apparatus in each case?
-In what circumstances do you believe that the potential benefits of surveillance \emph{automation} outweigh the potential concerns, and why? [8--10 sentences]
-\end{tcolorbox}
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Your answer here.
-
-    
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-22\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q4b:} \textbf{[6 points]} Unmanned aerial vehicles---sometimes called drones---often carry cameras. Their cameras can be used for navigation via manually remote control, or for use within \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{sophisticated computer vision} strategies like camera pose estimation and depth estimation to enable assisted or autonomous flying in complex environments.
+\paragraph{Q4:} \textbf{[10 points]}
+Given the algorithms that we've learned in computer vision, we know that whether we can find/calculate the essential matrix, the fundamental matrix, or both depends on the setup of the cameras and images. You are given three datasets of an object of unknown geometry:
 
-For your CSCI 1430 final project, you are developing a drone for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. You create a successful computer vision algorithm that allows your drone to navigate autonomously. You are approached by several organizations that want to pay you generously for access to your project, but you are also considering open sourcing your algorithm with a permissive software license.
+\begin{enumerate}[(i)]
+\item A video circling the object;
+\item A stereo pair of calibrated cameras capturing two images of the object; and
+\item Two images of the same object on the internet (e.g. Colosseum) at different camera poses but with unknown intrinsics.
+\end{enumerate}
 
+\begin{enumerate}[(a)]
+\item \textbf{[3 $\times$ 1 points]}
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Please list three organizations that might be interested in acquiring your project for their own purposes. If each of these organizations used your project, who could benefit and how? Who could be harmed and how? [6--8 sentences]
+For each of the above setups, what calculations can we perform? Provide brief explanations to support your choice(s). \textbf{[1 - 2 sentences]}
 \end{tcolorbox}
+\begin{enumerate}[(i)]
+\item
+Setup 1
+
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \setbox0=\hbox{\parbox[t]{\textwidth}{
     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    TODO: Your answer here.
+    TODO: Select the right option:
+
+    \begin{tabular}[h]{lc}
+        \bottomrule
+            Essential Matrix & $\square$ \\
+            Fundamental Matrix & $\square$ \\
+            Both & $\square$ \\
+        \toprule
+    \\
+    \\
+    \\
+    
+    \end{tabular}
+
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-24\baselineskip\relax{} 0in 0pt}{\copy0}
+    }
+    }
+\clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
 
+\item Setup 2
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Spring 2023: Due to the interruptions in class time due to the noise,
-% we have not yet covered this material in sufficient detail.
-% The questions are left here for your interest and for Fall 2023.
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \pagebreak
-% \paragraph{Q4:} \textbf{[13 points]}
-% Given the algorithms that we've learned in computer vision, we know that whether we can find/calculate the essential matrix, the fundamental matrix, or both depends on the setup of the cameras and images. You are given three datasets of an object of unknown geometry:
+    TODO: Select the right option:
 
-% \begin{enumerate}[(i)]
-% \item A video circling the object;
-% \item A stereo pair of calibrated cameras capturing two images of the object; and
-% \item Two images of the same object on the internet (e.g. Colosseum) at different camera poses but with unknown intrinsics.
-% \end{enumerate}
+    \begin{tabular}[h]{lc}
+        \bottomrule
+            Essential Matrix & $\square$ \\
+            Fundamental Matrix & $\square$ \\
+            Both & $\square$ \\
+        \toprule
+    \end{tabular}
 
-% \begin{enumerate}[(a)]
-% \item \textbf{[3 $\times$ 1 points]}
-% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-% For each of the above setups, what calculations can we perform?
-% \end{tcolorbox}
-% \begin{enumerate}[(i)]
-% \item
-% Setup 1
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
 
-% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-% \setbox0=\hbox{\parbox[t]{\textwidth}{
-%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item Setup 3
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%     TODO: Select the right option:
+    TODO: Select the right option:
 
-%     \begin{tabular}[h]{lc}
-%         \bottomrule
-%             Essential Matrix & $\square$ \\
-%             Fundamental Matrix & $\square$ \\
-%             Both & $\square$ \\
-%         \toprule
-%     \end{tabular}
+    \begin{tabular}[h]{lc}
+        \bottomrule
+            Essential Matrix & $\square$ \\
+            Fundamental Matrix & $\square$ \\
+            Both & $\square$ \\
+        \toprule
+    \end{tabular}
 
-%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     }
-%     }
-% \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
-% \end{tcolorbox}
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+\end{enumerate}
 
-% \item Setup 2
-% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-% \setbox0=\hbox{\parbox[t]{\textwidth}{
-%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item \textbf{[3 $\times$ 1 points]} 
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+State an advantage and disadvantage of using each setup for depth reconstruction. \textbf{[2 - 3 sentences]}
+\end{tcolorbox}
 
-%     TODO: Select the right option:
+\begin{enumerate}[(i)]
+    \item Setup 1
+    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+        \setbox0=\hbox{\parbox[t]{\textwidth}{
+            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%     \begin{tabular}[h]{lc}
-%         \bottomrule
-%             Essential Matrix & $\square$ \\
-%             Fundamental Matrix & $\square$ \\
-%             Both & $\square$ \\
-%         \toprule
-%     \end{tabular}
+            TODO: Your answer to (b) (i) here.
 
-%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     }}
-% \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
-% \end{tcolorbox}
+            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            }}
+        \clipbox{0pt \dimexpr\dp0-7\baselineskip\relax{} 0in 0pt}{\copy0}
+    \end{tcolorbox}
+    \item Setup 2
+    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+        \setbox0=\hbox{\parbox[t]{\textwidth}{
+            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \item Setup 3
-% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-% \setbox0=\hbox{\parbox[t]{\textwidth}{
-%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            TODO: Your answer to (b) (ii) here.
 
-%     TODO: Select the right option:
+            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            }}
+        \clipbox{0pt \dimexpr\dp0-7\baselineskip\relax{} 0in 0pt}{\copy0}
+    \end{tcolorbox}
+    \item Setup 3
+    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+        \setbox0=\hbox{\parbox[t]{\textwidth}{
+            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%     \begin{tabular}[h]{lc}
-%         \bottomrule
-%             Essential Matrix & $\square$ \\
-%             Fundamental Matrix & $\square$ \\
-%             Both & $\square$ \\
-%         \toprule
-%     \end{tabular}
+            TODO: Your answer to (b) (iii) here.
 
-%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     }}
-% \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
-% \end{tcolorbox}
-% \end{enumerate}
+            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            }}
+        \clipbox{0pt \dimexpr\dp0-7\baselineskip\relax{} 0in 0pt}{\copy0}
+    \end{tcolorbox}
+\end{enumerate}
 
-% \pagebreak
-% \item \textbf{[3 $\times$ 1 points]} 
-% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-% State an advantage and disadvantage of using each setup for depth reconstruction \textbf{[2 - 3 sentences]}
-% \end{tcolorbox}
-
-% \begin{enumerate}[(i)]
-%     \item Setup 1
-%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-%         \setbox0=\hbox{\parbox[t]{\textwidth}{
-%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%             TODO: Your answer to (b) (i) here.
-
-%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%             }}
-%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-%     \end{tcolorbox}
-%     \item Setup 2
-%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-%         \setbox0=\hbox{\parbox[t]{\textwidth}{
-%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%             TODO: Your answer to (b) (ii) here.
-
-%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%             }}
-%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-%     \end{tcolorbox}
-%     \item Setup 3
-%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-%         \setbox0=\hbox{\parbox[t]{\textwidth}{
-%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%             TODO: Your answer to (b) (iii) here.
-
-%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%             }}
-%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-%     \end{tcolorbox}
-% \end{enumerate}
-
-% \pagebreak
 % \item \textbf{[3 $\times$ 1 points]}
 % \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 % Name an application scenario for each of the different setups \textbf{[1 - 2 sentences]}
@@ -851,119 +838,172 @@ Please list three organizations that might be interested in acquiring your proje
 %         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
 %     \end{tcolorbox}
 % \end{enumerate}
+\item \textbf{[4 points]}
+The differences between the collection methods for these three datasets are crucial in terms of what calculations are possible - and therein which applications they are most useful in.
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black] 
+ From a non-technical standpoint, can you think of a scenario why you may prefer one of these data collection setups to another? Why is it important to know what data collection methods have been used to build a particular dataset? \textbf{[5-7 sentences]}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \pagebreak
-% \item \textbf{[4 points]}
-% The differences between the collection methods for these three datasets are crucial in terms of what calculations are possible - and therein which applications they are most useful in.
-% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black] 
-%  From a non-technical standpoint, can you think of a scenario why you may prefer one of these data collection setups to another? Why is it important to know what data collection methods have been used to build a particular dataset? \textbf{[5-7 sentences]}
-% \end{tcolorbox}
-% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-% \setbox0=\hbox{\parbox[t]{\textwidth}{
-%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    TODO: Your answer to (d) here.
 
-%     TODO: Your answer to (d) here.
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-18\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+\end{enumerate}
 
-%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     }}
-% \clipbox{0pt \dimexpr\dp0-18\baselineskip\relax{} 0in 0pt}{\copy0}
-% \end{tcolorbox}
-% \end{enumerate}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% % \paragraph{A6:} Your answer here.
-% % Uncomment the stencil below and fill in your solution.
-
-% % \begin{enumerate}[(a)]
-
-% % \item
-
-% % \item
-
-% % \item
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% % Please leave the pagebreak
-% % \pagebreak
-% % \paragraph{A6 (continued):} Your answer here.
-
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% % Please leave the pagebreak
-% \pagebreak
-% \paragraph{Q5:} \textbf{[3 points]} In two-view camera geometry, what do the following epipolar lines say about the cameras' relative positions? \textbf{[1 - 2 sentences each]}
-
-% \textit{Tip:} The Spring '22 course staff created an \href{https://browncsci1430.github.io/webpage/demos/stereo_camera_visualization/index.html}{interactive demo} to explore the different scenarios and get a better feel for epipolar geometry.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \paragraph{A6:} Your answer here.
+% Uncomment the stencil below and fill in your solution.
 
 % \begin{enumerate}[(a)]
-% \item \textbf{[1 point]} 
-% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-% Radiate out of a point on the image plane.
-% \end{tcolorbox}
 
-% \includegraphics[width = 0.5\linewidth]{images/epipolarlines-a.png}
-% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-% \setbox0=\hbox{\parbox[t]{\textwidth}{
-%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \item
 
-%     TODO: Your answer to (a) here.
+% \item
 
-%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     }}
-% \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
-% \end{tcolorbox}
+% \item
 
-% \item \textbf{[1 point]}
-% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-% Converge to a point outside of the image plane.
-% \end{tcolorbox}
 
-% \includegraphics[width = 0.5\linewidth]{images/epipolarlines-b.PNG}
-
-% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-% \setbox0=\hbox{\parbox[t]{\textwidth}{
-%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%     TODO: Your answer to (b) here.
-
-%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     }}
-% \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
-% \end{tcolorbox}
-
-% \item \textbf{[1 point]} 
-% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-
-% % OLD QUESTION:
-% %What might you need to change about your fundamental matrix calculations if you obtained the following epipolar lines?%
-
-% Notice the misalignment of the epipolar lines in the image below? What went wrong in the calculation of the fundamental matrix and how can we fix it?
-
-% \textit{Hint:} Check slides from the lecture on stereo geometry.
-% \end{tcolorbox}
-
-% \includegraphics[width = 0.5\linewidth]{images/epipolarlines-c.PNG}
-% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-% \setbox0=\hbox{\parbox[t]{\textwidth}{
-%     %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%     TODO: Your answer to (c) here.
-
-%     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     }}
-% \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
-% \end{tcolorbox}
-% \end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Please leave the pagebreak
+% \pagebreak
+% \paragraph{A6 (continued):} Your answer here.
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Please leave the pagebreak
+\pagebreak 
+\paragraph{Q5:} \textbf{[3 points]} In two-view camera geometry, what do the following epipolar lines say about the cameras' relative positions? \textbf{[1 - 2 sentences each]}
+
+\textit{Tip:} The Spring '22 course staff created an \href{https://browncsci1430.github.io/webpage/demos/stereo_camera_visualization/index.html}{interactive demo} to explore the different scenarios and get a better feel for epipolar geometry.
+
+\begin{enumerate}[(a)]
+\item Please draw or describe the relative positions of the two camera planes. Check slides from the lecture on stereo geometry for details of carera planes.
+\textbf{[1 point]} 
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+Radiate out of a point on the image plane.
+\end{tcolorbox}
+
+\includegraphics[width = 0.5\linewidth]{images/epipolarlines-a.PNG}
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    TODO: Your answer to (a) here.
+
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+
+\item Also draw or describe the relative positions of the two camera planes. Check slides from the lecture on stereo geometry for details of carera planes.\textbf{[1 point]}
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+Converge to a point outside of the image plane.
+\end{tcolorbox}
+
+\includegraphics[width = 0.5\linewidth]{images/epipolarlines-b.PNG}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    TODO: Your answer to (b) here.
+
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+
+\item \textbf{[1 point]} 
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+
+% OLD QUESTION:
+%What might you need to change about your fundamental matrix calculations if you obtained the following epipolar lines?%
+
+Notice the misalignment of the epipolar lines in the image below? What went wrong in the calculation of the fundamental matrix and how can we fix it?
+
+\textit{Hint:} Check slides from the lecture on stereo geometry.
+\end{tcolorbox}
+
+\includegraphics[width = 0.5\linewidth]{images/epipolarlines-c.PNG}
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    TODO: Your answer to (c) here.
+
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak 
+\paragraph{Q6a:} \textbf{[6 points]} Cameras are used in surveillance systems. One argument in favor of surveillance systems is to deter and solve crime to improve safety. Another is that if you're not doing anything wrong, you don't have anything to worry about. One argument against surveillance systems is that they compromise people's privacy even when no wrongdoing is taking place. Another is that they increase stress and anxiety.
+
+Computer vision allows the \emph{automation} of surveillance. For instance, it lets us find the mathematical relationship between multiple cameras to track objects and people in 3D spaces, or it can reduce the burden upon a human operator who need only respond to detected events rather than actively monitor many cameras. Such functionality makes it easier to scale a surveillance operation.
+
+On Brown's campus, the number of surveillance cameras has been increasing: compare this \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{2008 Brown Daily Herald article} with this \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{2020 Brown Daily Herald article}. While some, like those in Hegeman Hall, were installed only temporarily (\href{https://www.browndailyherald.com/article/2021/07/university-removes-hegeman-hall-surveillance-cameras}{2021 Brown Daily Herald article}), there are now 800 surveillance cameras on campus.
+
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+Suppose Brown both did and did not use computer vision automation. How comfortable are you with Brown's surveillance apparatus in each case?
+In what circumstances do you believe that the potential benefits of surveillance \emph{automation} outweigh the potential concerns, and why? [8--10 sentences]
+\end{tcolorbox}
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    TODO: Your answer here.
+
+    
+
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-22\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+\paragraph{Q6b:} \textbf{[6 points]} Unmanned aerial vehicles---sometimes called drones---often carry cameras. Their cameras can be used for navigation via manually remote control, or for use within \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{sophisticated computer vision} strategies like camera pose estimation and depth estimation to enable assisted or autonomous flying in complex environments.
+
+For your CSCI 1430 final project, you are developing a drone for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. You create a successful computer vision algorithm that allows your drone to navigate autonomously. You are approached by several organizations that want to pay you generously for access to your project, but you are also considering open sourcing your algorithm with a permissive software license.
+
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+Please list three organizations that might be interested in acquiring your project for their own purposes. If each of these organizations used your project, who could benefit and how? Who could be harmed and how? Would an open-source license affect this? [6–9 sentences]
+\end{tcolorbox}
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    TODO: Your answer here.
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-24\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+
+
+\pagebreak
+\section*{Discussion Attendance:}
+\paragraph{Extra Credit:} \textbf{[2 points]}
+
+Please mark this box only if you've attended the discussion session in person.
+
+\begin{tabular}[h]{ll}
+$\square$ & I attended the discussion session on DATE \\
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
 \section*{Feedback? (Optional)}
-Please help us make the course better. If you have any feedback for this assignment, we'd love to hear it!
+We appreciate your feedback on how to improve the course. You can provide anonymous feedback through \href{https://forms.gle/uwBwicWfkYH9v6BU6}{this form}, that can be accessed using your Brown account (your identity will not be collected). If you have urgent non-anonymous comments/questions, please email the instructor.
 
 
 
