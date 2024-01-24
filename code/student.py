@@ -174,6 +174,8 @@ def matches_to_3d(points2d_1, points2d_2, M1, M2, threshold=1.0):
     can return a subset of the 3D points that lie within a certain threshold.
     In this case, also return subsets of the initial points2d_1, points2d_2 that
     correspond to this new inlier set. You may modify the default value of threshold above.
+    All local helper code that calls this function will use this default value, but we
+    will pass in a different value when autograding.
 
     N is the input number of point correspondences
     M is the output number of 3D points / inlier point correspondences; M could equal N.
