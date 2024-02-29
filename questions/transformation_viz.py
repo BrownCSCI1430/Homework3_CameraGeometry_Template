@@ -62,7 +62,9 @@ def transform(starting_points, transformation_matrix):
 def main():
     starting_points = np.array([[1, 1.5, 2, 2.5], [1, 0.5, 1, 2]])
 
-    end_points = np.array([[-0.9, -0.1, -0.4, -1.25], [0.8, 1.3, 1.9, 2.55]])
+    # TODO: use the primed coordinates from the written hw.
+    # See how we do this for starting points to do it for end_points.
+    end_points = np.array([[0, 0, 0, 0], [0, 0, 0, 0]])
 
     ## fill in your computation here
     transformation_matrix, residual = calculate_matrix(starting_points, end_points)
