@@ -135,7 +135,7 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
     best_Fmatrix is the [3 x 3] fundamental matrix
     best_inliers1 and best_inliers2 are the [M x 2] subset of matches1 and matches2 that
     are inliners with respect to best_Fmatrix
-    best_inlier_residual is the sum of the square error induced by best_Fmatrix
+    best_inlier_residual is the sum of the square error induced by best_Fmatrix upon the inlier set
 
     :return: best_Fmatrix, inliers1, inliers2, best_inlier_residual
     """
