@@ -124,7 +124,7 @@ def estimate_fundamental_matrix(points1, points2):
 def ransac_fundamental_matrix(matches1, matches2, num_iters):
     """
     Implement RANSAC to find the best fundamental matrix robustly
-    by randomly sampling interest points.
+    by randomly sampling interest points. See the handout for a detailing of the RANSAC method.
     
     Inputs:
     matches1 and matches2 are the [N x 2] coordinates of the possibly
