@@ -314,7 +314,7 @@ Replace each of the `$\_\_$' below with the value of $m_{i, j}$:
 \item \textbf{[3 x 2 points]} Note that the least squares regression function that we use here is an approximation function, meaning that the values we derived for the transformation matrix are not exact. The same is true of our 8 point algorithm method of calculating the fundamental matrix.
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Determine what kind of transformation it is by forming a system of linear equations and determining a matrix $\bm{M}$ that produces zero residual error (to machine numerical precision). Feel free to try your implementation in \texttt{transformation\_viz.py} to see how the resulting quadrilateral matches the ground truth.
+Determine what kind of transformation it is by forming a system of linear equations consisting of homogeneous coordinates and determining a matrix $\bm{M}$ that produces zero residual error (to machine numerical precision). Keep in mind, you should still be using the given set of points. Feel free to try your implementation in \texttt{transformation\_viz.py} to see how the resulting quadrilateral matches the ground truth.
 \\ 
     
 Write out your system's $\bm{A}$ and $\bm{b}$ matrices as in (b), state $\bm{M}$ and the residual, and state which kind of transformation it is. \textbf{[4-6 sentences]}
