@@ -91,11 +91,12 @@ def normalize_coordinates(points):
 def estimate_fundamental_matrix(points1, points2):
     """
     Estimates the fundamental matrix given set of point correspondences in
-    points1 and points2. The fundamental matrix will constrain a point to lie
-    along a line within the second image - the epipolar line. Fitting a
-    fundamental matrix to a set of points will try to minimize the error of
-    all points to their respective epipolar lines. The residual can be computed 
-    as the difference from the known geometric constraint that x^T F x' = 0.
+    points1 and points2. The fundamental matrix will transform a point into 
+    a line within the second image - the epipolar line - such that F x' = l. 
+    Fitting a fundamental matrix to a set of points will try to minimize the 
+    error of all points x to their respective epipolar lines transformed 
+    from x'. The residual can be computed as the difference from the known 
+    geometric constraint that x^T F x' = 0.
 
     points1 is an [n x 2] matrix of 2D coordinate of points on Image A
     points2 is an [n x 2] matrix of 2D coordinate of points on Image B
@@ -108,7 +109,7 @@ def estimate_fundamental_matrix(points1, points2):
     coordinates!
 
     :return F_matrix, the [3 x 3] fundamental matrix
-            residual, the error in the estimation
+            residual, the sum of the squared error in the estimation
     """
     ########################
     # TODO: Your code here #
@@ -123,7 +124,7 @@ def estimate_fundamental_matrix(points1, points2):
 def ransac_fundamental_matrix(matches1, matches2, num_iters):
     """
     Implement RANSAC to find the best fundamental matrix robustly
-    by randomly sampling interest points.
+    by randomly sampling interest points. See the handout for a detailing of the RANSAC method.
     
     Inputs:
     matches1 and matches2 are the [N x 2] coordinates of the possibly
@@ -134,7 +135,7 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
     best_Fmatrix is the [3 x 3] fundamental matrix
     best_inliers1 and best_inliers2 are the [M x 2] subset of matches1 and matches2 that
     are inliners with respect to best_Fmatrix
-    best_inlier_residual is the error induced by best_Fmatrix
+    best_inlier_residual is the sum of the square error induced by best_Fmatrix upon the inlier set
 
     :return: best_Fmatrix, inliers1, inliers2, best_inlier_residual
     """
@@ -164,29 +165,45 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
 
     return best_Fmatrix, best_inliers_a, best_inliers_b, best_inlier_residual
 
-def matches_to_3d(points1, points2, M1, M2):
+def matches_to_3d(points2d_1, points2d_2, M1, M2, threshold=1.0):
     """
-    Given two sets of points and two projection matrices, you will need to solve
+    Given two sets of corresponding 2D points and two projection matrices, you will need to solve
     for the ground-truth 3D points using np.linalg.lstsq().
 
-    :param points1: [N x 2] points from image1
-    :param points2: [N x 2] points from image2
-    :param M1: [3 x 4] projection matrix of image2
+    You may find that some 3D points have high residual/error, in which case you 
+    can return a subset of the 3D points that lie within a certain threshold.
+    In this case, also return subsets of the initial points2d_1, points2d_2 that
+    correspond to this new inlier set. You may modify the default value of threshold above.
+    All local helper code that calls this function will use this default value, but we
+    will pass in a different value when autograding.
+
+    N is the input number of point correspondences
+    M is the output number of 3D points / inlier point correspondences; M could equal N.
+
+    :param points2d_1: [N x 2] points from image1
+    :param points2d_2: [N x 2] points from image2
+    :param M1: [3 x 4] projection matrix of image1
     :param M2: [3 x 4] projection matrix of image2
-    :return: [N x 3] NumPy array of solved ground truth 3D points for each pair of 2D
-    points from points1 and points2
+    :param threshold: scalar value representing the maximum allowed residual for a solved 3D point
+
+    :return points3d_inlier: [M x 3] NumPy array of solved ground truth 3D points for each pair of 2D
+    points from points2d_1 and points2d_2
+    :return points2d_1_inlier: [M x 2] points as subset of inlier points from points2d_1
+    :return points2d_2_inlier: [M x 2] points as subset of inlier points from points2d_2
     """
     ########################
     # TODO: Your code here #
 
     # Initial random values for 3D points
-    points3d = np.random.rand(len(points1),3)
+    points3d_inlier = np.random.rand(len(points2d_1), 3)
+    points2d_1_inlier = np.array(points2d_1, copy=True) # only modify if using threshold
+    points2d_2_inlier = np.array(points2d_2, copy=True) # only modify if using threshold
 
     # Solve for ground truth points
 
     ########################
 
-    return points3d
+    return points3d_inlier, points2d_1_inlier, points2d_2_inlier
 
 
 #/////////////////////////////DO NOT CHANGE BELOW LINE///////////////////////////////
