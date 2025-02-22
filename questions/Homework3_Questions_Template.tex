@@ -1,4 +1,4 @@
-%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % CSCI 1430 Written Question Template
 %
@@ -9,329 +9,173 @@
 % > pdflatex thisfile.tex
 %
 % If you do not have LaTeX, your options are:
-% - VSCode extension: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
-% - Online Tool: https://www.overleaf.com/ - most LaTeX packages are pre-installed here (e.g., \usepackage{}).
 % - Personal laptops (all common OS): http://www.latex-project.org/get/ 
+% + VSCode extension: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
+% - Online Tool: https://www.overleaf.com/ - most LaTeX packages are pre-installed here (e.g., \usepackage{}).
 %
 % If you need help with LaTeX, please come to office hours.
 % Or, there is plenty of help online:
 % https://en.wikibooks.org/wiki/LaTeX
 %
 % Good luck!
-% Srinath and the 1430 staff
+% The CSCI1430 staff
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% How to include two graphics on the same line:
-%
-% \includegraphics[width=0.49\linewidth]{yourgraphic1.png}
-% \includegraphics[width=0.49\linewidth]{yourgraphic2.png}
-%
-% How to include equations:
-%
-% \begin{equation}
-% y = mx+c
-% \end{equation}
-%
-% How to include code:
-%
-% \begin{python}
-% def f(x):
-%   return x
-% \end{python}
-%
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\tn}[1]{\textcolor{blue}{\textbf{JZ: #1}}}
-\documentclass[11pt]{article}
-
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage{amssymb}
-\usepackage{bm}
-\usepackage{xcolor}
-\usepackage[colorlinks = true,
-            linkcolor = blue,
-            urlcolor  = blue]{hyperref}
-\usepackage[a4paper,margin=1.5in]{geometry}
-\usepackage{stackengine,graphicx}
-\usepackage{fancyhdr}
-\setlength{\headheight}{15pt}
-\usepackage{microtype}
-\usepackage{times}
-\usepackage[shortlabels]{enumitem}
-\setlist[enumerate]{topsep=0pt}
-\usepackage{amsmath}
-\usepackage{framed}
-\usepackage{mdframed}
-\usepackage{xcolor}
-\usepackage[most]{tcolorbox}
-\usepackage{booktabs}
-
-% a great python code format: https://github.com/olivierverdier/python-latex-highlighting
-\usepackage{pythonhighlight}
-
-\usepackage{trimclip,lipsum}
-
-\frenchspacing
-\setlength{\parindent}{0cm} % Default is 15pt.
-\setlength{\parskip}{0.3cm plus1mm minus1mm}
-
-\pagestyle{fancy}
-\fancyhf{}
-\lhead{Homework 3 Questions}
-\rhead{CSCI 1430}
-
-\lfoot{\textcolor{red}{\textbf{Only}
-\ifcase\thepage
-\or \textbf{instructions}
-\or \textbf{GenAI declaration}
-\or \textbf{A1 (a)}
-\or \textbf{A1(b)}
-\or \textbf{A1 (c) - (d)}
-\or \textbf{A2 (a) (i)}
-\or \textbf{A2 (a) (ii), (b)}
-\or \textbf{A2 (c)}
-\or \textbf{A2 (c)}
-\or \textbf{A2 (c)}
-\or \textbf{A3 (a)}
-\or \textbf{A3 (b)}
-\or \textbf{A4 (a)}
-\or \textbf{A4 (b)}
-\or \textbf{A4 (c)}
-% this line is commented out because we removed a subquestion from Q4
-% \or \textbf{A4 (d)}
-\or \textbf{A5 (a)}
-\or \textbf{A5 (b) - (c)}
-\or \textbf{A6 (a)}
-\or \textbf{A6 (b)}
-\or \textbf{discussion attendance}
-\or \textbf{feedback}
-\else
-\textbf{[ERROR: PAGE MISALIGNMENT]}
-\fi
-\textbf{should be on this page}
-}}
-% The total number of pages is changed from 19 to 18 because we removed a subquestion from Q4
-\rfoot{\thepage/20}
-
-\date{}
-
-\title{\vspace{-1cm}Homework 3 Questions}
-
+\documentclass{csci1430}
 
 \begin{document}
+\title{Homework 3 Written Questions}
 \maketitle
-\vspace{-2cm}
 \thispagestyle{fancy}
 
-\section*{ Document Instructions}
+\writeinstructions
+
+\section*{This Homework}
 \begin{itemize}
   \item 6 questions \textbf{[10 + 8 + 4 + 10 + 3 + 12 = 47 points + 2 bonus points]}.
-  \item Fill all your answers within the answer boxes, and \textbf{please do NOT remove the answer box outlines}.
-  \item Questions are highlighted in the \textbf{orange boxes}, bonus questions are highlighted in \textbf{blue boxes}, answers should be recorded in the \textbf{green boxes}.
   \item Include code, images, and equations where appropriate.
-  \item To identify all places where your responses are expected, search for `TODO'.
-  \item The answer box sizes have been set by the staff beforehand and will truncate your text if it goes beyond the limit. Please make sure your responses fit in the appropriate spaces. \textbf{Extra pages are not permitted unless otherwise specified.}
-  \item Make sure your submission has the right number of pages to validate page alignment sanity (check the footer).
-  \item Please make this document anonymous.
 \end{itemize}
-
-\section*{ Gradescope Instructions}
-\begin{itemize}
-  \item When you are finished, compile this document to a PDF and submit it directly to Gradescope. 
-  \item The pages will be automatically assigned to the right questions on Gradescope \textit{assuming you do not add any unnecessary pages}. \textbf{Inconsistently assigned pages will lead to a deduction of 2 points per misaligned page (capped at a maximum 6 point deduction).}
-\end{itemize}
-\pagebreak
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagebreak
-
-\section*{Declaration of Generative AI Use}
-
-\subsection*{Reminder of Course Policy}
-
-\begin{itemize}
-    \item The use of GenAI tools (e.g., ChatGPT, Grammarly, Bard) for completing any part of this course is discouraged.
-    \item Using these tools is not needed to be successful in the class and could be detrimental to your learning experience.
-    \item If you use them, you must cite the tool you used and explain how you used it.
-    \item If you do not cite the tool, it is an academic code violation.
-    \item We will be using special tools to detect cases of unattributed GenAI use.
-\end{itemize}
-
-\subsection*{Student Declaration}
-
-\subsubsection*{Have you used generative AI tools to complete this assignment:}
-
-%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%
-
-YES $\square$ NO $\blacksquare$ % change answer to \blacksquare
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsubsection*{If you answered YES above, describe what tools you used and what parts of the assignment you used them for below:}
-
-%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%
-
-\textit{Example: I used ChatGPT to debug my convolution implementation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q1:} \textbf{[10 points]}
-Suppose we have a quadrilateral $ABCD$ and a transformed version $A'B'C'D'$ as seen in the image below.
 
-\includegraphics[width=\textwidth * 5/10]{images/quads_lstsq.png}
+\begin{question}[points=10,drawbox=false]
+Suppose we have a quadrilateral $\mathbf{abcd}$ and a transformed version $\mathbf{a'b'c'd'}$:
 
-\begin{equation}
-\begin{split}
-A&=(1, 1)\\
-B&=(1.5, 0.5)\\
-C&=(2, 1)\\
-D&=(2.5, 2)
-\end{split}
-\quad\quad\quad
-\begin{split}
-A'&=(-0.9, 0.8)\\
-B'&=(-0.1, 1.3)\\
-C'&=(-0.4, 1.9)\\
-D'&=(-1.25, 2.55)
-\end{split}
-\end{equation}
+\begin{minipage}[c]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{images/quads_lstsq.png}
+\end{minipage}
+\begin{minipage}[c]{0.49\textwidth}
+    \begin{equation*}
+    \begin{split}
+    \mathbf{a}&=(1, 1)\\
+    \mathbf{b}&=(1.5, 0.5)\\
+    \mathbf{c}&=(2, 1)\\
+    \mathbf{d}&=(2.5, 2)
+    \end{split}
+    \quad\quad\quad
+    \begin{split}
+    \mathbf{a'}&=(-0.9, 0.8)\\
+    \mathbf{b'}&=(-0.1, 1.3)\\
+    \mathbf{c'}&=(-0.4, 1.9)\\
+    \mathbf{d'}&=(-1.25, 2.55)
+    \end{split}
+    \end{equation*}
+\end{minipage}
 
-Let's assume that each point in $ABCD$ was approximately mapped to its corresponding point in $A'B'C'D'$ by a $2\times2$ transformation matrix $\mathcal{M}$.
+Let's assume that each point in $\mathbf{abcd}$ was mapped to its corresponding point in $\mathbf{a'b'c'd'}$ by a $2\times2$ transformation matrix $\mathbf{M}$.
 
-e.g. if $X = \begin{pmatrix} x \\ y \end{pmatrix}$ and $X' = \begin{pmatrix} x' \\ y' \end{pmatrix}$, and $\mathcal{M} = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix}$
+e.g., if 
+$\mathbf{p} = \begin{bmatrix} x \\ y \end{bmatrix}$, 
+$\mathbf{p'} = \begin{bmatrix} x' \\ y' \end{bmatrix}$,
+and 
+$\mathbf{M} = \begin{bmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{bmatrix}$,
 
-then $\begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} \times \begin{pmatrix} x \\ y \end{pmatrix} \approx \begin{pmatrix} x' \\ y'  \end{pmatrix}$
+then $\begin{bmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} x' \\ y'  \end{bmatrix}$
 
-We would like to approximate $\mathcal{M}$ using least squares for linear regression.
+We would like to estimate $\mathbf{M}$ using least squares for linear regression.
+\end{question}
 
-\begin{enumerate}[(a)]
-\item \textbf{[1 point]} 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Rewrite the equation $\mathcal{M} \times X \approx X'$ into a pair of linear equations by expanding the matrix multiplication.
-\end{tcolorbox}
+\begin{subquestion}[points=1]
+Rewrite the equation $\mathbf{M}\mathbf{p} = \mathbf{p'}$ into a pair of linear equations by expanding the matrix multiplication.
+\end{subquestion}
 
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Replace each of the `$\_\_$' below with $x, y, x', y',$ or $0$.
-    \begin{align*}
-    \begin{cases}
-        \_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
-        \\\_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
-    \end{cases}
-    \end{align*}
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-\item \textbf{[2 points]}
-With the quadrilaterals in question, there are 4 points that transform so we should expect to see 8 such equations (2 for each point) that use the transformation equation $\mathcal{M}$.
-
-From these pairs of equations for each $x$-$x'$ correspondence, we can construct a matrix $\mathcal{Q}$ and column vector $b$ that satisfy
+\begin{answer}
+TODO: Replace each of the `$\_\_$' below with $x, y, x', y',$ or $0$.
 \begin{align*}
-    \mathcal{Q} \times \begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} = b
+\begin{cases}
+    \_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+    \\\_\_m_{1,1} + \_\_m_{1,2} + \_\_m_{2,1} + \_\_m_{2,2} = \_\_
+\end{cases}
+\end{align*}
+\end{answer}
+
+\clearpage
+\begin{subquestion}[points=2,drawbox=false]
+To estimate $\mathbf{M}$, as it has four coefficients, we need four equations. As our quadrilaterals have four points, we could create eight such equations (two for each point) that use the transformation $\mathbf{M}$. 
+
+From these equations for each $\mathbf{p},\mathbf{p}'$ correspondence, we can construct a matrix $\mathbf{A}$ and column vector $\mathbf{b}$ with a vector of coefficients of $\mathbf{M}$---let's call that $\mathbf{x}$---that must satisfy:
+\begin{align*}
+    \mathbf{Ax}=\mathbf{b} \hspace{0.4cm}\text{where}\hspace{0.4cm} \mathbf{A} \times \begin{bmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{bmatrix} = \mathbf{b}
 \end{align*}
 
-\emph{Note:} Systems of linear equations are typically written in the form $\mathcal{A} \times x = b$, but since we have already defined $\mathcal{A}$ and $x$, we're writing it as $\mathcal{Q} \times m = b$
+\emph{Note:} As systems of linear equations are typically written in the form $\mathbf{Ax}=\mathbf{b}$, we've overloaded the symbol $\mathbf{b}$ here. So, be careful---$\mathbf{b}$ here is the vector of target $x',y'$ values across all equations, and not the point in the quadrilateral.
+\end{subquestion}
 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Find $\mathcal{Q}$ and $b$:\\
+\begin{orangebox}
+Declare $\mathbf{A}$ and $\mathbf{b}$:\\
 
-Replace each of the `$\_\_$' below with a $0$ or a coordinate value from $ABCD$ and $A'B'C'D'$.
-\end{tcolorbox}
+Replace each `$\_\_$' below with a $0$ or a coordinate value from the quadrilaterals.
+\end{orangebox}
 
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: your answer for (b) here
-    \begin{align*}
-        \begin{pmatrix} 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_ \\ 
-        \_\_ & \_\_ & \_\_ & \_\_
-        \end{pmatrix} 
-        \times \begin{pmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{pmatrix} 
-        = \begin{pmatrix} 
-        \_\_ \\ 
-        \_\_ \\ 
-        \_\_ \\ 
-        \_\_ \\ 
-        \_\_ \\ 
-        \_\_ \\ 
-        \_\_ \\ 
-        \_\_ 
-        \end{pmatrix}
-    \end{align*}
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-\item \textbf{[1 point]} Our problem is now over-constrained, so we want to find values for $m_{i,j}$ that minimize the squared error between the approximated values for $X'$ and the real $X'$ values, i.e., we want to minimize $||\mathcal{Q} \times m - b||$. 
+\begin{answer}
 \begin{align*}
-\intertext{To do this we use singular value decomposition to find the pseudoinverse of $\mathcal{Q}$, written as $\mathcal{Q}^\dagger$. We then multiply it by both sides, giving us:}
- \mathcal{Q}^\dagger \mathcal{Q}m &= \mathcal{Q}^\dagger b\\
- \quad m &\approx \mathcal{Q}^\dagger b.
+    \begin{bmatrix} 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_ \\ 
+    \_\_ & \_\_ & \_\_ & \_\_
+    \end{bmatrix} 
+    \times \begin{bmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{bmatrix} 
+    = \begin{bmatrix} 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ \\ 
+    \_\_ 
+    \end{bmatrix}
+\end{align*}
+\end{answer}
+
+
+\clearpage
+\begin{subquestion}[points=1,drawbox=false]
+If we use more than four equations, then our problem is over-constrained. In this case, we want to find values for $m_{i,j}$ that minimize the squared error between the transformed values for $\mathbf{p'}$ and the real known $\mathbf{p'}$ values, i.e., we want to minimize $||\mathbf{A}\mathbf{x} - \mathbf{b}||^2$.
+
+To do this, we can use the singular value decomposition to find the pseudoinverse of $\mathbf{A}$, written as $\mathbf{A}^\dagger$. Then, we multiply it by both sides, giving us:
+\begin{align*}
+\mathbf{A}^\dagger \mathbf{A}\mathbf{x} &= \mathbf{A}^\dagger \mathbf{b}\\
+\quad \mathbf{x} &= \mathbf{A}^\dagger \mathbf{b}.
 \end{align*}
 
-Thankfully, the computer can do all of this for us! \texttt{numpy.linalg.lstsq()} takes in our $\mathcal{Q}$ matrix and $b$ vector, and returns approximations for $m$. Plug the values you wrote in part (c) into that function and write the returned $\mathcal{M}$ matrix here.
+In linear algebra class, you might have learned how to solve linear systems by hand, but thankfully the computer can do this for us even for large systems! \texttt{numpy.linalg.lstsq()} takes in our $\mathbf{A}$ matrix and $\mathbf{b}$ vector, and returns $\mathbf{x}$.
 
-\textit{Note:} You may need to reshape your output from \texttt{linalg.lstsq} to get the right dimensions. We also provided a Python script called \texttt{transformation\_viz.py} for you to visualize the transformation. Just fill in the matrix A and vector b to see how the quadrilaterals match up!
+\textit{Note:} We provide a Python script \texttt{transformation\_viz.py} for you to estimate and visualize the transformation. Complete matrix $\mathbf{A}$ and vector $\mathbf{b}$ to see how the quadrilaterals match up!
+\end{subquestion}
 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Replace each of the `$\_\_$' below with the value of $m_{i, j}$:
-\end{tcolorbox}
+\begin{orangebox}
+State your estimated $\mathbf{M}$ by replacing each of the `$\_\_$' below:
+\end{orangebox}
 
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{answer}
+\begin{align*}
+    \textbf{M} = \begin{bmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{bmatrix} = \begin{bmatrix} \_\_ & \_\_ \\ \_\_ & \_\_ \end{bmatrix}
+\end{align*}
+\end{answer}
 
-    TODO: your answer for (c) here
-    \begin{align*}
-        M = \begin{pmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{pmatrix} = \begin{pmatrix} \_\_ & \_\_ \\ \_\_ & \_\_ \end{pmatrix}
-    \end{align*}
+\begin{subquestion}[points=6,drawbox=false]
+Note that the least squares regression function that we use here is an approximation function, meaning that the values we derived for the transformation matrix are not exact. The same is true of our 8 point algorithm method of calculating the fundamental matrix.
+\end{subquestion}
 
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-\item \textbf{[3 x 2 points]} Note that the least squares regression function that we use here is an approximation function, meaning that the values we derived for the transformation matrix are not exact. The same is true of our 8 point algorithm method of calculating the fundamental matrix.
-
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Determine what kind of transformation it is by forming a system of linear equations and determining a matrix $\bm{M}$ that produces zero residual error (to machine numerical precision). Feel free to try your implementation in \texttt{transformation\_viz.py} to see how the resulting quadrilateral matches the ground truth.
+\begin{orangebox}
+Determine what kind of transformation it is by forming a system of linear equations and determining a matrix $\textbf{M}$ that produces zero residual error (to machine numerical precision). Feel free to try your implementation in \texttt{transformation\_viz.py} to see how the resulting quadrilateral matches the ground truth.
 \\ 
     
-Write out your system's $\bm{A}$ and $\bm{b}$ matrices as in (b), state $\bm{M}$ and the residual, and state which kind of transformation it is. \textbf{[4-6 sentences]}
-\end{tcolorbox}
+Write out your system's $\textbf{A}$ and $\textbf{b}$ matrices as in (b), state $\textbf{M}$ and the residual, and state which kind of transformation it is. \textbf{[4-6 sentences]}
+\end{orangebox}
 
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{answer}
+TODO: your answer for (d) here
+\end{answer}
 
-    TODO: your answer for (d) here
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-14\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-\end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % % Please leave the pagebreak
@@ -353,22 +197,22 @@ In lecture, you've learned that cameras can be represented by intrinsic and extr
 
 Recall that the transformation can be represented by the following expression:
 \begin{align*}
-    \begin{pmatrix} 
+    \begin{bmatrix} 
     f_x & s & $0$ \\ 
     $0$ & f_y & $0$ \\ 
-    $0$ & $0$ & $1$ \end{pmatrix} \times
-    \begin{pmatrix} 
+    $0$ & $0$ & $1$ \end{bmatrix} \times
+    \begin{bmatrix} 
     r_{11} & r_{12} & r_{13} & t_x \\ 
     r_{21} & r_{22} & r_{23} & t_y \\  
     r_{31} & r_{32} & r_{33} & t_z
-    \end{pmatrix} \times 
-    \begin{pmatrix} 
+    \end{bmatrix} \times 
+    \begin{bmatrix} 
     x \\ 
     y \\ 
     z \\ 
-    $1$ \end{pmatrix}
+    $1$ \end{bmatrix}
     = w
-    \begin{pmatrix}  u \\ v \\ $1$ \end{pmatrix}
+    \begin{bmatrix}  u \\ v \\ $1$ \end{bmatrix}
 \end{align*}
 where $f$ is the focal point, $r$ is the rotation matrix, $t$ is the translation vector,  $w$ is some weighing/scaling factor, and $(u, v)$ is the position of the point in the real world $(x, y, z)$ projected on the 2D plane.
 
@@ -391,41 +235,41 @@ Fill in the camera's intrinsic and extrinsic matrices; then, perform the multipl
     TODO: Fill in the \_\_ entries
     \begin{align*}
         & \qquad M_{\text{intrinsic}} \quad \times \qquad M_{\text{extrinsic}} \qquad  \times \; 
-        \begin{pmatrix} 
+        \begin{bmatrix} 
             x  \\ 
             y  \\ 
             z  \\
             1
-        \end{pmatrix} \\
-        &= \begin{pmatrix} 
+        \end{bmatrix} \\
+        &= \begin{bmatrix} 
         \_\_ & \_\_ & $0$    \\  % <----- TODO: replace \_\_ %
         $0$ & \_\_ & $0$     \\  % <----- TODO: replace \_\_ %
         $0$ & $0$ & $1$ 
-        \end{pmatrix} 
+        \end{bmatrix} 
         \times
-        \begin{pmatrix} 
+        \begin{bmatrix} 
         \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
         \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
         \_\_ & \_\_ & \_\_ & \_\_     % <----- TODO: replace \_\_ %
-        \end{pmatrix} \times
-        \begin{pmatrix} 
+        \end{bmatrix} \times
+        \begin{bmatrix} 
         $30$    \\ 
         $-20$   \\ 
         $10$    \\ 
-        $1$ \end{pmatrix} \\
-        &= \qquad \qquad \qquad \begin{pmatrix} 
+        $1$ \end{bmatrix} \\
+        &= \qquad \qquad \qquad \begin{bmatrix} 
         \_\_    \\   % <----- TODO: replace \_\_ %
         \_\_    \\   % <----- TODO: replace \_\_ %
         \_\_         % <----- TODO: replace \_\_ %
-        \end{pmatrix} \\
+        \end{bmatrix} \\
         &= \qquad \quad \quad 
         \_\_         % <----- TODO: replace \_\_ %
         \times 
-        \begin{pmatrix}  
+        \begin{bmatrix}  
         \_\_    \\   % <----- TODO: replace \_\_ %
         \_\_    \\   % <----- TODO: replace \_\_ %
         $1$ 
-        \end{pmatrix}
+        \end{bmatrix}
     \end{align*}
 
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -441,35 +285,35 @@ Fill in the camera's intrinsic and extrinsic matrices; then, perform the multipl
 
     TODO: Fill in the \_\_ entries
     \begin{align*}
-        &= \begin{pmatrix} 
+        &= \begin{bmatrix} 
         \_\_ & \_\_ & $0$    \\  % <----- TODO: replace \_\_ %
         $0$ & \_\_ & $0$     \\  % <----- TODO: replace \_\_ %
         $0$ & $0$ & $1$ 
-        \end{pmatrix} 
+        \end{bmatrix} 
         \times
-        \begin{pmatrix} 
+        \begin{bmatrix} 
         \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
         \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
         \_\_ & \_\_ & \_\_ & \_\_     % <----- TODO: replace \_\_ %
-        \end{pmatrix} \times
-        \begin{pmatrix} 
+        \end{bmatrix} \times
+        \begin{bmatrix} 
         $30$    \\ 
         $-20$   \\ 
         $10$    \\ 
-        $1$ \end{pmatrix} \\
-        &= \qquad \qquad \qquad \begin{pmatrix} 
+        $1$ \end{bmatrix} \\
+        &= \qquad \qquad \qquad \begin{bmatrix} 
         \_\_    \\   % <----- TODO: replace \_\_ %
         \_\_    \\   % <----- TODO: replace \_\_ %
         \_\_         % <----- TODO: replace \_\_ %
-        \end{pmatrix} \\
+        \end{bmatrix} \\
         &= \qquad \quad \quad 
         \_\_         % <----- TODO: replace \_\_ %
         \times 
-        \begin{pmatrix}  
+        \begin{bmatrix}  
         \_\_    \\   % <----- TODO: replace \_\_ %
         \_\_    \\   % <----- TODO: replace \_\_ %
         $1$ 
-        \end{pmatrix}
+        \end{bmatrix}
     \end{align*}
 
     %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -691,72 +535,27 @@ Given the algorithms that we've learned in computer vision, we know that whether
 For each of the above setups, what calculations can we perform? Provide brief explanations to support your choice(s). \textbf{[1 - 2 sentences]}
 \end{tcolorbox}
 \begin{enumerate}[(i)]
-\item
-Setup 1
-
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Select the right option:
-
-    \begin{tabular}[h]{lc}
-        \bottomrule
-            Essential Matrix & $\square$ \\
-            Fundamental Matrix & $\square$ \\
-            Both & $\square$ \\
-        \toprule
-    \\
-    \\
-    \\
-    
-    \end{tabular}
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }
-    }
-\clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
+\item Setup 1
+\begin{answerlist}
+    \item Essential Matrix
+    \item Fundamental Matrix
+    \item Both
+\end{answerlist}
 
 \item Setup 2
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Select the right option:
-
-    \begin{tabular}[h]{lc}
-        \bottomrule
-            Essential Matrix & $\square$ \\
-            Fundamental Matrix & $\square$ \\
-            Both & $\square$ \\
-        \toprule
-    \end{tabular}
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
+\begin{answerlist}
+    \item Essential Matrix
+    \item Fundamental Matrix
+    \item Both
+\end{answerlist}
 
 \item Setup 3
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{answerlist}
+    \item Essential Matrix
+    \item Fundamental Matrix
+    \item Both
+\end{answerlist}
 
-    TODO: Select the right option:
-
-    \begin{tabular}[h]{lc}
-        \bottomrule
-            Essential Matrix & $\square$ \\
-            Fundamental Matrix & $\square$ \\
-            Both & $\square$ \\
-        \toprule
-    \end{tabular}
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
 \end{enumerate}
 
 \item \textbf{[3 $\times$ 1 points]} 

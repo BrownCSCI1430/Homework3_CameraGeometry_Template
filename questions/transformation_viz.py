@@ -12,28 +12,22 @@ import argparse
 #     return parser.parse_args()
 
 
-def calculate_matrix(starting_points, end_points):
+def estimate_transform(start_points, end_points):
     """
-    This function should calculate the transformation matrix using the given
+    This function estimates the transformation matrix using the given
     starting and ending points. We recommend using the least squares solution
     to solve for the transformation matrix. See the handout, Q1 of the written
     questions, or the lecture slides for how to set up these equations.
-    If we are using an affine transformation, then the transformation matrix
-    should be 2x3. And in this case you should pad the starting points with a
-    row of ones If we are not using an affine transformation (no translation),
-    then the transformation matrix should be 2x2.
-
+    
     :param starting_points: 2xN array of points in the starting image
     :param end_points: 2xN array of points in the ending image
-    :return: 2X2 or 2X3 matrix M such that M * starting_points = end_points
+    :return: Matrix M such that M * starting_points = end_points
     """
-    #### start student code ####
-    # we are solving for the matrix M such that M * starting_points = end_points
-    # we can rewrite this as M * starting_points - end_points = 0
-    ## TODO 1: transform the point coordinates to the A matrix and b vector
-    ## for question 1(d)
-    ## for affine transformation, you will be dealing with a transformation matrix of 6 parameters
-    ## think about how to change the shape of A to accomodate the extra parameters
+    
+    # We solve for the matrix M such that M * starting_points = end_points
+    # We can rewrite this as M * starting_points - end_points = 0
+    
+    # TODO Step 1: Transform the point coordinates to the A matrix and b vector
     A = np.array(
         [
             [0, 0, 0, 0],
@@ -48,9 +42,9 @@ def calculate_matrix(starting_points, end_points):
     )
     b = np.array([[0], [0], [0], [0], [0], [0], [0], [0]])
 
-    ## TODO 2: solve for the least squares solution (use the np.linalg.lstsq function)
+    ## Step 2: Solve for the least squares solution
     x, residual = np.linalg.lstsq(A, b, rcond=5)[:2]
-    ## TODO 3: reshape the x vector into a square matrix
+    ## Step 3: Reshape the x vector into a square matrix
     x = x.reshape(2, 2)
     return x, residual
 
@@ -60,40 +54,35 @@ def transform(starting_points, transformation_matrix):
 
 
 def main():
-    starting_points = np.array([[1, 1.5, 2, 2.5], [1, 0.5, 1, 2]])
+    start_points = np.array([[1, 1.5, 2, 2.5], [1, 0.5, 1, 2]])
 
-    # TODO: use the primed coordinates from the written hw.
-    # See how we do this for starting points to do it for end_points.
+    # TODO Use the primed coordinates from the written hw.
     end_points = np.array([[0, 0, 0, 0], [0, 0, 0, 0]])
 
-    ## fill in your computation here
-    transformation_matrix, residual = calculate_matrix(starting_points, end_points)
+    transformation_matrix, residual = estimate_transform(start_points, end_points)
     print(f"The residual of your transformation is {residual}")
 
-    transformed_points = transform(starting_points, transformation_matrix)
+    transformed_points = transform(start_points, transformation_matrix)
     print(transformed_points)
 
     fig, ax = plt.subplots()
+    
+    # annotate points
+    start_offsets = np.array([[-0.15, 0.05, 0.1, 0], [0, -0.1, 0, 0]])
+    end_offsets = np.array([[0.05, 0, 0, 0], [-0.08, 0, 0, 0]])
+    for i, txt in enumerate(["a", "b", "c", "d"]):
+        ax.annotate(txt, xy=(start_points[0, i] + start_offsets[0, i], start_points[1, i] + start_offsets[1, i]), fontweight='bold', fontsize=12)
+    for i, txt in enumerate(["a'", "b'", "c'", "d'"]):
+        ax.annotate(txt, (end_points[0, i] + end_offsets[0, i], end_points[1, i] + end_offsets[1, i]), fontweight='bold', fontsize=12)
 
-    # plot the transformed results
-    # the points transformed by your matrix wound not perfectly match the end points
-    # this is expected because the result returned by calculate_matrix is the least squares solution, which of course comes with residuals
-    ax.fill(
-        starting_points[0],
-        starting_points[1],
-        color="blue",
-        alpha=0.5,
-        label="Starting Points",
-    )
-    ax.fill(end_points[0], end_points[1], alpha=0.5, color="red", label="End Points")
-    # ax.fill(default_transformed_points[0], default_transformed_points[1], color='orange', alpha=0.5, label=default_transformation_names[default_transformation_idx])
-    ax.fill(
-        transformed_points[0],
-        transformed_points[1],
-        color="green",
-        alpha=0.5,
-        label="Your Transformation",
-    )
+    # plot the starting and ending points
+    ax.fill(start_points[0], start_points[1], color="blue", alpha=0.5, label="Starting Points", zorder=3)
+    ax.fill(end_points[0], end_points[1], alpha=0.5, color="red", label="End Points", zorder=3)
+    # plot transformed points
+    ax.fill(transformed_points[0], transformed_points[1], color="green", alpha=0.5, label="Your Transformation", zorder=3)
+    
+    plt.xlim([-1.5, 3.0])
+    plt.ylim([0.0, 3.0])
     plt.legend()
     plt.show()
 
