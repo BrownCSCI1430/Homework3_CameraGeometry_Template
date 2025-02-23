@@ -299,7 +299,8 @@
 \or \textbf{instructions}
 \or \textbf{Q1.1}
 \or \textbf{Q1.2}
-\or \textbf{Q1.3, Q1.4}
+\or \textbf{Q1.3}
+\or \textbf{Q1.4}
 \or \textbf{Q2.1.1}
 \or \textbf{Q2.1.2, Q2.2}
 \or \textbf{Q2.3}
@@ -320,4 +321,4 @@
 \fi
 \textbf{should be on this page}
 }}
-\rfoot{\thepage~/ 18}
+\rfoot{\thepage~/ 19}

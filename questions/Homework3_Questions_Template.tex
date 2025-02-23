@@ -41,7 +41,7 @@
 \pagebreak
 
 \begin{question}[points=10,drawbox=false]
-Suppose we have a quadrilateral $\mathbf{abcd}$ and a transformed version $\mathbf{a'b'c'd'}$:
+Suppose we have a two quadrilaterals $\mathbf{abcd}$ and $\mathbf{a'b'c'd'}$:
 
 \begin{minipage}[c]{0.49\textwidth}
     \includegraphics[width=\textwidth]{images/quads_lstsq.png}
@@ -64,7 +64,7 @@ Suppose we have a quadrilateral $\mathbf{abcd}$ and a transformed version $\math
     \end{equation*}
 \end{minipage}
 
-Let's assume that each point in $\mathbf{abcd}$ was mapped to its corresponding point in $\mathbf{a'b'c'd'}$ by a $2\times2$ transformation matrix $\mathbf{M}$.
+They look like they are related by a rotation and a non-uniform scale transformation. So, let's assume that each point in $\mathbf{abcd}$ could be mapped to its corresponding point in $\mathbf{a'b'c'd'}$ by a $2\times2$ transformation matrix $\mathbf{M}$, as these can represent non-linear scaling and rotation.
 
 e.g., if 
 $\mathbf{p} = \begin{bmatrix} x \\ y \end{bmatrix}$, 
@@ -74,11 +74,10 @@ $\mathbf{M} = \begin{bmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{bmatri
 
 then $\begin{bmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} x' \\ y'  \end{bmatrix}$
 
-We would like to estimate $\mathbf{M}$ using least squares for linear regression.
 \end{question}
 
 \begin{subquestion}[points=1]
-Rewrite the equation $\mathbf{M}\mathbf{p} = \mathbf{p'}$ into a pair of linear equations by expanding the matrix multiplication.
+Rewrite the equation $\mathbf{M}\mathbf{p} = \mathbf{p'}$ into a pair of linear equations by expanding the matrix multiplication symbolically.
 \end{subquestion}
 
 \begin{answer}
@@ -93,18 +92,18 @@ TODO: Replace each of the `$\_\_$' below with $x, y, x', y',$ or $0$.
 
 \clearpage
 \begin{subquestion}[points=2,drawbox=false]
-To estimate $\mathbf{M}$, as it has four coefficients, we need four equations. As our quadrilaterals have four points, we could create eight such equations (two for each point) that use the transformation $\mathbf{M}$. 
-
-From these equations for each $\mathbf{p},\mathbf{p}'$ correspondence, we can construct a matrix $\mathbf{A}$ and column vector $\mathbf{b}$ with a vector of coefficients of $\mathbf{M}$---let's call that $\mathbf{x}$---that must satisfy:
+We would like to estimate $\mathbf{M}$ using least squares linear regression. For this, we form a system of linear equations, typically written in the form $\mathbf{Ax}=\mathbf{b}$, where $\mathbf{x}$ contains the parameters of $\mathbf{M}$, matrix $\mathbf{A}$ contains the coordinates of $\mathbf{p}$ and column vector $\mathbf{b}$ contains the corresponding coordinates of $\mathbf{p'}$.
 \begin{align*}
     \mathbf{Ax}=\mathbf{b} \hspace{0.4cm}\text{where}\hspace{0.4cm} \mathbf{A} \times \begin{bmatrix} m_{1,1} \\ m_{1,2} \\ m_{2,1} \\ m_{2,2} \\ \end{bmatrix} = \mathbf{b}
 \end{align*}
+%
+As $\mathbf{M}$ has four parameters, we need four equations to \emph{determine} an $\mathbf{M}$. As each point pair provides two equations, that $\mathbf{M}$ will exactly transform those two points $\mathbf{p}$ onto their pairs $\mathbf{p'}$. But, as our quadrilaterals have four points, we could create eight such equations to estimate $\mathbf{M}$---$\mathbf{M}$ is now said to be \emph{overdetermined}. If all point pairs \emph{do not} exactly transform by some $\mathbf{M}$, then using an overdetermined system will find an $\mathbf{M}$ that minimize the distance (or residual error) between all estimated values for $\mathbf{p'}$ and the real values for $\mathbf{p'}$, i.e., that minimize the Euclidean norm (or 2-norm) $||\mathbf{A}\mathbf{x} - \mathbf{b}||_2$.
 
-\emph{Note:} As systems of linear equations are typically written in the form $\mathbf{Ax}=\mathbf{b}$, we've overloaded the symbol $\mathbf{b}$ here. So, be careful---$\mathbf{b}$ here is the vector of target $x',y'$ values across all equations, and not the point in the quadrilateral.
+\emph{Note:} As systems of linear equations are typically written in the form $\mathbf{Ax}=\mathbf{b}$, we've overloaded the symbol $\mathbf{b}$ here to keep this familiarity. So, be careful---$\mathbf{b}$ is the vector of target $x',y'$ values across all equations, and not the point in the quadrilateral.
 \end{subquestion}
 
 \begin{orangebox}
-Declare $\mathbf{A}$ and $\mathbf{b}$:\\
+Declare $\mathbf{A}$ and $\mathbf{b}$ for all four point pairs.\\
 
 Replace each `$\_\_$' below with a $0$ or a coordinate value from the quadrilaterals.
 \end{orangebox}
@@ -137,63 +136,62 @@ Replace each `$\_\_$' below with a $0$ or a coordinate value from the quadrilate
 
 
 \clearpage
-\begin{subquestion}[points=1,drawbox=false]
-If we use more than four equations, then our problem is over-constrained. In this case, we want to find values for $m_{i,j}$ that minimize the squared error between the transformed values for $\mathbf{p'}$ and the real known $\mathbf{p'}$ values, i.e., we want to minimize $||\mathbf{A}\mathbf{x} - \mathbf{b}||^2$.
-
-To do this, we can use the singular value decomposition to find the pseudoinverse of $\mathbf{A}$, written as $\mathbf{A}^\dagger$. Then, we multiply it by both sides, giving us:
-\begin{align*}
-\mathbf{A}^\dagger \mathbf{A}\mathbf{x} &= \mathbf{A}^\dagger \mathbf{b}\\
-\quad \mathbf{x} &= \mathbf{A}^\dagger \mathbf{b}.
-\end{align*}
-
-In linear algebra class, you might have learned how to solve linear systems by hand, but thankfully the computer can do this for us even for large systems! \texttt{numpy.linalg.lstsq()} takes in our $\mathbf{A}$ matrix and $\mathbf{b}$ vector, and returns $\mathbf{x}$.
-
-\textit{Note:} We provide a Python script \texttt{transformation\_viz.py} for you to estimate and visualize the transformation. Complete matrix $\mathbf{A}$ and vector $\mathbf{b}$ to see how the quadrilaterals match up!
+\begin{subquestion}[points=3,drawbox=false]
+If we use four equations, then $\mathbf{A}$ is square and can be easily inverted to solve for $\mathbf{x}$ by left multiplying the inverse by both sides:
+%
+\begin{equation}
+\mathbf{A}^{-1} \mathbf{A}\mathbf{x} = \mathbf{A}^{-1} \mathbf{b} \hspace{0.5cm}\text{so}\hspace{0.5cm} \mathbf{x} = \mathbf{A}^{-1} \mathbf{b}.
+\end{equation}
+%
+If we use more than four equations, then $\mathbf{A}$ is non-square. In this situation, we can use the pseudoinverse of $\mathbf{A}$, written as $\mathbf{A}^+$.
+\begin{equation}
+\mathbf{A}^+ \mathbf{A}\mathbf{x} = \mathbf{A}^+ \mathbf{b}
+\hspace{0.5cm}\text{so}\hspace{0.5cm} \mathbf{x} = \mathbf{A}^+ \mathbf{b}.
+\end{equation}
+    
+As long as $\mathbf{A}$ has a pseudoinverse, this solution minimizes $||\mathbf{A}\mathbf{x} - \mathbf{b}||_2$.\\ 
+This is the closed-form least squares solution, where $\mathbf{x} = (\mathbf{A}^\top \mathbf{A})^{-1}\mathbf{A}^\top\mathbf{b}$ and where $\mathbf{A}^+ = (\mathbf{A}^\top \mathbf{A})^{-1}\mathbf{A}^\top$.
+    
+We can compute the pseudoinverse from the singular value decomposition. In python, \texttt{numpy.linalg.lstsq()} will handle this for us, including solving large systems. \texttt{lstsq()} takes as input $\mathbf{A}$ and $\mathbf{b}$, and returns a solution for $\mathbf{x}$ along with the residual error. Plug your $\mathbf{A}$,$\mathbf{b}$ values into that function and write the numeric values of the estimated $\mathbf{M}$ matrix below along with the numeric value of the residual error.
+    
+\textit{Note:} We provide a Python script \texttt{transformation\_viz.py} for you to estimate and visualize the transformation. Within function \texttt{estimate\_transform()}, declare matrix $\mathbf{A}$ and vector $\mathbf{b}$ and create a function call to \texttt{lstsq()} to see how the quadrilaterals match up!
 \end{subquestion}
 
 \begin{orangebox}
-State your estimated $\mathbf{M}$ by replacing each of the `$\_\_$' below:
+State your $\mathbf{M}$ by replacing each of the `$\_\_$' below, and state the residual error.
 \end{orangebox}
 
 \begin{answer}
 \begin{align*}
     \textbf{M} = \begin{bmatrix} m_{1,1} & m_{1,2} \\ m_{2,1} & m_{2,2} \end{bmatrix} = \begin{bmatrix} \_\_ & \_\_ \\ \_\_ & \_\_ \end{bmatrix}
 \end{align*}
+
+Residual error: xxx
 \end{answer}
 
-\begin{subquestion}[points=6,drawbox=false]
-Note that the least squares regression function that we use here is an approximation function, meaning that the values we derived for the transformation matrix are not exact. The same is true of our 8 point algorithm method of calculating the fundamental matrix.
+\pagebreak
+\begin{subquestion}[points=4,drawbox=false]
+If the residual is zero (or zero to machine numerical precision), then we can confirm our initial assumption that the transformation is a rotation and a scale. If it is not, then we need a transformation with more degrees of freedom to reduce the residual error.
 \end{subquestion}
 
 \begin{orangebox}
-Determine what kind of transformation it is by forming a system of linear equations and determining a matrix $\textbf{M}$ that produces zero residual error (to machine numerical precision). Feel free to try your implementation in \texttt{transformation\_viz.py} to see how the resulting quadrilateral matches the ground truth.
-\\ 
-    
-Write out your system's $\textbf{A}$ and $\textbf{b}$ matrices as in (b), state $\textbf{M}$ and the residual, and state which kind of transformation it is. \textbf{[4-6 sentences]}
+Determine what kind of transformation it is by forming a system of linear equations and estimating an $\mathbf{M}$ that produces zero residual error (to machine numerical precision).\\
+
+Use your implementation in \texttt{transformation\_viz.py} to help.
+Write out your system's $\mathbf{A}$, $\mathbf{x}$, and $\mathbf{b}$ matrices, state $\mathbf{M}$ and the residual error, and state which kind of transformation it is.
 \end{orangebox}
-
-\begin{answer}
-TODO: your answer for (d) here
+    
+\begin{answer}[height=30]
+% Copy the templates from above. As your M can vary, we don't know ahead of time which solution you will use, so we cannot provide the templates.
 \end{answer}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% % Please leave the pagebreak
-% \pagebreak
-% \paragraph{A3 (continued):} Your answer here.
-
-% If you really need extra space, uncomment here and use extra pages after the last question.
-% Please refer here in your original answer. Thanks!
-%\pagebreak
-%\paragraph{AX.X Continued:} Your answer continued here.
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q2:} \textbf{[8 points]}
-In lecture, you've learned that cameras can be represented by intrinsic and extrinsic matrices. These matrices can be used to calculate the projections of points within a 3D world onto 2D image planes. For this, we use \emph{homogeneous coordinates}. The final $3\times4$ matrix is known as the \emph{camera matrix}.
+\begin{question}[points=8,drawbox=false]
+In lecture, we've learned that cameras can be represented by intrinsic and extrinsic matrices. These matrices can be used to calculate the projections of points within a 3D world onto 2D image planes. For this, we use \emph{homogeneous coordinates}. The final $3\times4$ matrix is known as the \emph{camera matrix}.
 
 Recall that the transformation can be represented by the following expression:
 \begin{align*}
@@ -214,313 +212,177 @@ Recall that the transformation can be represented by the following expression:
     = w
     \begin{bmatrix}  u \\ v \\ $1$ \end{bmatrix}
 \end{align*}
-where $f$ is the focal point, $r$ is the rotation matrix, $t$ is the translation vector,  $w$ is some weighing/scaling factor, and $(u, v)$ is the position of the point in the real world $(x, y, z)$ projected on the 2D plane.
+where $f$ is the focal length, $\mathbf{R}$ is the rotation matrix, $\mathbf{t}$ is the translation vector,  $w$ is some weighing/scaling factor, and $(u, v)$ is the position that the point in the real world $(x, y, z)$ projects to on the 2D plane.
 
-\begin{enumerate}[(a)]
-\item \textbf{[2 points]}
-For each of the following, you are given the camera specifications and a sample 3D point from the real world. 
+For each following question, you are given the camera specifications and a sample 3D point from the real world. Fill in the camera's intrinsic $\mathbf{K}$ and extrinsic $\mathbf{[Rt]}$ matrices; then, perform the multiplications and perspective division (unhomogenize) to find the 2D coordinate of the projected point.
+\end{question}
 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Fill in the camera's intrinsic and extrinsic matrices; then, perform the multiplications and perspective division (unhomogenize) to find the 2D coordinate of the projected point on the image.
-\end{tcolorbox}
+\begin{subsubquestion}[points=1]
+A camera with a focal length of 1 in both the $x$ and $y$ directions, a translation of 5 along the $x$-axis, and no skew or rotation.
+\end{subsubquestion}
 
-\begin{enumerate} [(i)]
-\item A camera with a focal length of 1 in both the $x$ and $y$ directions, a translation of 5 along the $x$-axis, and no skew or rotation.
-
-
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Fill in the \_\_ entries
-    \begin{align*}
-        & \qquad M_{\text{intrinsic}} \quad \times \qquad M_{\text{extrinsic}} \qquad  \times \; 
-        \begin{bmatrix} 
-            x  \\ 
-            y  \\ 
-            z  \\
-            1
-        \end{bmatrix} \\
-        &= \begin{bmatrix} 
-        \_\_ & \_\_ & $0$    \\  % <----- TODO: replace \_\_ %
-        $0$ & \_\_ & $0$     \\  % <----- TODO: replace \_\_ %
-        $0$ & $0$ & $1$ 
-        \end{bmatrix} 
-        \times
-        \begin{bmatrix} 
-        \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
-        \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
-        \_\_ & \_\_ & \_\_ & \_\_     % <----- TODO: replace \_\_ %
-        \end{bmatrix} \times
-        \begin{bmatrix} 
-        $30$    \\ 
-        $-20$   \\ 
-        $10$    \\ 
-        $1$ \end{bmatrix} \\
-        &= \qquad \qquad \qquad \begin{bmatrix} 
-        \_\_    \\   % <----- TODO: replace \_\_ %
-        \_\_    \\   % <----- TODO: replace \_\_ %
-        \_\_         % <----- TODO: replace \_\_ %
-        \end{bmatrix} \\
-        &= \qquad \quad \quad 
-        \_\_         % <----- TODO: replace \_\_ %
-        \times 
-        \begin{bmatrix}  
-        \_\_    \\   % <----- TODO: replace \_\_ %
-        \_\_    \\   % <----- TODO: replace \_\_ %
-        $1$ 
-        \end{bmatrix}
-    \end{align*}
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-16\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
+\begin{answer}
+TODO: Fill in the \_\_ entries.
+\begin{align*}
+    & \hspace{1.3cm} \mathbf{K} \hspace{0.8cm} \times \hspace{1cm} [\mathbf{R} \mathbf{t}] \hspace{0.9cm} \times \; 
+    \begin{bmatrix} 
+        x  \\ 
+        y  \\ 
+        z  \\
+        1
+    \end{bmatrix} \\
+    &= \begin{bmatrix} 
+    \_\_ & \_\_ & $0$    \\  % <----- TODO: replace \_\_ %
+    $0$ & \_\_ & $0$     \\  % <----- TODO: replace \_\_ %
+    $0$ & $0$ & $1$ 
+    \end{bmatrix} 
+    \times
+    \begin{bmatrix} 
+    \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
+    \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
+    \_\_ & \_\_ & \_\_ & \_\_     % <----- TODO: replace \_\_ %
+    \end{bmatrix} \times
+    \begin{bmatrix} 
+    $30$    \\ 
+    $-20$   \\ 
+    $10$    \\ 
+    $1$ \end{bmatrix} \\
+    &= \qquad \qquad \qquad \begin{bmatrix} 
+    \_\_    \\   % <----- TODO: replace \_\_ %
+    \_\_    \\   % <----- TODO: replace \_\_ %
+    \_\_         % <----- TODO: replace \_\_ %
+    \end{bmatrix} \\
+    &= \qquad \quad \quad 
+    \_\_         % <----- TODO: replace \_\_ %
+    \times 
+    \begin{bmatrix}  
+    \_\_    \\   % <----- TODO: replace \_\_ %
+    \_\_    \\   % <----- TODO: replace \_\_ %
+    $1$ 
+    \end{bmatrix}
+\end{align*}
+\end{answer}
 
 
-\item A camera with focal length of $2$ in both the $x$ and $y$ directions, a translation of $5$ along the $x$-axis, and no skew or rotation.
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+\begin{subsubquestion}[points=1]
+A camera with focal length of $2$ in both the $x$ and $y$ directions, a translation of $5$ along the $x$-axis, and no skew or rotation.
+\end{subsubquestion}
 
-    TODO: Fill in the \_\_ entries
-    \begin{align*}
-        &= \begin{bmatrix} 
-        \_\_ & \_\_ & $0$    \\  % <----- TODO: replace \_\_ %
-        $0$ & \_\_ & $0$     \\  % <----- TODO: replace \_\_ %
-        $0$ & $0$ & $1$ 
-        \end{bmatrix} 
-        \times
-        \begin{bmatrix} 
-        \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
-        \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
-        \_\_ & \_\_ & \_\_ & \_\_     % <----- TODO: replace \_\_ %
-        \end{bmatrix} \times
-        \begin{bmatrix} 
-        $30$    \\ 
-        $-20$   \\ 
-        $10$    \\ 
-        $1$ \end{bmatrix} \\
-        &= \qquad \qquad \qquad \begin{bmatrix} 
-        \_\_    \\   % <----- TODO: replace \_\_ %
-        \_\_    \\   % <----- TODO: replace \_\_ %
-        \_\_         % <----- TODO: replace \_\_ %
-        \end{bmatrix} \\
-        &= \qquad \quad \quad 
-        \_\_         % <----- TODO: replace \_\_ %
-        \times 
-        \begin{bmatrix}  
-        \_\_    \\   % <----- TODO: replace \_\_ %
-        \_\_    \\   % <----- TODO: replace \_\_ %
-        $1$ 
-        \end{bmatrix}
-    \end{align*}
+\begin{answer}
+\begin{align*}
+    &= \begin{bmatrix} 
+    \_\_ & \_\_ & $0$    \\  % <----- TODO: replace \_\_ %
+    $0$ & \_\_ & $0$     \\  % <----- TODO: replace \_\_ %
+    $0$ & $0$ & $1$ 
+    \end{bmatrix} 
+    \times
+    \begin{bmatrix} 
+    \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
+    \_\_ & \_\_ & \_\_ & \_\_  \\ % <----- TODO: replace \_\_ %
+    \_\_ & \_\_ & \_\_ & \_\_     % <----- TODO: replace \_\_ %
+    \end{bmatrix} \times
+    \begin{bmatrix} 
+    $30$    \\ 
+    $-20$   \\ 
+    $10$    \\ 
+    $1$ \end{bmatrix} \\
+    &= \qquad \qquad \qquad \begin{bmatrix} 
+    \_\_    \\   % <----- TODO: replace \_\_ %
+    \_\_    \\   % <----- TODO: replace \_\_ %
+    \_\_         % <----- TODO: replace \_\_ %
+    \end{bmatrix} \\
+    &= \qquad \quad \quad 
+    \_\_         % <----- TODO: replace \_\_ %
+    \times 
+    \begin{bmatrix}  
+    \_\_    \\   % <----- TODO: replace \_\_ %
+    \_\_    \\   % <----- TODO: replace \_\_ %
+    $1$ 
+    \end{bmatrix}
+\end{align*}
+\end{answer}
 
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-12\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
 
-\end{enumerate}
-\item \textbf{[2 points]}
-
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+\begin{subquestion}[points=2]
 Compare the two image coordinates you've calculated in parts a and b. Explain how each parameter affects the final image coordinate. \textbf{[2-3 sentences]}
-\end{tcolorbox}
+\end{subquestion}
 
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{answer}[height=12]
+\end{answer}
 
-    TODO: Your answer to (b) here.
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-12\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \paragraph{A4a:} Your answer here.
-% Uncomment the stencil below and fill in your solution.
+\pagebreak
 
-% \begin{enumerate}[(a)]
+\begin{subquestion}[points=4,drawbox=false]
+In the questions folder, we provide stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. 
+\end{subquestion}
 
-% \item
-
-% \end{enumerate}
-
-% \begin{enumerate}[(b)]
-
-% \item
-
-% \begin{python}
-% # Your code here
-% \end{python}
-
-% \includegraphics[width=0.5\linewidth]{yourscreenshot.png}
-
-% \end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Please leave the pagebreak
-\item \textbf{[1 + 3 points]}
-In the questions folder, we've provided stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. 
-
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Please implement \texttt{calculate\_camera\_matrix()} by calculating the camera matrix using the parameters given in the code (see stencil for more detail). When successful, you will see a bunny rendered as dots (see below). Paste your code for this function and attach a screenshot of the working demo once you finish. Play around with the sliders to see how different parameters affect the projection!
-\end{tcolorbox}
+\begin{orangebox}
+Please implement \texttt{calculate\_camera\_matrix()} by calculating the camera matrix using the parameters given in the code. When successful, you will see a bunny rendered as dots (as below). Paste your code for this function and attach a screenshot of the working demo once you finish. Play around with the sliders to see how different parameters affect the projection!
+\end{orangebox}
 
 \includegraphics[width=0.5\linewidth]{images/bunny.png}
 
-\begin{tcolorbox}[enhanced jigsaw,breakable,pad at break*=1mm,colback=white!5!white,colframe=green!75!black,height fixed for=all]
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{answer}
+\includegraphics[width=0.7\textwidth,keepaspectratio]{images/TODO_demo_screenshot.png}
+\end{answer}
 
-    \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_demo_screenshot.png}
-
-
-    \begin{python}
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits import mplot3d
-from matplotlib.widgets import Slider, Button
-
-# Initial random matrices
-initial_intrinsic_matrix_to_replace = np.random.rand(3,3)
-initial_extrinsic_matrix_to_replace = np.random.rand(3,4)
-initial_camera_matrix_to_replace = np.random.rand(3,4)
-
-# Setting up the point cloud
-file_data_path= "./images/bunny.xyz"
-point_cloud = np.loadtxt(file_data_path, skiprows=0, max_rows=1000000)
-# center it
-point_cloud -= np.mean(point_cloud,axis=0)
-# homogenize
-point_cloud = np.concatenate((point_cloud, np.ones((point_cloud.shape[0], 1))), axis=1)
-# move it in front of the camera
-point_cloud += np.array([0,0,-0.15,0])
-
+\begin{answer}[height=46]
+\begin{python}
 def calculate_camera_matrix(tx, ty, tz, alpha, beta, gamma, fx, fy, skew, u, v):
-    """
-    This function should calculate the camera matrix using the given
-    intrinsic and extrinsic camera parameters.
-    We recommend starting with calculating the intrinsic matrix (refer to lecture 8).
-    Then calculate the rotational 3x3 matrix by calculating each axis separately and
-    multiply them together.
-    Finally multiply the intrinsic and extrinsic matrices to obtain the camera matrix.
-    :params tx, ty, tz: Camera translation from origin
-    :param alpha, beta, gamma: rotation about the x, y, and z axes respectively
-    :param fx, fy: focal length of camera
-    :param skew: camera's skew
-    :param u, v: image center coordinates
-    :return: [3 x 4] NumPy array of the camera matrix, [3 x 4] NumPy array of the intrinsic matrix, [3 x 4] NumPy array of the extrinsic matrix
-    """
     ########################
-    # TODO: Your code here #
+    # TODO: Your calculate_camera_matrix() code here #
     # Hint: Calculate the rotation matrices for the x, y, and z axes separately.
     # Then multiply them to get the rotational part of the extrinsic matrix.
     ########################
+    
     return (initial_camera_matrix_to_replace, 
     initial_intrinsic_matrix_to_replace, 
     initial_extrinsic_matrix_to_replace)
+\end{python}
+\end{answer}
 
-def find_coords(camera_matrix):
-    """
-    This function calculates the coordinates given the student's calculated camera matrix.
-    Normalizes the coordinates.
-    Already implemented.
-    """
-    coords = np.matmul(camera_matrix, point_cloud.T)
-    return coords / coords[2]
+\pagebreak
+\begin{answer}[height=46]
+\begin{python}
+################################################
+# YOU MAY USE THIS ADDITIONAL PAGE
 
-
-
-
-
-
-
-
-
-
-
-
-
-    ################################################
-    # YOU MAY USE THIS ADDITIONAL PAGE
-
-    # WARNING: IF YOU DON'T END UP USING THIS PAGE
-    # KEEP THESE COMMENTS TO MAINTAIN PAGE ALIGNMENT
-    ################################################
-    \end{python}
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\end{tcolorbox}
-
-% \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-%     \clipbox{0pt \dimexpr\dp0-1\baselineskip\relax{} 0in 0pt}{\copy0}
-% \end{tcolorbox}
-
-
-% \paragraph{A4b:} Your answer here.
-
+# WARNING: IF YOU DON'T END UP USING THIS PAGE
+# KEEP THESE COMMENTS TO MAINTAIN PAGE ALIGNMENT
+################################################
+\end{python}
+\end{answer}
+    
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q3:} \textbf{[4 points]} Given a stereo pair of cameras:
-\begin{enumerate} [(a)]
-\item \textbf{[2 points]} 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Briefly describe triangulation. Describe the inputs and outputs of the process. You may wish to use a diagram. \textbf{[3-4 sentences]}
-\end{tcolorbox}
+\begin{question}[points=4,drawbox=false]
+\end{question}
 
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    TODO: Your answer to (a) here.
+\begin{subquestion}[points=2]
+Given a stereo pair of cameras, briefly describe triangulation. Describe the inputs and outputs of the process. You may wish to use a diagram. \textbf{[3--4 sentences]}
+\end{subquestion}
 
-    % OPTIONAL: Include your image here! This is not required.
-    % \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{}
+\begin{answer}[height=30]
+\end{answer}
 
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-20\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-\item \textbf{[2 points]} 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+\pagebreak
+\begin{subquestion}[points=2]
 Why is it not possible to find an absolute depth for each point when we don't have calibration information for our cameras? Note that absolute depth refers to depth with respect to the camera as opposed to relative depth, which is with respect to another object in the scene. \textbf{[3 - 4 sentences]}
-\end{tcolorbox}
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{subquestion}
 
-    TODO: Your answer to (b) here.
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-14\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-\end{enumerate}
-
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \paragraph{A5:} Your answer here.
-% Uncomment the stencil below and fill in your solution.
-
-% \begin{enumerate}[(a)]
-
-% \item
-
-% \item
-
-% \end{enumerate}
+\begin{answer}[height=10]
+\end{answer}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q4:} \textbf{[10 points]}
+
+\begin{question}[points=10,drawbox=false]
 Given the algorithms that we've learned in computer vision, we know that whether we can find/calculate the essential matrix, the fundamental matrix, or both depends on the setup of the cameras and images. You are given three datasets of an object of unknown geometry:
 
 \begin{enumerate}[(i)]
@@ -528,12 +390,11 @@ Given the algorithms that we've learned in computer vision, we know that whether
 \item A stereo pair of calibrated cameras capturing two images of the object; and
 \item Two images of the same object on the internet (e.g. Colosseum) at different camera poses but with unknown intrinsics.
 \end{enumerate}
+\end{question}
 
-\begin{enumerate}[(a)]
-\item \textbf{[3 $\times$ 1 points]}
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+\begin{orangebox}[points=3]
 For each of the above setups, what calculations can we perform? Provide brief explanations to support your choice(s). \textbf{[1 - 2 sentences]}
-\end{tcolorbox}
+\end{orangebox}
 \begin{enumerate}[(i)]
 \item Setup 1
 \begin{answerlist}
@@ -558,10 +419,9 @@ For each of the above setups, what calculations can we perform? Provide brief ex
 
 \end{enumerate}
 
-\item \textbf{[3 $\times$ 1 points]} 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+\begin{subquestion}[points=3]
 State an advantage and disadvantage of using each setup for depth reconstruction. \textbf{[2 - 3 sentences]}
-\end{tcolorbox}
+\end{subquestion}
 
 \begin{enumerate}[(i)]
     \item Setup 1
@@ -638,45 +498,20 @@ State an advantage and disadvantage of using each setup for depth reconstruction
 %         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
 %     \end{tcolorbox}
 % \end{enumerate}
-\item \textbf{[4 points]}
+
+\begin{subquestion}[points=4]
 The differences between the collection methods for these three datasets are crucial in terms of what calculations are possible - and therein which applications they are most useful in.
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black] 
- From a non-technical standpoint, can you think of a scenario why you may prefer one of these data collection setups to another? Why is it important to know what data collection methods have been used to build a particular dataset? \textbf{[5-7 sentences]}
-\end{tcolorbox}
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{subquestion}
 
-    TODO: Your answer to (d) here.
+\begin{orangebox} 
+From a non-technical standpoint, can you think of a scenario why you may prefer one of these data collection setups to another? Why is it important to know what data collection methods have been used to build a particular dataset? \textbf{[5-7 sentences]}
+\end{orangebox}
 
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-18\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \paragraph{A6:} Your answer here.
-% Uncomment the stencil below and fill in your solution.
-
-% \begin{enumerate}[(a)]
-
-% \item
-
-% \item
-
-% \item
+\begin{answer}[height=20]
+\end{answer}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Please leave the pagebreak
-% \pagebreak
-% \paragraph{A6 (continued):} Your answer here.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 % Please leave the pagebreak
 \pagebreak 
 \paragraph{Q5:} \textbf{[3 points]} In two-view camera geometry, what do the following epipolar lines say about the cameras' relative positions? \textbf{[1 - 2 sentences each]}

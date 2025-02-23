@@ -18,23 +18,24 @@ point_cloud = np.concatenate((point_cloud, np.ones((point_cloud.shape[0], 1))), 
 # move it in front of the camera
 point_cloud += np.array([0,0,-0.15,0])
 
+"""
+This function should calculate the camera matrix using the given
+intrinsic and extrinsic camera parameters.
+We recommend starting with calculating the intrinsic matrix (refer to lecture 8).
+Then calculate the rotational 3x3 matrix by calculating each axis separately and
+multiply them together.
+Finally multiply the intrinsic and extrinsic matrices to obtain the camera matrix.
+
+
+:params tx, ty, tz: Camera translation from origin
+:param alpha, beta, gamma: rotation about the x, y, and z axes respectively
+:param fx, fy: focal length of camera
+:param skew: camera's skew
+:param u, v: image center coordinates
+:return: [3 x 4] NumPy array of the camera matrix, [3 x 3] NumPy array of the instrinsic matrix, [3 x 4] NumPy array of the extrinsic matrix
+"""
 def calculate_camera_matrix(tx, ty, tz, alpha, beta, gamma, fx, fy, skew, u, v):
-    """
-    This function should calculate the camera matrix using the given
-    intrinsic and extrinsic camera parameters.
-    We recommend starting with calculating the intrinsic matrix (refer to lecture 8).
-    Then calculate the rotational 3x3 matrix by calculating each axis separately and
-    multiply them together.
-    Finally multiply the intrinsic and extrinsic matrices to obtain the camera matrix.
-
-
-    :params tx, ty, tz: Camera translation from origin
-    :param alpha, beta, gamma: rotation about the x, y, and z axes respectively
-    :param fx, fy: focal length of camera
-    :param skew: camera's skew
-    :param u, v: image center coordinates
-    :return: [3 x 4] NumPy array of the camera matrix, [3 x 3] NumPy array of the instrinsic matrix, [3 x 4] NumPy array of the extrinsic matrix
-    """
+    
     ########################
     # TODO: Your code here #
     # Hint: Calculate the rotation matrices for the x, y, and z axes separately.
@@ -42,12 +43,12 @@ def calculate_camera_matrix(tx, ty, tz, alpha, beta, gamma, fx, fy, skew, u, v):
     ########################
     return initial_camera_matrix_to_replace, initial_intrinsic_matrix_to_replace, initial_extrinsic_matrix_to_replace
 
+"""
+This function calculates the coordinates given the student's calculated camera matrix.
+Normalizes the coordinates.
+Already implemented.
+"""
 def find_coords(camera_matrix):
-    """
-    This function calculates the coordinates given the student's calculated camera matrix.
-    Normalizes the coordinates.
-    Already implemented.
-    """
     coords = np.matmul(camera_matrix, point_cloud.T)
     return coords / coords[2]
 

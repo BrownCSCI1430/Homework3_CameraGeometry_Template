@@ -2,16 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 
-# def parse_args():
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument(
-#         '--translation',
-#         action='store_true',
-#         help='If true, then the transformation matrix should be 2x3. And in this case you should pad the starting points with a row of ones'
-#     )
-#     return parser.parse_args()
-
-
 def estimate_transform(start_points, end_points):
     """
     This function estimates the transformation matrix using the given
@@ -42,10 +32,10 @@ def estimate_transform(start_points, end_points):
     )
     b = np.array([[0], [0], [0], [0], [0], [0], [0], [0]])
 
-    ## Step 2: Solve for the least squares solution
-    x, residual = np.linalg.lstsq(A, b, rcond=5)[:2]
-    ## Step 3: Reshape the x vector into a square matrix
-    x = x.reshape(2, 2)
+    ## TODO Step 2: Solve for the least squares solution using np.linalg.lstsq()
+    
+    ## TODO Step 3: Reshape the x vector into a matrix the same size as M
+    
     return x, residual
 
 
@@ -55,15 +45,14 @@ def transform(starting_points, transformation_matrix):
 
 def main():
     start_points = np.array([[1, 1.5, 2, 2.5], [1, 0.5, 1, 2]])
-
-    # TODO Use the primed coordinates from the written hw.
-    end_points = np.array([[0, 0, 0, 0], [0, 0, 0, 0]])
+    end_points = np.array([[-0.9, -0.1, -0.4, -1.25], [0.8, 1.3, 1.9, 2.55]])
 
     transformation_matrix, residual = estimate_transform(start_points, end_points)
+    print(f"Your transformation matrix is\n {transformation_matrix}")
     print(f"The residual of your transformation is {residual}")
 
     transformed_points = transform(start_points, transformation_matrix)
-    print(transformed_points)
+    print(f"Your transformed points are\n {transformed_points}")
 
     fig, ax = plt.subplots()
     
