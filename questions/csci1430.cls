@@ -247,7 +247,7 @@
     \group_begin:
 
     \begin{answer}
-    \begin{todolist}[itemsep=0pt]
+    \begin{todolist}[itemsep=0pt,topsep=0pt,parsep=0pt]
 }{
     \end{todolist}
     \end{answer}
@@ -310,7 +310,6 @@
 \or \textbf{Q3.2}
 \or \textbf{Q4.1}
 \or \textbf{Q4.2}
-\or \textbf{Q4.3}
 \or \textbf{Q5.1}
 \or \textbf{Q5.2, Q5.3}
 \or \textbf{Q6.1}

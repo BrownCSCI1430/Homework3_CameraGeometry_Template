@@ -33,7 +33,7 @@
 
 \section*{This Homework}
 \begin{itemize}
-  \item 6 questions \textbf{[10 + 8 + 4 + 10 + 3 + 12 = 47 points + 2 bonus points]}.
+  \item 6 questions \textbf{[10 + 8 + 4 + 6 + 3 + 8 = 37 points]}.
   \item Include code, images, and equations where appropriate.
 \end{itemize}
 
@@ -218,7 +218,7 @@ For each following question, you are given the camera specifications and a sampl
 \end{question}
 
 \begin{subsubquestion}[points=1]
-A camera with a focal length of 1 in both the $x$ and $y$ directions, a translation of 5 along the $x$-axis, and no skew or rotation.
+A camera with a focal length of 1 in both the $u$ and $v$ directions, a translation of 5 along the $x$-axis, and no skew or rotation.
 \end{subsubquestion}
 
 \begin{answer}
@@ -266,7 +266,7 @@ TODO: Fill in the \_\_ entries.
 
 \pagebreak
 \begin{subsubquestion}[points=1]
-A camera with focal length of $2$ in both the $x$ and $y$ directions, a translation of $5$ along the $x$-axis, and no skew or rotation.
+A camera with focal length of $2$ in both the $u$ and $v$ directions, a translation of $5$ along the $x$-axis, and no skew or rotation.
 \end{subsubquestion}
 
 \begin{answer}
@@ -304,8 +304,8 @@ A camera with focal length of $2$ in both the $x$ and $y$ directions, a translat
 \end{answer}
 
 
-\begin{subquestion}[points=2]
-Compare the two image coordinates you've calculated in parts a and b. Explain how each parameter affects the final image coordinate. \textbf{[2-3 sentences]}
+\begin{subquestion}[points=1]
+Compare the two image coordinates you've calculated in parts a and b. What visual effect might we say was induced by this change in intrinsic parameters? \textbf{[2--3 sentences]}
 \end{subquestion}
 
 \begin{answer}[height=12]
@@ -315,8 +315,8 @@ Compare the two image coordinates you've calculated in parts a and b. Explain ho
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
 
-\begin{subquestion}[points=4,drawbox=false]
-In the questions folder, we provide stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. 
+\begin{subquestion}[points=5,drawbox=false]
+We provide stencil code for a camera simulation in \texttt{camera\_simulation.py}. Given a camera matrix, the simulator visualizes an image that a camera would produce. 
 \end{subquestion}
 
 \begin{orangebox}
@@ -361,10 +361,11 @@ def calculate_camera_matrix(tx, ty, tz, alpha, beta, gamma, fx, fy, skew, u, v):
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
 \begin{question}[points=4,drawbox=false]
+Let's consider two-view geometry.
 \end{question}
 
 \begin{subquestion}[points=2]
-Given a stereo pair of cameras, briefly describe triangulation. Describe the inputs and outputs of the process. You may wish to use a diagram. \textbf{[3--4 sentences]}
+Given a stereo pair of calibrated cameras, briefly describe depth estimation by triangulation from disparity. Describe the inputs and outputs of the process. You may wish to use a diagram. \textbf{[3--4 sentences]}
 \end{subquestion}
 
 \begin{answer}[height=30]
@@ -372,7 +373,7 @@ Given a stereo pair of cameras, briefly describe triangulation. Describe the inp
 
 \pagebreak
 \begin{subquestion}[points=2]
-Why is it not possible to find an absolute depth for each point when we don't have calibration information for our cameras? Note that absolute depth refers to depth with respect to the camera as opposed to relative depth, which is with respect to another object in the scene. \textbf{[3 - 4 sentences]}
+We wish to estimate depth in real-world units (e.g., meters) by triangulation. This is sometimes called `absolute depth.' What parameters or measurements of my stereo pair camera system do I need to know to estimate absolute depth? Provide units. \textbf{[3--4 sentences]}
 \end{subquestion}
 
 \begin{answer}[height=10]
@@ -382,254 +383,159 @@ Why is it not possible to find an absolute depth for each point when we don't ha
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
 
-\begin{question}[points=10,drawbox=false]
-Given the algorithms that we've learned in computer vision, we know that whether we can find/calculate the essential matrix, the fundamental matrix, or both depends on the setup of the cameras and images. You are given three datasets of an object of unknown geometry:
-
-\begin{enumerate}[(i)]
-\item A video circling the object;
-\item A stereo pair of calibrated cameras capturing two images of the object; and
-\item Two images of the same object on the internet (e.g. Colosseum) at different camera poses but with unknown intrinsics.
-\end{enumerate}
+\begin{question}[points=6,drawbox=false]
+Given the algorithms that we've learned in computer vision, we know that whether we can estimate the essential matrix, the fundamental matrix, or both depends on the setup of the cameras and images. Suppose we have three captures of an object of unknown size, without any other metadata (e.g., no \href{https://en.wikipedia.org/wiki/Exif}{Exif metadata}):
 \end{question}
-
-\begin{orangebox}[points=3]
-For each of the above setups, what calculations can we perform? Provide brief explanations to support your choice(s). \textbf{[1 - 2 sentences]}
-\end{orangebox}
-\begin{enumerate}[(i)]
-\item Setup 1
-\begin{answerlist}
-    \item Essential Matrix
-    \item Fundamental Matrix
-    \item Both
-\end{answerlist}
-
-\item Setup 2
-\begin{answerlist}
-    \item Essential Matrix
-    \item Fundamental Matrix
-    \item Both
-\end{answerlist}
-
-\item Setup 3
-\begin{answerlist}
-    \item Essential Matrix
-    \item Fundamental Matrix
-    \item Both
-\end{answerlist}
-
+%
+\begin{enumerate}[(i),topsep=0pt,parsep=1pt]
+\item A video of a camera circling the object;
+\item A stereo pair of calibrated cameras that captured two images of the object; and
+\item Two images on the Web captured at different times, with different cameras, and from different locations, with overlap in their views (e.g., Colosseum in Rome).
 \end{enumerate}
 
 \begin{subquestion}[points=3]
-State an advantage and disadvantage of using each setup for depth reconstruction. \textbf{[2 - 3 sentences]}
+For each of the above setups, what can we recover?\\
+Provide brief explanations to support your choices. \textbf{[1--2 sentences]}
+\end{subquestion}
+\begin{enumerate}[(i),itemsep=0pt,parsep=0pt,topsep=0pt]
+\item Setup 1\\
+\begin{answerlist}
+    % Remember: use \item[\done] to mark an answer.
+    \item Essential Matrix
+    \item Fundamental Matrix
+    \item Both
+\end{answerlist}
+\begin{answer}[height=4]
+TODO Why?
+\end{answer}
+
+\item Setup 2\\
+\begin{answerlist}
+    \item Essential Matrix
+    \item Fundamental Matrix
+    \item Both
+\end{answerlist}
+\begin{answer}[height=4]
+TODO Why?
+\end{answer}
+
+\item Setup 3\\
+\begin{answerlist}
+    \item Essential Matrix
+    \item Fundamental Matrix
+    \item Both
+\end{answerlist}
+\begin{answer}[height=4]
+TODO Why?
+\end{answer}
+
+\end{enumerate}
+
+\pagebreak
+\begin{subquestion}[points=3]
+State one practical advantage and one practical disadvantage of using each setup for depth reconstruction. \textbf{[2--3 sentences]}
 \end{subquestion}
 
 \begin{enumerate}[(i)]
-    \item Setup 1
-    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-        \setbox0=\hbox{\parbox[t]{\textwidth}{
-            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \item Setup 1\\
+    \begin{answer}[height=7]
+    \end{answer}
 
-            TODO: Your answer to (b) (i) here.
-
-            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            }}
-        \clipbox{0pt \dimexpr\dp0-7\baselineskip\relax{} 0in 0pt}{\copy0}
-    \end{tcolorbox}
-    \item Setup 2
-    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-        \setbox0=\hbox{\parbox[t]{\textwidth}{
-            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-            TODO: Your answer to (b) (ii) here.
-
-            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            }}
-        \clipbox{0pt \dimexpr\dp0-7\baselineskip\relax{} 0in 0pt}{\copy0}
-    \end{tcolorbox}
-    \item Setup 3
-    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-        \setbox0=\hbox{\parbox[t]{\textwidth}{
-            %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-            TODO: Your answer to (b) (iii) here.
-
-            %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            }}
-        \clipbox{0pt \dimexpr\dp0-7\baselineskip\relax{} 0in 0pt}{\copy0}
-    \end{tcolorbox}
+    \item Setup 2\\
+    \begin{answer}[height=7]
+    \end{answer}
+    
+    \item Setup 3\\
+    \begin{answer}[height=7]
+    \end{answer}
+    
 \end{enumerate}
 
-% \item \textbf{[3 $\times$ 1 points]}
-% \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-% Name an application scenario for each of the different setups \textbf{[1 - 2 sentences]}
-% \end{tcolorbox}
-% \begin{enumerate}[(i)]
-%     \item Setup 1
-%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-%         \setbox0=\hbox{\parbox[t]{\textwidth}{
-%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%             TODO: Your answer to (c) (i) here.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Please leave the pagebreak
+\pagebreak 
+\begin{question}[points=3,drawbox=false] 
+In two-view camera geometry, what do the following epipolar lines say about the relative positions of the cameras? \textbf{[1--2 sentences each]}
 
-%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%             }}
-%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-%     \end{tcolorbox}
-%     \item Setup 2
-%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-%         \setbox0=\hbox{\parbox[t]{\textwidth}{
-%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Please draw or describe the relative positions of the two camera planes.
 
-%             TODO: Your answer to (c) (ii) here.
+\textit{Note:} The Spring '22 course staff created an \href{https://browncsci1430.github.io/resources/stereo_camera_visualization_demo/}{interactive demo} to explore the different scenarios. Move the cameras around and look at how the epipolar lines change to gain a better feel for epipolar geometry.
+\end{question}
 
-%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%             }}
-%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-%     \end{tcolorbox}
-%     \item Setup 3
-%     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-%         \setbox0=\hbox{\parbox[t]{\textwidth}{
-%             %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%             TODO: Your answer to (c) (iii) here.
-
-%             %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%             }}
-%         \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
-%     \end{tcolorbox}
-% \end{enumerate}
-
-\begin{subquestion}[points=4]
-The differences between the collection methods for these three datasets are crucial in terms of what calculations are possible - and therein which applications they are most useful in.
+\begin{subquestion}[points=1]
+Radiate out of a point on the image plane.\\
+\includegraphics[width = 0.5\linewidth]{images/epipolarlines-a.PNG}
 \end{subquestion}
 
-\begin{orangebox} 
-From a non-technical standpoint, can you think of a scenario why you may prefer one of these data collection setups to another? Why is it important to know what data collection methods have been used to build a particular dataset? \textbf{[5-7 sentences]}
+\begin{answer}[height=12]
+\end{answer}
+
+\pagebreak
+\begin{subquestion}[points=1]
+Converge to a point outside of the image plane.\\
+\includegraphics[width = 0.5\linewidth]{images/epipolarlines-b.PNG}
+\end{subquestion}
+
+\begin{answer}[height=12]
+\end{answer}
+
+\begin{subquestion}[points=1]
+Notice the misalignment of the epipolar lines in the image below? What went wrong in the calculation of the fundamental matrix and how can we fix it?
+
+\textit{Hint:} Check slides from the lecture on stereo geometry.
+
+\includegraphics[width = 0.5\linewidth]{images/epipolarlines-c.PNG}
+\end{subquestion}
+
+\begin{answer}[height=7]
+\end{answer}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak 
+\begin{question}[points=4,drawbox=false]
+Cameras are used in surveillance systems. One argument in favor of surveillance systems is to deter and solve crime to improve safety. Another is that if you're not doing anything wrong, you don't have anything to worry about. One argument against surveillance systems is that they compromise people's privacy even when no wrongdoing is taking place. Another is that they increase stress and anxiety.
+
+Computer vision allows the \emph{automation} of surveillance. For instance, it lets us find the mathematical relationship between multiple cameras to track objects and people in 3D spaces, or it can reduce the burden upon a human operator who need only respond to detected events rather than actively monitor many cameras. Such functionality makes it easier to scale a surveillance operation.
+
+On Brown's campus, the number of surveillance cameras has increased as technology has advanced: from 60 in 2000 (\href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{Brown Daily Herald 2008/01}) to 800 by 2020 (\href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{BDH 2020/02}), including temporarily in residence halls (\href{https://www.browndailyherald.com/article/2021/07/university-removes-hegeman-hall-surveillance-cameras}{BDH 2021/07}). The City of Providence is investigating installing noise cameras (\href{https://www.browndailyherald.com/article/2024/03/mayor-smiley-pushes-for-noise-camera-installation-in-providence}{BDH 2024/03}), potentially on Thayer Street (\href{https://www.browndailyherald.com/article/2024/04/chang-27-how-mayor-smileys-noise-cameras-can-tame-thayer-and-save-our-ears}{BDH opinion 2024/04}).
+\end{question}
+
+
+
+\begin{orangebox}
+Suppose Brown both did and did not use computer vision automation. How comfortable are you with Brown's surveillance apparatus in each case?
+In what circumstances do you believe that the potential benefits of surveillance \emph{automation} outweigh the potential concerns, and why? \textbf{[8--10 sentences]}
 \end{orangebox}
 
 \begin{answer}[height=20]
 \end{answer}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Please leave the pagebreak
-\pagebreak 
-\paragraph{Q5:} \textbf{[3 points]} In two-view camera geometry, what do the following epipolar lines say about the cameras' relative positions? \textbf{[1 - 2 sentences each]}
-
-\textit{Tip:} The Spring '22 course staff created an \href{https://browncsci1430.github.io/resources/stereo_camera_visualization_demo/}{interactive demo} to explore the different scenarios and get a better feel for epipolar geometry.
-
-\begin{enumerate}[(a)]
-\item Please draw or describe the relative positions of the two camera planes. Check slides from the lecture on stereo geometry for details of carera planes.
-\textbf{[1 point]} 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Radiate out of a point on the image plane.
-\end{tcolorbox}
-
-\includegraphics[width = 0.5\linewidth]{images/epipolarlines-a.PNG}
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Your answer to (a) here.
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-\item Also draw or describe the relative positions of the two camera planes. Check slides from the lecture on stereo geometry for details of carera planes.\textbf{[1 point]}
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Converge to a point outside of the image plane.
-\end{tcolorbox}
-
-\includegraphics[width = 0.5\linewidth]{images/epipolarlines-b.PNG}
-
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Your answer to (b) here.
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-\item \textbf{[1 point]} 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-
-% OLD QUESTION:
-%What might you need to change about your fundamental matrix calculations if you obtained the following epipolar lines?%
-
-Notice the misalignment of the epipolar lines in the image below? What went wrong in the calculation of the fundamental matrix and how can we fix it?
-
-\textit{Hint:} Check slides from the lecture on stereo geometry.
-\end{tcolorbox}
-
-\includegraphics[width = 0.5\linewidth]{images/epipolarlines-c.PNG}
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Your answer to (c) here.
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagebreak 
-\paragraph{Q6a:} \textbf{[6 points]} Cameras are used in surveillance systems. One argument in favor of surveillance systems is to deter and solve crime to improve safety. Another is that if you're not doing anything wrong, you don't have anything to worry about. One argument against surveillance systems is that they compromise people's privacy even when no wrongdoing is taking place. Another is that they increase stress and anxiety.
-
-Computer vision allows the \emph{automation} of surveillance. For instance, it lets us find the mathematical relationship between multiple cameras to track objects and people in 3D spaces, or it can reduce the burden upon a human operator who need only respond to detected events rather than actively monitor many cameras. Such functionality makes it easier to scale a surveillance operation.
-
-On Brown's campus, the number of surveillance cameras has been increasing: compare this \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{2008 Brown Daily Herald article} with this \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{2020 Brown Daily Herald article}. While some, like those in Hegeman Hall, were installed only temporarily (\href{https://www.browndailyherald.com/article/2021/07/university-removes-hegeman-hall-surveillance-cameras}{2021 Brown Daily Herald article}), there are now 800 surveillance cameras on campus.
-
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Suppose Brown both did and did not use computer vision automation. How comfortable are you with Brown's surveillance apparatus in each case?
-In what circumstances do you believe that the potential benefits of surveillance \emph{automation} outweigh the potential concerns, and why? [8--10 sentences]
-\end{tcolorbox}
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    TODO: Your answer here.
-
-    
-
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-22\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q6b:} \textbf{[6 points]} Unmanned aerial vehicles---sometimes called drones---often carry cameras. Their cameras can be used for navigation via manually remote control, or for use within \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{sophisticated computer vision} strategies like camera pose estimation and depth estimation to enable assisted or autonomous flying in complex environments.
 
-For your CSCI 1430 final project, you are developing a drone for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. You create a successful computer vision algorithm that allows your drone to navigate autonomously. You are approached by several organizations that want to pay you generously for access to your project, but you are also considering open sourcing your algorithm with a permissive software license.
+\begin{subquestion}[points=4,drawbox=false]
+Unmanned aerial vehicles---sometimes called drones---often carry cameras. Their cameras can be used for navigation via manually remote control, or for use within \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{computer vision} strategies like camera pose estimation and depth estimation to enable assisted or autonomous flying in complex environments.
 
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-Please list three organizations that might be interested in acquiring your project for their own purposes. If each of these organizations used your project, who could benefit and how? Who could be harmed and how? Would an open-source license affect this? [6–9 sentences]
-\end{tcolorbox}
-\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-\setbox0=\hbox{\parbox[t]{\textwidth}{
-    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+For your CSCI 1430 final project, you are developing a drone for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. You create a successful computer vision algorithm that allows your drone to navigate autonomously. You are approached by several organizations that want to pay you for access to your project, but you are also considering open sourcing your algorithm with a permissive software license.
+\end{subquestion}
 
-    TODO: Your answer here.
-    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    }}
-\clipbox{0pt \dimexpr\dp0-24\baselineskip\relax{} 0in 0pt}{\copy0}
-\end{tcolorbox}
+\begin{orangebox}
+Please list three organizations that might be interested in acquiring your project for their own purposes. If each of these organizations used your project, who could benefit and how? Who could be harmed and how? Would an open-source license affect this? \textbf{[6–-9 sentences]}
+\end{orangebox}
+
+\begin{answer}[height=28]
+\end{answer}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
+
 \section*{Feedback? (Optional)}
 We appreciate your feedback on how to improve the course. You can provide anonymous feedback through \href{https://forms.gle/Eu5jJbDUmLknAyJV9}{this form}, that can be accessed using your Brown account (your identity will not be collected). If you have urgent non-anonymous comments/questions, please email the instructor.
-
 
 
 \end{document}
