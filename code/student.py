@@ -139,9 +139,9 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
 
     :return: best_Fmatrix, inliers1, inliers2, best_inlier_residual
     """
-    # DO NOT TOUCH THE FOLLOWING LINES
+    # Set a random seed - please DO NOT change it.
     random.seed(0)
-    np.random.seed(0)
+    rng = np.random.default_rng(0)
     
     ########################
     # TODO: Your code here #
@@ -195,7 +195,8 @@ def matches_to_3d(points2d_1, points2d_2, M1, M2, threshold=1.0):
     # TODO: Your code here #
 
     # Initial random values for 3D points
-    points3d_inlier = np.random.rand(len(points2d_1), 3)
+    rng = np.random.default_rng(0)
+    points3d_inlier = rng.random((len(points2d_1), 3))
     points2d_1_inlier = np.array(points2d_1, copy=True) # only modify if using threshold
     points2d_2_inlier = np.array(points2d_2, copy=True) # only modify if using threshold
 

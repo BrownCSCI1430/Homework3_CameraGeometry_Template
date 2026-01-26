@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 from skimage import img_as_float32
 import matplotlib.pyplot as plt
-import plotly.graph_objects as go
 import random
 
 
@@ -153,6 +152,11 @@ def show_point_cloud(points3d, colors):
     #
     # Matplotlib can be slow with many 3D points.
     # Plotly is an alternative; here's an implementation.
+    # ===================================================
+    #
+    # import plotly.graph_objects as go
+    # 
+    # ...
     #
     # fig = go.Figure(data=[go.Scatter3d(
     #     x=points3d[:, 0],

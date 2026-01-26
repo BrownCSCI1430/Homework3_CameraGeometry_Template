@@ -4,9 +4,10 @@ from mpl_toolkits import mplot3d
 from matplotlib.widgets import Slider, Button
 
 # Initial random matrices
-initial_intrinsic_matrix_to_replace = np.random.rand(3,3)
-initial_extrinsic_matrix_to_replace = np.random.rand(3,4)
-initial_camera_matrix_to_replace = np.random.rand(3,4)
+rng = np.random.default_rng()
+initial_intrinsic_matrix_to_replace = rng.random((3,3))
+initial_extrinsic_matrix_to_replace = rng.random((3,4))
+initial_camera_matrix_to_replace = rng.random((3,4))
 
 # Setting up the point cloud
 file_data_path= "./images/bunny.xyz"
