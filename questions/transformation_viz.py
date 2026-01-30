@@ -40,7 +40,12 @@ def estimate_transform(start_points, end_points):
 
 
 def transform(starting_points, transformation_matrix):
-    return transformation_matrix @ starting_points
+    if transformation_matrix.shape[1] == 2:
+        return transformation_matrix @ starting_points
+    elif transformation_matrix.shape[1] == 3:
+        n_points = starting_points.shape[1]
+        homogeneous = np.vstack([starting_points, np.ones((1, n_points))])
+        return transformation_matrix @ homogeneous
 
 
 def main():
