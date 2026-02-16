@@ -124,7 +124,7 @@ def show_reprojections(images, Ms, markers):
     points3d = np.array(points3d)
 
     fig, axs = plt.subplots(1, len(images), figsize=(15, 6))
-    fig.canvas.set_window_title("Reprojected markers for each image.")
+    fig.canvas.manager.set_window_title("Reprojected markers for each image.")
     plt.axis('off')
 
     for i in range(len(images)):
@@ -141,7 +141,7 @@ def show_point_cloud(points3d, colors):
     # matplotlib version
     #
     fig = plt.figure(figsize = (8, 8))
-    fig.canvas.set_window_title("Recovered 3D points.")
+    fig.canvas.manager.set_window_title("Recovered 3D points.")
     
     ax = plt.axes(projection ="3d")
     ax.scatter3D( points3d[:, 0], points3d[:, 1], points3d[:, 2], color=colors )

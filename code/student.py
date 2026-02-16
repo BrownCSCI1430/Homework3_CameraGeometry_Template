@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 def calculate_projection_matrix(image, markers):
     """
     To solve for the projection matrix. You need to set up a system of
-    equations using the corresponding 2D and 3D points. See the handout, Q5
-    of the written questions, or the lecture slides for how to set up these
-    equations.
+    equations using the corresponding 2D and 3D points. See the handout,
+    the written questions on least squares, or the lecture slides for how
+    to set up these equations.
 
     Don't forget to set M_34 = 1 in this system to fix the scale.
 
@@ -26,8 +26,8 @@ def calculate_projection_matrix(image, markers):
     # Markers is a dictionary mapping a marker ID to a 4x3 array
     # containing the 3d points for each of the 4 corners of the
     # marker in our scanning setup
-    dictionary = cv2.aruco.Dictionary_get(cv2.aruco.DICT_4X4_1000)
-    parameters = cv2.aruco.DetectorParameters_create()
+    dictionary = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_1000)
+    parameters = cv2.aruco.DetectorParameters()
 
     markerCorners, markerIds, rejectedCandidates = cv2.aruco.detectMarkers(
         image, dictionary, parameters=parameters)
@@ -91,12 +91,12 @@ def normalize_coordinates(points):
 def estimate_fundamental_matrix(points1, points2):
     """
     Estimates the fundamental matrix given set of point correspondences in
-    points1 and points2. The fundamental matrix will transform a point into 
-    a line within the second image - the epipolar line - such that F x' = l. 
-    Fitting a fundamental matrix to a set of points will try to minimize the 
-    error of all points x to their respective epipolar lines transformed 
-    from x'. The residual can be computed as the difference from the known 
-    geometric constraint that x^T F x' = 0.
+    points1 and points2. The fundamental matrix will transform a point in
+    the first image into an epipolar line in the second image, such that
+    F x = l. Fitting a fundamental matrix to a set of points will try to
+    minimize the error of all points x' to their respective epipolar lines
+    transformed from x. The residual can be computed as the difference from
+    the known geometric constraint that x'^T F x = 0.
 
     points1 is an [n x 2] matrix of 2D coordinate of points on Image A
     points2 is an [n x 2] matrix of 2D coordinate of points on Image B
@@ -150,7 +150,7 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
     # Your RANSAC loop should contain a call to your 'estimate_fundamental_matrix()'
 
     # Placeholder values
-    best_Fmatrix = estimate_fundamental_matrix(matches1[0:9, :], matches2[0:9, :])
+    best_Fmatrix, _ = estimate_fundamental_matrix(matches1[0:9, :], matches2[0:9, :])
     best_inliers_a = matches1[0:29, :]
     best_inliers_b = matches2[0:29, :]
     best_inlier_residual = 5 # Arbitrary stencil code initial value placeholder.
