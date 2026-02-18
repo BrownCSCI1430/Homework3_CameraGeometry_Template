@@ -31,34 +31,25 @@ def get_markers(markers_path):
 
 def get_matches(image1, image2, num_keypoints=5000):
     """
-    # Wraps OpenCV's ORB function and feature matcher
-    # returns two N x 2 numpy arrays, 2d points in image1 and image2
-    # that are proposed matches
+    Wraps OpenCV's SIFT function and feature matcher.
+    Returns two N x 2 numpy arrays, 2d points in image1 and image2
+    that are proposed matches.
     """
-    # find the keypoints and descriptors with ORB
-    orb = cv2.ORB_create(nfeatures=num_keypoints)
-    kp1, des1 = orb.detectAndCompute(image1, None)
-    kp2, des2 = orb.detectAndCompute(image2, None)
+    # Find keypoints and descriptors with SIFT
+    sift = cv2.SIFT_create(nfeatures=num_keypoints)
+    kp1, des1 = sift.detectAndCompute(image1, None)
+    kp2, des2 = sift.detectAndCompute(image2, None)
 
-    # Match descriptors
-    bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
-    matches = bf.match(des1, des2)
+    # Match descriptors using 2NN + Lowe's ratio test
+    bf = cv2.BFMatcher(cv2.NORM_L2)
+    matches = bf.knnMatch(des1, des2, k=2)
 
-    # Sort them in the order of their distance.
-    matches = sorted(matches, key=lambda x: x.distance)
+    # Apply ratio test to filter good matches
+    good = [m for m, n in matches if m.distance < 0.75 * n.distance]
 
     # Extract matched keypoints
-    list_kp1 = [kp1[mat.queryIdx].pt for mat in matches]
-    list_kp2 = [kp2[mat.trainIdx].pt for mat in matches]
-    matches_kp1 = np.asarray(list_kp1)
-    matches_kp2 = np.asarray(list_kp2)
-
-    # Remove duplicate matches
-    combine_reduce = np.unique(np.concatenate((matches_kp1, matches_kp2),
-                                             axis=1),
-                              axis=0)
-    points1 = combine_reduce[:, 0:2]
-    points2 = combine_reduce[:, -2:]
+    points1 = np.array([kp1[m.queryIdx].pt for m in good])
+    points2 = np.array([kp2[m.trainIdx].pt for m in good])
 
     return points1, points2
 
@@ -134,42 +125,121 @@ def show_reprojections(images, Ms, markers):
     plt.show()
 
 
-def show_point_cloud(points3d, colors):
-    """
-    Show 3D points with their corresponding colors
-    """
-    # matplotlib version
-    #
-    fig = plt.figure(figsize = (8, 8))
-    fig.canvas.manager.set_window_title("Recovered 3D points.")
-    
-    ax = plt.axes(projection ="3d")
-    ax.scatter3D( points3d[:, 0], points3d[:, 1], points3d[:, 2], color=colors )
+def show_triangulation_topdown(points3d, points3d_color, Ms,
+                                reproj_errors=None, rejected_points=None):
+    """Top-down (bird's eye) view of triangulated 3D points and cameras.
 
-    plt.title("Reconstructed 3D points")
+    Panel 1: XZ plane (top-down)
+    Panel 2: XY plane (front view)
+    Panel 3: Reprojection error histogram (if errors provided)
+    """
+    n_panels = 3 if reproj_errors is not None and len(reproj_errors) > 0 else 2
+    fig, axes = plt.subplots(1, n_panels, figsize=(5 * n_panels, 5))
+    fig.canvas.manager.set_window_title("Triangulation: front and top-down views")
+
+    # Extract camera centers from projection matrices: C = null space of M
+    cam_centers = []
+    for M in Ms:
+        # C = -M[:,:3]^{-1} @ M[:,3]
+        try:
+            C = -np.linalg.inv(M[:, :3]) @ M[:, 3]
+            cam_centers.append(C)
+        except np.linalg.LinAlgError:
+            pass
+
+    # Color by reprojection error if available, otherwise use point colors
+    if reproj_errors is not None and len(reproj_errors) > 0:
+        errs = np.array(reproj_errors)
+        # Normalize errors for colormap: green=low, red=high
+        vmax = min(np.percentile(errs, 95), 10.0)
+        colors_mapped = plt.cm.RdYlGn_r(np.clip(errs / max(vmax, 1e-6), 0, 1))
+    else:
+        colors_mapped = points3d_color
+
+    # Panel 1: XZ plane (top-down)
+    ax1 = axes[0]
+    ax1.scatter(points3d[:, 0], points3d[:, 2], c=colors_mapped, s=1, alpha=0.5)
+    if rejected_points is not None and len(rejected_points) > 0:
+        rej = np.array(rejected_points)
+        ax1.scatter(rej[:, 0], rej[:, 2], c='gray', marker='x', s=8, alpha=0.3, label='Rejected')
+        ax1.legend(fontsize=8)
+    for i, C in enumerate(cam_centers):
+        ax1.plot(C[0], C[2], 'k^', markersize=10)
+        ax1.annotate(f'C{i+1}', (C[0], C[2]), textcoords='offset points',
+                     xytext=(5, 5), fontsize=8)
+    ax1.set_xlabel('X')
+    ax1.set_ylabel('Z')
+    ax1.set_title('Front (XZ)')
+    ax1.set_aspect('equal')
+
+    # Panel 2: XY plane (top-down view)
+    ax2 = axes[1]
+    ax2.scatter(points3d[:, 0], points3d[:, 1], c=colors_mapped, s=1, alpha=0.5)
+    if rejected_points is not None and len(rejected_points) > 0:
+        ax2.scatter(rej[:, 0], rej[:, 1], c='gray', marker='x', s=8, alpha=0.3)
+    for i, C in enumerate(cam_centers):
+        ax2.plot(C[0], C[1], 'k^', markersize=10)
+        ax2.annotate(f'C{i+1}', (C[0], C[1]), textcoords='offset points',
+                     xytext=(5, 5), fontsize=8)
+    ax2.set_xlabel('X')
+    ax2.set_ylabel('Y')
+    ax2.set_title('Top-down (XY)')
+    ax2.set_aspect('equal')
+
+    # Panel 3: Reprojection error histogram
+    if n_panels == 3:
+        ax3 = axes[2]
+        ax3.hist(reproj_errors, bins=50, color='steelblue', edgecolor='white', alpha=0.8)
+        ax3.axvline(x=5.0, color='red', linestyle='--', label='Threshold (5.0 px)')
+        ax3.set_xlabel('Reprojection error (px)')
+        ax3.set_ylabel('Count')
+        ax3.set_title('Reprojection error distribution')
+        ax3.legend(fontsize=8)
+
+    plt.tight_layout()
     plt.show()
 
-    #
-    # Matplotlib can be slow with many 3D points.
-    # Plotly is an alternative; here's an implementation.
-    # ===================================================
-    #
-    # import plotly.graph_objects as go
-    # 
-    # ...
-    #
-    # fig = go.Figure(data=[go.Scatter3d(
-    #     x=points3d[:, 0],
-    #     y=points3d[:, 1],
-    #     z=points3d[:, 2],
-    #     mode='markers',
-    #     marker=dict(
-    #         size=2,
-    #         color=colors,
-    #         opacity=1
-    #     )
-    # )])
 
-    # # tight layout
-    # fig.update_layout(margin=dict(l=0, r=0, b=0, t=0))
-    # fig.show()
+def show_point_cloud(points3d, colors):
+    """
+    Show 3D points with their corresponding colors.
+    Marker size adapts to point count for readable visualizations.
+    """
+    n = len(points3d)
+    # Scale marker size inversely with point count
+    if n > 10000:
+        s = 1.0
+    elif n > 3000:
+        s = 1.0
+    else:
+        s = 4.0
+
+    fig = plt.figure(figsize=(9, 9))
+    fig.canvas.manager.set_window_title("Recovered 3D points.")
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.scatter(points3d[:, 0], points3d[:, 1], points3d[:, 2],
+               c=colors, s=s, alpha=0.8, edgecolors='none')
+
+    # Equal aspect ratio for all axes
+    mid = points3d.mean(axis=0)
+    span = (points3d.max(axis=0) - points3d.min(axis=0)).max() / 2 * 1.1
+    ax.set_xlim(mid[0] - span, mid[0] + span)
+    ax.set_ylim(mid[1] - span, mid[1] + span)
+    ax.set_zlim(mid[2] - span, mid[2] + span)
+
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    ax.set_title(f"Reconstructed 3D points ({n:,})")
+
+    # Cleaner background
+    ax.xaxis.pane.fill = False
+    ax.yaxis.pane.fill = False
+    ax.zaxis.pane.fill = False
+    ax.xaxis.pane.set_edgecolor('lightgray')
+    ax.yaxis.pane.set_edgecolor('lightgray')
+    ax.zaxis.pane.set_edgecolor('lightgray')
+
+    plt.tight_layout()
+    plt.show()

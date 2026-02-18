@@ -28,9 +28,9 @@ def calculate_projection_matrix(image, markers):
     # marker in our scanning setup
     dictionary = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_1000)
     parameters = cv2.aruco.DetectorParameters()
+    detector = cv2.aruco.ArucoDetector(dictionary, parameters)
 
-    markerCorners, markerIds, rejectedCandidates = cv2.aruco.detectMarkers(
-        image, dictionary, parameters=parameters)
+    markerCorners, markerIds, rejectedCandidates = detector.detectMarkers(image)
     markerIds = [m[0] for m in markerIds]
     markerCorners = [m[0] for m in markerCorners]
 
@@ -148,6 +148,13 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
     ########################
 
     # Your RANSAC loop should contain a call to your 'estimate_fundamental_matrix()'
+    #
+    # Use the Sampson distance to determine inliers (see handout):
+    #   d = (x'^T F x)^2 / ((Fx)_1^2 + (Fx)_2^2 + (F^T x')_1^2 + (F^T x')_2^2)
+    # where all points are in homogeneous coordinates [u, v, 1].
+    # A threshold of ~2.0 pixels^2 is reasonable.
+    #
+    # Reference: Hartley & Zisserman, Section 11.4.3
 
     # Placeholder values
     best_Fmatrix, _ = estimate_fundamental_matrix(matches1[0:9, :], matches2[0:9, :])
@@ -184,7 +191,8 @@ def matches_to_3d(points2d_1, points2d_2, M1, M2, threshold=1.0):
     :param points2d_2: [N x 2] points from image2
     :param M1: [3 x 4] projection matrix of image1
     :param M2: [3 x 4] projection matrix of image2
-    :param threshold: scalar value representing the maximum allowed residual for a solved 3D point
+    :param threshold: maximum allowed total reprojection error in pixels
+        (sum of L2 errors in both images). Use np.inf to skip filtering.
 
     :return points3d_inlier: [M x 3] NumPy array of solved ground truth 3D points for each pair of 2D
     points from points2d_1 and points2d_2
@@ -193,6 +201,14 @@ def matches_to_3d(points2d_1, points2d_2, M1, M2, threshold=1.0):
     """
     ########################
     # TODO: Your code here #
+    #
+    # After triangulating each point:
+    # 1. Cheirality check: verify M[2] @ [x,y,z,1] > 0 for both cameras
+    #    (Hartley & Zisserman Ch. 21 — point must be in front of camera)
+    # 2. Reprojection error: project 3D point through M1 and M2,
+    #    compute sum of L2 distances to original 2D points.
+    #    Discard if total error > threshold.
+    # Gate these checks with: if threshold < np.inf:
 
     # Initial random values for 3D points
     rng = np.random.default_rng(0)
@@ -210,14 +226,23 @@ def matches_to_3d(points2d_1, points2d_2, M1, M2, threshold=1.0):
 #/////////////////////////////DO NOT CHANGE BELOW LINE///////////////////////////////
 inlier_counts = []
 inlier_residuals = []
+final_sampson_distances = []  # Per-point Sampson distances for best inlier set
 
 def visualize_ransac():
+    """Three-panel RANSAC diagnostic:
+    1. Inlier count vs. iteration
+    2. Residual vs. iteration
+    3. Histogram of Sampson distances for final inliers (threshold line overlaid)
+    """
     iterations = np.arange(len(inlier_counts))
     best_inlier_counts = np.maximum.accumulate(inlier_counts)
     best_inlier_residuals = np.minimum.accumulate(inlier_residuals)
 
-    plt.figure(1, figsize = (8, 8))
-    plt.subplot(211)
+    n_panels = 3 if len(final_sampson_distances) > 0 else 2
+    fig = plt.figure(figsize=(8, 3 * n_panels))
+    fig.canvas.manager.set_window_title("RANSAC Convergence")
+
+    plt.subplot(n_panels, 1, 1)
     plt.plot(iterations, inlier_counts, label='Current Inlier Count', color='red')
     plt.plot(iterations, best_inlier_counts, label='Best Inlier Count', color='blue')
     plt.xlabel("Iteration")
@@ -225,11 +250,24 @@ def visualize_ransac():
     plt.title('Current Inliers vs. Best Inliers per Iteration')
     plt.legend()
 
-    plt.subplot(212)
+    plt.subplot(n_panels, 1, 2)
     plt.plot(iterations, inlier_residuals, label='Current Inlier Residual', color='red')
     plt.plot(iterations, best_inlier_residuals, label='Best Inlier Residual', color='blue')
     plt.xlabel("Iteration")
     plt.ylabel("Residual")
     plt.title('Current Residual vs. Best Residual per Iteration')
     plt.legend()
+
+    if n_panels == 3:
+        plt.subplot(n_panels, 1, 3)
+        plt.hist(final_sampson_distances, bins=50, color='steelblue',
+                 edgecolor='white', alpha=0.8)
+        plt.axvline(x=2.0, color='red', linestyle='--', linewidth=1.5,
+                    label='Threshold (2.0 px²)')
+        plt.xlabel("Sampson distance (px²)")
+        plt.ylabel("Count")
+        plt.title('Sampson Distance Distribution of Final Inliers')
+        plt.legend()
+
+    plt.tight_layout()
     plt.show()
