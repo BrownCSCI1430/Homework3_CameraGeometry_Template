@@ -32,7 +32,6 @@ DATA_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, '..', 'data'))
 OUTPUT_DIR = os.path.join(SCRIPT_DIR, 'output_sparse')
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# Dataset name -> directory name (NotreDame has different casing)
 DATASET_DIRS = {
     'cards': 'cards',
     'dollar': 'dollar',

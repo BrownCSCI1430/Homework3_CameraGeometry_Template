@@ -261,7 +261,7 @@ def ransac_fundamental_matrix(matches1, matches2, num_iters):
       2. Estimate F using estimate_fundamental_matrix() on the sample
       3. Compute algebraic error |x'^T F x| for ALL correspondences
          (or Sampson distance if we implemented compute_sampson_distance() extra credit)
-      4. Count inliers (error < threshold; threshold = 2.0 is a reasonable starting point)
+      4. Count inliers (error < threshold; start around 0.005 for algebraic error)
       5. Keep the F with the most inliers
 
     After the loop, re-estimate F from ALL inliers of the best model.
