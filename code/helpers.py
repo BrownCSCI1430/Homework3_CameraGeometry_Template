@@ -1,15 +1,37 @@
-import cv2
+"""
+Helpers for Camera Geometry Pipeline
+======================================
+
+Please DO NOT MODIFY this! We use it to build
+our pipelines.
+
+Sections:
+  1. Data Loading (markers, images)
+  2. Feature Matching (SIFT + Lowe's ratio test)
+  3. ArUco Detection (pipeline plumbing)
+  4. Geometry Helpers (fundamental matrix from cameras)
+  5. Depth Range and View Selection
+  6. Visualization (matches, rectification, disparity, depth, point clouds)
+"""
+
+import os
 import numpy as np
+import cv2
 from skimage import img_as_float32
 import matplotlib.pyplot as plt
 import random
+
+
+# =============================================================================
+#  1. Data Loading
+# =============================================================================
 
 
 def get_markers(markers_path):
     """
     Returns a dictionary mapping a marker ID to a 4x3 array
     containing the 3d points for each of the 4 corners of the
-    marker in our scanning setup
+    marker in our scanning setup.
     """
     markers = {}
     with open(markers_path) as f:
@@ -27,6 +49,11 @@ def get_markers(markers_path):
                     [info[0] + second_dim * info[6], info[1] + second_dim * info[7], info[2] + second_dim * info[8]],
                 ]
     return markers
+
+
+# =============================================================================
+#  2. Feature Matching
+# =============================================================================
 
 
 def get_matches(image1, image2, num_keypoints=5000):
@@ -54,10 +81,168 @@ def get_matches(image1, image2, num_keypoints=5000):
     return points1, points2
 
 
+# =============================================================================
+#  3. ArUco Detection
+# =============================================================================
+
+
+def detect_aruco_points(image, markers):
+    """
+    Detect ArUco markers in an image and return 2D-3D point correspondences.
+
+    This function handles the OpenCV ArUco detection boilerplate, extracting
+    the 2D corner positions in the image and matching them to the known 3D
+    positions from the markers dictionary.
+
+    :param image: a single image (numpy array)
+    :param markers: dictionary mapping marker ID -> 4x3 array of 3D points
+    :return: (points2d, points3d)
+             points2d: N x 2 array of detected 2D image coordinates
+             points3d: N x 3 array of corresponding 3D world coordinates
+    """
+    # Try new-style API first (OpenCV >= 4.7), fall back to legacy
+    try:
+        dictionary = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_1000)
+        parameters = cv2.aruco.DetectorParameters()
+        detector = cv2.aruco.ArucoDetector(dictionary, parameters)
+        markerCorners, markerIds, _ = detector.detectMarkers(image)
+    except AttributeError:
+        dictionary = cv2.aruco.Dictionary_get(cv2.aruco.DICT_4X4_1000)
+        parameters = cv2.aruco.DetectorParameters_create()
+        markerCorners, markerIds, _ = cv2.aruco.detectMarkers(
+            image, dictionary, parameters=parameters)
+
+    markerIds = [m[0] for m in markerIds]
+    markerCorners = [m[0] for m in markerCorners]
+
+    points2d = []
+    points3d = []
+
+    for markerId, marker in zip(markerIds, markerCorners):
+        if markerId in markers:
+            for j, corner in enumerate(marker):
+                points2d.append(corner)
+                points3d.append(markers[markerId][j])
+
+    return np.array(points2d), np.array(points3d)
+
+
+# =============================================================================
+#  4. Geometry Helpers
+# =============================================================================
+
+
+def _skew(a):
+    """3x3 skew-symmetric matrix [a]x."""
+    return np.array([[    0, -a[2],  a[1]],
+                     [ a[2],     0, -a[0]],
+                     [-a[1],  a[0],     0]])
+
+
+def compute_fundamental_from_cameras(M1, M2):
+    """
+    Compute the fundamental matrix directly from two projection matrices.
+
+    :param M1: 3x4 projection matrix of camera 1
+    :param M2: 3x4 projection matrix of camera 2
+    :return: F, 3x3 fundamental matrix (rank 2)
+    """
+    A1 = M1[:, :3]
+    A2 = M2[:, :3]
+    t2 = M2[:, 3]
+    C1 = -np.linalg.solve(A1, M1[:, 3])
+    B = A2 @ np.linalg.inv(A1)
+    a = A2 @ C1 + t2
+    return _skew(a) @ B
+
+
+def compare_fundamental_matrices(F_est, F_gt):
+    """
+    Compare an estimated F against ground-truth F.
+
+    Since F is defined only up to scale and sign, we normalize both
+    to unit Frobenius norm and report the minimum distance (accounting
+    for sign ambiguity).
+
+    :param F_est: 3x3 estimated fundamental matrix
+    :param F_gt:  3x3 ground-truth fundamental matrix
+    :return: distance in [0, sqrt(2)], where 0 = identical
+    """
+    Fe = F_est / np.linalg.norm(F_est)
+    Fg = F_gt / np.linalg.norm(F_gt)
+    return min(np.linalg.norm(Fe - Fg), np.linalg.norm(Fe + Fg))
+
+
+# =============================================================================
+#  5. Depth Range and View Selection
+# =============================================================================
+
+
+def compute_lambda_range(M_ref, markers):
+    """
+    Determine the range of the depth parameter `lam` from known
+    3D marker positions.
+
+    For each known 3D point P, we find the lam such that
+    C_ref + lam * ray = P, where ray = A^{-1} @ projected_pixel.
+
+    Returns (lam_lo, lam_hi) with 15% margins.
+    """
+    A = M_ref[:, :3]
+    A_inv = np.linalg.inv(A)
+    C = -np.linalg.solve(A, M_ref[:, 3])
+
+    lam_vals = []
+    for mid in markers:
+        for p3d in markers[mid]:
+            p3d = np.array(p3d)
+            p2d_h = M_ref @ np.append(p3d, 1.0)
+            if abs(p2d_h[2]) < 1e-8:
+                continue
+            ray = A_inv @ (p2d_h / p2d_h[2])
+            dp = p3d - C
+            j = np.argmax(np.abs(ray))
+            lam_vals.append(dp[j] / ray[j])
+
+    lo, hi = min(lam_vals), max(lam_vals)
+    margin = (hi - lo) * 0.15
+    return lo - margin, hi + margin
+
+
+def select_nearest_views(ref_idx, Ms, max_views=4):
+    """
+    Select the `max_views` nearest cameras by Euclidean distance
+    to the reference camera.
+
+    :param ref_idx: index of the reference view
+    :param Ms: list of 3x4 projection matrices
+    :param max_views: number of neighbors to return
+    :return: list of (view_index, distance) tuples, sorted by distance
+    """
+    def _null(M):
+        C = np.linalg.svd(M)[2][-1]
+        return C[:3] / C[3]
+    centers = [_null(M) for M in Ms]
+    C_ref = centers[ref_idx]
+    dists = []
+    for j in range(len(centers)):
+        if j == ref_idx:
+            continue
+        d = np.linalg.norm(centers[j] - C_ref)
+        dists.append((j, d))
+    dists.sort(key=lambda x: x[1])
+    return dists[:max_views]
+
+
+# =============================================================================
+#  6. Visualization
+# =============================================================================
+
+
 def show_matches(image1, image2, points1, points2):
     """
     Shows matches from image1 to image2, represented by Nx2 arrays
-    points1 and points2
+    points1 and points2.
     """
     image1 = img_as_float32(image1)
     image2 = img_as_float32(image2)
@@ -71,7 +256,6 @@ def show_matches(image1, image2, points1, points2):
 
     shift = image1.shape[1]
     for i in range(0, points1.shape[0]):
-
         random_color = lambda: random.randint(0, 255)
         cur_color = ('#%02X%02X%02X' % (random_color(), random_color(), random_color()))
 
@@ -87,126 +271,12 @@ def show_matches(image1, image2, points1, points2):
     plt.show()
 
 
-def reproject_points(M, points):
-    """
-    Use projection matrix to project Nx3 array of 3d points into Nx2
-    array of image points
-    """
-
-    reshaped_points = np.concatenate(
-        (points, np.ones((points.shape[0], 1))), axis=1)
-    projected_points = np.matmul(M, np.transpose(reshaped_points))
-    projected_points = np.transpose(projected_points)
-    u = np.divide(projected_points[:, 0], projected_points[:, 2])
-    v = np.divide(projected_points[:, 1], projected_points[:, 2])
-    projected_points = np.transpose(np.vstack([u, v]))
-
-    return projected_points
-
-
-def show_reprojections(images, Ms, markers):
-    """
-    Show reprojected markers in each image
-    """
-    points3d = []
-
-    for marker_id in markers:
-        points3d += markers[marker_id]
-    points3d = np.array(points3d)
-
-    fig, axs = plt.subplots(1, len(images), figsize=(15, 6))
-    fig.canvas.manager.set_window_title("Reprojected markers for each image.")
-    plt.axis('off')
-
-    for i in range(len(images)):
-        points2d = reproject_points(Ms[i], points3d)
-        axs[i].imshow(images[i])
-        axs[i].scatter(points2d[:, 0], points2d[:, 1])
-    plt.show()
-
-
-def show_triangulation_topdown(points3d, points3d_color, Ms,
-                                reproj_errors=None, rejected_points=None):
-    """Top-down (bird's eye) view of triangulated 3D points and cameras.
-
-    Panel 1: XZ plane (top-down)
-    Panel 2: XY plane (front view)
-    Panel 3: Reprojection error histogram (if errors provided)
-    """
-    n_panels = 3 if reproj_errors is not None and len(reproj_errors) > 0 else 2
-    fig, axes = plt.subplots(1, n_panels, figsize=(5 * n_panels, 5))
-    fig.canvas.manager.set_window_title("Triangulation: front and top-down views")
-
-    # Extract camera centers from projection matrices: C = null space of M
-    cam_centers = []
-    for M in Ms:
-        # C = -M[:,:3]^{-1} @ M[:,3]
-        try:
-            C = -np.linalg.inv(M[:, :3]) @ M[:, 3]
-            cam_centers.append(C)
-        except np.linalg.LinAlgError:
-            pass
-
-    # Color by reprojection error if available, otherwise use point colors
-    if reproj_errors is not None and len(reproj_errors) > 0:
-        errs = np.array(reproj_errors)
-        # Normalize errors for colormap: green=low, red=high
-        vmax = min(np.percentile(errs, 95), 10.0)
-        colors_mapped = plt.cm.RdYlGn_r(np.clip(errs / max(vmax, 1e-6), 0, 1))
-    else:
-        colors_mapped = points3d_color
-
-    # Panel 1: XZ plane (top-down)
-    ax1 = axes[0]
-    ax1.scatter(points3d[:, 0], points3d[:, 2], c=colors_mapped, s=1, alpha=0.5)
-    if rejected_points is not None and len(rejected_points) > 0:
-        rej = np.array(rejected_points)
-        ax1.scatter(rej[:, 0], rej[:, 2], c='gray', marker='x', s=8, alpha=0.3, label='Rejected')
-        ax1.legend(fontsize=8)
-    for i, C in enumerate(cam_centers):
-        ax1.plot(C[0], C[2], 'k^', markersize=10)
-        ax1.annotate(f'C{i+1}', (C[0], C[2]), textcoords='offset points',
-                     xytext=(5, 5), fontsize=8)
-    ax1.set_xlabel('X')
-    ax1.set_ylabel('Z')
-    ax1.set_title('Front (XZ)')
-    ax1.set_aspect('equal')
-
-    # Panel 2: XY plane (top-down view)
-    ax2 = axes[1]
-    ax2.scatter(points3d[:, 0], points3d[:, 1], c=colors_mapped, s=1, alpha=0.5)
-    if rejected_points is not None and len(rejected_points) > 0:
-        ax2.scatter(rej[:, 0], rej[:, 1], c='gray', marker='x', s=8, alpha=0.3)
-    for i, C in enumerate(cam_centers):
-        ax2.plot(C[0], C[1], 'k^', markersize=10)
-        ax2.annotate(f'C{i+1}', (C[0], C[1]), textcoords='offset points',
-                     xytext=(5, 5), fontsize=8)
-    ax2.set_xlabel('X')
-    ax2.set_ylabel('Y')
-    ax2.set_title('Top-down (XY)')
-    ax2.set_aspect('equal')
-
-    # Panel 3: Reprojection error histogram
-    if n_panels == 3:
-        ax3 = axes[2]
-        ax3.hist(reproj_errors, bins=50, color='steelblue', edgecolor='white', alpha=0.8)
-        ax3.axvline(x=5.0, color='red', linestyle='--', label='Threshold (5.0 px)')
-        ax3.set_xlabel('Reprojection error (px)')
-        ax3.set_ylabel('Count')
-        ax3.set_title('Reprojection error distribution')
-        ax3.legend(fontsize=8)
-
-    plt.tight_layout()
-    plt.show()
-
-
 def show_point_cloud(points3d, colors):
     """
     Show 3D points with their corresponding colors.
     Marker size adapts to point count for readable visualizations.
     """
     n = len(points3d)
-    # Scale marker size inversely with point count
     if n > 10000:
         s = 1.0
     elif n > 3000:
@@ -233,7 +303,6 @@ def show_point_cloud(points3d, colors):
     ax.set_zlabel('Z')
     ax.set_title(f"Reconstructed 3D points ({n:,})")
 
-    # Cleaner background
     ax.xaxis.pane.fill = False
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
@@ -243,3 +312,173 @@ def show_point_cloud(points3d, colors):
 
     plt.tight_layout()
     plt.show()
+
+
+def save_rectified_pair(rect_left, rect_right, output_path):
+    """
+    Side-by-side rectified pair with horizontal guide lines.
+    Images should be BGR or RGB uint8.
+    """
+    h1, w1 = rect_left.shape[:2]
+    h2, w2 = rect_right.shape[:2]
+    h = max(h1, h2)
+
+    # Convert to RGB if needed (BGR → RGB for matplotlib)
+    if rect_left.ndim == 3 and rect_left.shape[2] == 3:
+        left_rgb = cv2.cvtColor(rect_left, cv2.COLOR_BGR2RGB)
+        right_rgb = cv2.cvtColor(rect_right, cv2.COLOR_BGR2RGB)
+    else:
+        left_rgb = rect_left
+        right_rgb = rect_right
+
+    fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+    axes[0].imshow(left_rgb)
+    axes[0].set_title('Rectified Left')
+    axes[0].axis('off')
+    axes[1].imshow(right_rgb)
+    axes[1].set_title('Rectified Right')
+    axes[1].axis('off')
+
+    # Draw horizontal guide lines across both images
+    for y in np.linspace(0, h - 1, 20, dtype=int):
+        for ax in axes:
+            ax.axhline(y=y, color='lime', linewidth=0.5, alpha=0.5)
+
+    fig.suptitle('Epipolar Rectification (matching rows = same epipolar line)',
+                 fontsize=13, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close(fig)
+
+
+def save_disparity_visualization(disparity, rect_left_rgb, output_path):
+    """
+    3-panel visualization: reference | disparity map (magma) | overlay.
+    disparity: H x W float32, rect_left_rgb: H x W x 3 uint8 (RGB).
+    """
+    valid = np.isfinite(disparity)
+
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+
+    axes[0].imshow(rect_left_rgb)
+    axes[0].set_title('Rectified Left Image')
+    axes[0].axis('off')
+
+    disp_show = disparity.copy().astype(float)
+    disp_show[~valid] = np.nan
+    im1 = axes[1].imshow(disp_show, cmap='magma')
+    plt.colorbar(im1, ax=axes[1], shrink=0.7, label='disparity (pixels)')
+    n_valid = int(np.sum(valid))
+    axes[1].set_title(f'Disparity Map ({n_valid:,} pixels)')
+    axes[1].axis('off')
+
+    if np.any(valid):
+        d_min, d_max = np.nanpercentile(disp_show[valid], [2, 98])
+        d_norm = np.clip((disparity - d_min) / (d_max - d_min + 1e-8), 0, 1)
+        d_norm[~valid] = 0
+        disp_rgb = (plt.cm.magma(d_norm)[:, :, :3] * 255).astype(np.uint8)
+        overlay = rect_left_rgb.copy().astype(float)
+        alpha = 0.6
+        for c in range(3):
+            overlay[:, :, c][valid] = (
+                alpha * disp_rgb[:, :, c][valid] +
+                (1 - alpha) * rect_left_rgb[:, :, c][valid])
+        overlay[~valid] *= 0.3
+        axes[2].imshow(np.clip(overlay, 0, 255).astype(np.uint8))
+    axes[2].set_title('Disparity Overlay (bright = close)')
+    axes[2].axis('off')
+
+    fig.suptitle('Uncalibrated Stereo: Disparity from F',
+                 fontsize=14, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close(fig)
+
+
+def save_depth_visualization(lambda_map, ref_rgb, output_path):
+    """
+    3-panel visualization: reference | depth map | depth overlay.
+    Valid pixels are those where lambda_map is finite (not NaN).
+    """
+    valid = np.isfinite(lambda_map)
+
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+
+    axes[0].imshow(ref_rgb)
+    axes[0].set_title('Reference Image')
+    axes[0].axis('off')
+
+    depth_show = lambda_map.copy()
+    depth_show[~valid] = np.nan
+    im1 = axes[1].imshow(depth_show, cmap='turbo')
+    plt.colorbar(im1, ax=axes[1], shrink=0.7, label='lambda (depth)')
+    n_valid = int(np.sum(valid))
+    axes[1].set_title(f'Depth Map ({n_valid:,} pixels)')
+    axes[1].axis('off')
+
+    if np.any(valid):
+        d_min, d_max = np.nanpercentile(depth_show[valid], [2, 98])
+        d_norm = np.clip((lambda_map - d_min) / (d_max - d_min + 1e-8), 0, 1)
+        d_norm[~valid] = 0
+        depth_rgb = (plt.cm.turbo(d_norm)[:, :, :3] * 255).astype(np.uint8)
+        overlay = ref_rgb.copy().astype(float)
+        alpha = 0.6
+        for c in range(3):
+            overlay[:, :, c][valid] = (
+                alpha * depth_rgb[:, :, c][valid] +
+                (1 - alpha) * ref_rgb[:, :, c][valid])
+        overlay[~valid] *= 0.3
+        axes[2].imshow(np.clip(overlay, 0, 255).astype(np.uint8))
+    axes[2].set_title('Depth Overlay (warm = close)')
+    axes[2].axis('off')
+
+    fig.suptitle('Part A: Plane-Sweep Dense Stereo', fontsize=14, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close(fig)
+
+
+def save_dense_cloud(pts3d, colors, Ms, output_path,
+                     max_pts=120000):
+    """3-view point cloud visualization with camera positions from Ms."""
+    if len(pts3d) == 0:
+        print("  No points for cloud")
+        return
+
+    if len(pts3d) > max_pts:
+        idx = np.random.choice(len(pts3d), max_pts, replace=False)
+        pts3d = pts3d[idx]
+        colors = colors[idx]
+
+    fig = plt.figure(figsize=(18, 8))
+    views = [(30, -60, 'Oblique'), (90, -90, 'Top-Down'), (0, -90, 'Front')]
+
+    for panel, (elev, azim, subtitle) in enumerate(views):
+        ax = fig.add_subplot(1, 3, panel + 1, projection='3d')
+        ax.scatter(pts3d[:, 0], pts3d[:, 1], pts3d[:, 2],
+                   c=colors, s=0.3, alpha=0.6, edgecolors='none')
+        if Ms is not None:
+            def _null(M):
+                C = np.linalg.svd(M)[2][-1]
+                return C[:3] / C[3]
+            ccs = np.array([_null(M) for M in Ms])
+            ax.scatter(ccs[:, 0], ccs[:, 1], ccs[:, 2],
+                       c='red', s=50, marker='^', label='Cameras')
+        mid = pts3d.mean(axis=0)
+        span = (pts3d.max(axis=0) - pts3d.min(axis=0)).max() / 2 * 1.1
+        ax.set_xlim(mid[0] - span, mid[0] + span)
+        ax.set_ylim(mid[1] - span, mid[1] + span)
+        ax.set_zlim(mid[2] - span, mid[2] + span)
+        ax.view_init(elev=elev, azim=azim)
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+        ax.set_title(f'{subtitle} ({len(pts3d):,} pts)', fontsize=10)
+        ax.xaxis.pane.fill = False
+        ax.yaxis.pane.fill = False
+        ax.zaxis.pane.fill = False
+
+    fig.suptitle('3D Point Cloud', fontsize=14, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close(fig)
