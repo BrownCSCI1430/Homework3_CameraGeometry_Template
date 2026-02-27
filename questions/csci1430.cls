@@ -19,6 +19,7 @@
 \usepackage{microtype}
 \usepackage{times}
 \newcommand{\filled}{\ensuremath{\blacksquare}}
+\newcommand{\cbox}{\ensuremath{\square}}
 
 \usepackage[a4paper,margin=1.5in]{geometry}
 \usepackage{amsmath,amssymb}
