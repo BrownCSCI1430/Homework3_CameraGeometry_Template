@@ -37,7 +37,7 @@ DATASET_DIRS = {
     'cards': 'cards',
     'dollar': 'dollar',
     'mikeandikes': 'mikeandikes',
-    'notredame': 'NotreDame',
+    'notredame': 'notredame',
 }
 CALIBRATED_DATASETS = {'cards', 'dollar', 'mikeandikes'}
 
