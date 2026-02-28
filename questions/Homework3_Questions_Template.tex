@@ -126,7 +126,9 @@ Where is the camera center $\mathbf{C}$ in world coordinates? Use \filled. \\
 \pagebreak
 
 \begin{question}[points=13,drawbox=false]
-Let's calibrate our camera. We want to estimate $\mathbf{M}$ from $N$ known 2D--3D point correspondences $\{(\mathbf{p}_i, \mathbf{P}_i)\}$. Writing $\mathbf{m}_1^\top, \mathbf{m}_2^\top, \mathbf{m}_3^\top$ for the three rows of $\mathbf{M}$ (each a $1\times4$ vector), this gives three scalar equations:
+Let's calibrate our camera. The class demo for this question is \emph{liveCalibration.py}.
+
+We want to estimate $\mathbf{M}$ from $N$ known 2D--3D point correspondences $\{(\mathbf{p}_i, \mathbf{P}_i)\}$. Writing $\mathbf{m}_1^\top, \mathbf{m}_2^\top, \mathbf{m}_3^\top$ for the three rows of $\mathbf{M}$ (each a $1\times4$ vector), this gives three scalar equations:
 %
 \begin{align*}
 \mathbf{m}_1^\top \mathbf{P}_i^h &= w_i\, u_i, \quad
