@@ -113,6 +113,10 @@ def estimate_camera_matrix(points2d, points3d):
     After solving, compute and return the residual as the sum of squared reprojection
     errors using our reprojection_error() function.
 
+    For extra credit: apply coordinate normalization to both points2d and
+    points3d before building A, then un-normalize M afterward.
+    See normalize_coordinates().
+
     :param points2d: N x 2 array of 2D image coordinates
     :param points3d: N x 3 array of corresponding 3D world coordinates
     :return: M, the 3x4 camera matrix
@@ -320,16 +324,25 @@ def compute_disparity_map(rect_left_gray, rect_right_gray, win_size=11,
 
 def normalize_coordinates(points):
     """
-    EXTRA CREDIT: Normalize 2D points to zero mean and unit std.
+    EXTRA CREDIT: Hartley normalization — zero mean, average distance sqrt(D)
+    from the centroid, where D is the dimensionality (2 or 3).
+
+    This improves numerical conditioning of any DLT-style estimation
+    (camera matrix M via estimate_camera_matrix, or fundamental matrix F
+    via estimate_fundamental_matrix).
 
     Build T = T_scale @ T_offset where:
       T_offset translates the centroid to the origin
-      T_scale  scales so the average magnitude is 1.0
+      T_scale  scales so the average distance from the origin is sqrt(D)
+              (sqrt(2) for 2D points, sqrt(3) for 3D points)
+      s = sqrt(D) / mean_distance, where
+          mean_distance = mean(||p_i - centroid||)
 
-    Apply to all points: normalized = (T @ [u, v, 1]^T)[:2]
+    For 2D input (N x 2): returns (normalized_points [N x 2], T [3x3])
+    For 3D input (N x 3): returns (normalized_points [N x 3], T [4x4])
 
-    :param points: N x 2 array of 2D points
-    :return: (normalized_points, T) where T is 3x3 transformation matrix
+    :param points: N x D array of points (D = 2 or 3)
+    :return: (normalized_points, T)
     """
     raise NotImplementedError("TODO (Extra Credit): implement normalize_coordinates")
 
