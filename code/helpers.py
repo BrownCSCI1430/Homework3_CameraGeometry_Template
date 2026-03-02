@@ -247,6 +247,23 @@ def show_matches(image1, image2, points1, points2):
     image1 = img_as_float32(image1)
     image2 = img_as_float32(image2)
 
+    # Ensure both images are 3-channel for display
+    if image1.ndim == 2:
+        image1 = np.stack([image1] * 3, axis=-1)
+    if image2.ndim == 2:
+        image2 = np.stack([image2] * 3, axis=-1)
+
+    # Pad the shorter image so heights match for hstack
+    h1, h2 = image1.shape[0], image2.shape[0]
+    if h1 < h2:
+        pad = np.zeros((h2 - h1, image1.shape[1], image1.shape[2]),
+                        dtype=image1.dtype)
+        image1 = np.vstack([image1, pad])
+    elif h2 < h1:
+        pad = np.zeros((h1 - h2, image2.shape[1], image2.shape[2]),
+                        dtype=image2.dtype)
+        image2 = np.vstack([image2, pad])
+
     fig = plt.figure()
     fig.canvas.manager.set_window_title("Matches between image pair.")
     plt.axis('off')
