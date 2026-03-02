@@ -482,3 +482,49 @@ def save_dense_cloud(pts3d, colors, Ms, output_path,
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight')
     plt.close(fig)
+
+
+def save_point_cloud_ply(pts3d, colors, output_path):
+    """
+    Save a colored point cloud as binary PLY (drag-drop into the course
+    viewer at https://browncsci1430.github.io/resources/pointcloud_viewer/).
+
+    pts3d:  N x 3 float  (x, y, z)
+    colors: N x 3 float  in [0, 1] (r, g, b)
+    """
+    n = len(pts3d)
+    if n == 0:
+        print("  No points for PLY export")
+        return
+
+    pts = np.asarray(pts3d, dtype=np.float32)
+    rgb = np.clip(np.asarray(colors) * 255, 0, 255).astype(np.uint8)
+
+    header = (
+        "ply\n"
+        "format binary_little_endian 1.0\n"
+        f"element vertex {n}\n"
+        "property float x\n"
+        "property float y\n"
+        "property float z\n"
+        "property uchar red\n"
+        "property uchar green\n"
+        "property uchar blue\n"
+        "end_header\n"
+    )
+
+    vertex_dtype = np.dtype([
+        ('x', '<f4'), ('y', '<f4'), ('z', '<f4'),
+        ('r', 'u1'), ('g', 'u1'), ('b', 'u1'),
+    ])
+    vertices = np.empty(n, dtype=vertex_dtype)
+    vertices['x'] = pts[:, 0]
+    vertices['y'] = pts[:, 1]
+    vertices['z'] = pts[:, 2]
+    vertices['r'] = rgb[:, 0]
+    vertices['g'] = rgb[:, 1]
+    vertices['b'] = rgb[:, 2]
+
+    with open(output_path, 'wb') as f:
+        f.write(header.encode('ascii'))
+        f.write(vertices.tobytes())

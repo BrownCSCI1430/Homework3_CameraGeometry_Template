@@ -36,7 +36,8 @@ from helpers import (
     compute_lambda_range,
     select_nearest_views,
     save_depth_visualization,
-    save_dense_cloud
+    save_dense_cloud,
+    save_point_cloud_ply,
 )
 
 from student import (
@@ -193,7 +194,13 @@ def main():
     save_dense_cloud(pts3d, colors, Ms, cloud_path)
     print(f"  Saved -> {cloud_path}")
 
+    ply_path = os.path.join(OUTPUT_DIR, 'dense_cloud.ply')
+    save_point_cloud_ply(pts3d, colors, ply_path)
+    print(f"  Saved -> {ply_path}")
+
     print(f"\n  Output directory: {OUTPUT_DIR}")
+    print(f"  View your point cloud: "
+          f"https://browncsci1430.github.io/resources/pointcloud_viewer/")
 
 
 if __name__ == '__main__':
