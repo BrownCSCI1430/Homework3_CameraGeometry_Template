@@ -239,6 +239,50 @@ def select_nearest_views(ref_idx, Ms, max_views=4):
 # =============================================================================
 
 
+def save_reprojections(images, Ms, markers, output_path):
+    """
+    Reprojection check: overlay detected ArUco corners (green crosses) and
+    reprojected 3D marker points (blue dots) for each image.
+    Uses the student's project() function for the reprojection.
+    """
+    from student import project  # deferred so helpers.py has no top-level student dep
+
+    pts3d = []
+    for mid in markers:
+        pts3d.extend(markers[mid])
+    pts3d = np.array(pts3d)
+
+    n = len(images)
+    fig, axes = plt.subplots(1, n, figsize=(5 * n, 5))
+    if n == 1:
+        axes = [axes]
+
+    for i in range(n):
+        rgb = cv2.cvtColor(images[i], cv2.COLOR_BGR2RGB)
+        axes[i].imshow(rgb)
+
+        det2d, _ = detect_aruco_points(images[i], markers)
+        axes[i].scatter(det2d[:, 0], det2d[:, 1],
+                        marker='+', c='lime', s=60, linewidths=1.5,
+                        label='Detected corners', zorder=3)
+
+        reproj = project(Ms[i], pts3d)
+        axes[i].scatter(reproj[:, 0], reproj[:, 1],
+                        marker='o', c='dodgerblue', s=20, alpha=0.8,
+                        label='Reprojected', zorder=4)
+
+        axes[i].set_title(f'Image {i}', fontsize=10)
+        axes[i].axis('off')
+        if i == 0:
+            axes[i].legend(fontsize=7, loc='upper right')
+
+    fig.suptitle('ArUco Reprojection Check (blue should align with green)',
+                 fontsize=12, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close(fig)
+
+
 def show_matches(image1, image2, points1, points2):
     """
     Shows matches from image1 to image2, represented by Nx2 arrays

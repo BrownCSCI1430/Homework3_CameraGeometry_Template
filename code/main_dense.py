@@ -35,6 +35,7 @@ from helpers import (
     detect_aruco_points,
     compute_lambda_range,
     select_nearest_views,
+    save_reprojections,
     save_depth_visualization,
     save_dense_cloud,
     save_point_cloud_ply,
@@ -96,6 +97,11 @@ def main():
         print(f"    {name}: residual={res:.1f}")
         images_bgr.append(img)
         Ms.append(M)
+
+    # 1b. Reprojection check — validates M and student's project()
+    reproj_path = os.path.join(OUTPUT_DIR, 'reprojections.png')
+    save_reprojections(images_bgr, Ms, markers, reproj_path)
+    print(f"  Reprojection check saved -> {reproj_path}")
 
     # 2. Prepare images at working resolution
 
